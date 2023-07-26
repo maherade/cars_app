@@ -4,6 +4,7 @@ import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -15,15 +16,15 @@ class OnBoarding extends StatelessWidget {
     OnBoardingModel(
         title: 'تطبيق يكسبك فلوس وانت علي دربك',
         describtion: ' طريقة سهلة في استقبال الطلبات طلبات توصلك وين ما كنت تواصل مع العميل مباشرةً',
-        image: 'assets/images/food.json'),
+        image: 'assets/images/car2.svg'),
     OnBoardingModel(
         title: 'مميزات التطبيق لأصحاب المشاريع المنزلية',
         describtion: 'تتبع طلبك بكل سهولة نضمن لك سلامة منتجاتك مندوبك متوفر علي مدار الساعة الإستلام من باب بيتك',
-        image: 'assets/images/onboarding3.json'),
+        image: 'assets/images/car1.svg'),
     OnBoardingModel(
         title: '#حط_طلبك_يوصل_لك',
         describtion: ' سجل كمندوب واكسب فلوس في وقت فراغك و عيش حياتك',
-        image: 'assets/images/onboarding2.json'),
+        image: 'assets/images/car2.svg'),
   ];
 
   const OnBoarding({super.key});
@@ -31,7 +32,7 @@ class OnBoarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      backgroundColor: ColorManager.lightColor2,
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           children: [
@@ -44,15 +45,20 @@ class OnBoarding extends StatelessWidget {
                       child: Column(
                         children: [
 
+                          SizedBox(height: MediaQuery.of(context).size.height*.12,),
+
                           Align(
                             alignment: Alignment.topCenter,
-                            child: Lottie.asset(onBoardingData[index].image!,
-                              height: MediaQuery.of(context).size.height*.42,
-                              width: MediaQuery.of(context).size.height*.45,
-                            ),
+                            child: SvgPicture.asset(
+                              color: ColorManager.primaryColor,
+                              onBoardingData[index].image!,
+                              height: MediaQuery.of(context).size.height*.2,
+                              width: MediaQuery.of(context).size.height*.3,
+                              ),
+
                           ),
 
-                          SizedBox(height: MediaQuery.sizeOf(context).height*.02,),
+                          SizedBox(height: MediaQuery.sizeOf(context).height*.1,),
 
                           Text(
                             onBoardingData[index].title!,
@@ -84,7 +90,7 @@ class OnBoarding extends StatelessWidget {
                             effect: const ExpandingDotsEffect(
                                 dotColor: Colors.grey,
                                 dotHeight: 8,
-                                activeDotColor:  ColorManager.primaryColor
+                                activeDotColor: ColorManager.primaryColor
                             ),   // your preferred effect
 
                           ),
@@ -102,7 +108,7 @@ class OnBoarding extends StatelessWidget {
 
                           },
                           color: ColorManager.primaryColor,
-                          color2: Colors.red,
+                          color2: Colors.blue,
                         ),
 
                           SizedBox(height: MediaQuery.sizeOf(context).height*.07,),

@@ -6,7 +6,7 @@ class ColorManager{
   static const Color black= Colors.black;
   static const Color red= Colors.red;
   static const Color blue= Colors.blue;
-  static const Color primaryColor=  Color(0xC0C74);
+  static const Color primaryColor=  Color.fromRGBO(4, 50, 125, 1);
   static const Color lightColor=  Color(0xFFECF1F4);
   static const Color lightColor2=  Color(0xFFDFE7EA);
   static const Color textColor=  Color(0xFF1B1D1C);

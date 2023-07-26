@@ -7,6 +7,7 @@ import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 
@@ -22,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     //
-    Future.delayed(const Duration(seconds: 5),()async{
+    Future.delayed(const Duration(seconds: 3),()async{
 
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
         const OnBoarding()
@@ -60,13 +61,28 @@ class _SplashScreenState extends State<SplashScreen> {
               width: double.infinity,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+
                 children:  [
 
-                  Lottie.asset(
-                    'assets/images/car_animated1.json',
-                    height: MediaQuery.of(context).size.height*.55,
-                    width: double.infinity,
+                  SizedBox(height: MediaQuery.of(context).size.height*.22,),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Lottie.asset(
+                      'assets/images/car_animated1.json',
+                      width: double.infinity,
+                    ),
+                  ),
+
+                  SizedBox(height: MediaQuery.of(context).size.height*.02,),
+
+                  Text(
+                    'سيارتك',
+                    style: GoogleFonts.cairo(
+                      fontSize: 25.0,
+                      fontWeight: FontWeight.w700,
+                      color: ColorManager.darkGrey,
+                    ),
+                    textAlign: TextAlign.center,
                   ),
 
 
