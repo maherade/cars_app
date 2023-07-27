@@ -1,6 +1,10 @@
 abstract class AppStates {}
 class InitialState extends AppStates  {}
 
+
+// Bottom Navigation,
+class SetCurrentIndexStates extends AppStates {}
+
 // Sign Up States
 
 class SignUpLoadingState extends AppStates {}

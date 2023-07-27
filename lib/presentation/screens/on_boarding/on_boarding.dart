@@ -1,5 +1,6 @@
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/data/modles/onbaording_model.dart';
+import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
@@ -101,10 +102,10 @@ class OnBoarding extends StatelessWidget {
                             buttonText: AppLocalizations.of(context)!.translate('getStarted').toString(),
                           onPressed: () {
 
-                            // Navigator.pushReplacement(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (_) => const StartScreen()));
+                            Navigator.pushReplacement(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (_) => const LoginScreen()));
 
                           },
                           color: ColorManager.primaryColor,

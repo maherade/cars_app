@@ -1,3 +1,4 @@
+import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,9 +35,9 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.only(top: mediaQuery.height*.45),
+                    margin: EdgeInsets.only(top: mediaQuery.height*.35),
                     width: double.infinity,
-                    height: mediaQuery.height * .52,
+                    height: mediaQuery.height * .61,
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.only(
@@ -164,6 +165,11 @@ class _LoginScreenState extends State<LoginScreen> {
         );
       },
       listener:(context, state) {
+
+        if(state is LoginSuccessState){
+          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+          const HomeLayout()
+          ), (Route<dynamic> route) => false);        }
 
       },
 

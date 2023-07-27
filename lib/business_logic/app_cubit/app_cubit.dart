@@ -1,11 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/data/modles/user_model.dart';
+import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
+import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
+import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
+import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
+import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
 import 'app_states.dart';
 
@@ -13,6 +19,38 @@ class AppCubit extends Cubit<AppStates> {
   AppCubit() : super(InitialState());
 
   static AppCubit get(context) => BlocProvider.of(context);
+
+  int currentIndex=0;
+
+  List<Widget> screenName=[
+    const HomeScreen(),
+    const BrandScreen(),
+    const CartScreen(),
+    const BuyScreen(),
+    const CashScreen(),
+    const SettingScreen()
+  ];
+
+  List<String> screenTitles=[
+    'الرئيسيه',
+    'الماركات',
+    'هويه التسوق',
+    'يشتري',
+    'ايصال',
+    'الاعدادات'
+  ];
+
+  List<String> carouselImage=[
+    'https://img.freepik.com/free-photo/blue-sport-sedan-parked-yard_114579-5078.jpg?w=740&t=st=1690366458~exp=1690367058~hmac=6bb66f317c3048bf10b946728971b83c1ebd719a3835d430290b62fe99c55f58',
+    'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
+    'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
+  ];
+
+
+  void setIndex(int value){
+    currentIndex=value;
+    emit(SetCurrentIndexStates());
+  }
 
   Future<void> userRegister(
       {required String email,
