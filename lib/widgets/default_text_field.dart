@@ -48,77 +48,29 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
             ),
-            child: TextFormField(
-              textInputAction: TextInputAction.next,
-              style: GoogleFonts.almarai(
-                fontSize: 16.0,
-                color: ColorManager.textColor,
-              ),
-              decoration: InputDecoration(
-                hintText: widget.hintText,
-                hintStyle: GoogleFonts.almarai(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.w300,
-                    color: widget.hintColor),
-                prefixIcon: Icon(
-                  widget.prefixIcon,
-                  color: Colors.grey,
+            child: Material(
+              borderRadius: BorderRadius.circular(15),
+              elevation: 3.5,
+              color: Colors.white,
+              child: TextFormField(
+                textInputAction: TextInputAction.next,
+                style: GoogleFonts.almarai(
+                  fontSize: 18.0,
+                  color: ColorManager.textColor,
                 ),
-                border: InputBorder.none,
-                enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.white)),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: const BorderSide(color: Colors.white)),
-                errorBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                errorStyle: GoogleFonts.almarai(
-                  fontSize: 13.0,
-                  color: ColorManager.red,
-                ),
-                fillColor: Colors.white,
-                filled: true,
-              ),
-              maxLines: widget.lines,
-              keyboardType: widget.textInputType,
-              controller: widget.controller,
-              enabled: widget.isEnabled,
-              onChanged: (value) {
-                widget.value = value;
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'قم بإضافة البيانات المطلوبه';
-                }
-                return null;
-              },
-            ),
-          )
-        : Container(
-            padding: const EdgeInsets.symmetric(
-              vertical: 0,
-              horizontal: 0,
-            ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(7),
-            ),
-            child: TextFormField(
-              textInputAction: TextInputAction.done,
-              style: GoogleFonts.almarai(
-                fontSize: 15.0,
-                color: ColorManager.textColor,
-              ),
-              decoration: InputDecoration(
+                decoration: InputDecoration(
                   hintText: widget.hintText,
                   hintStyle: GoogleFonts.almarai(
-                      fontSize: 16.0, color: widget.hintColor),
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w200,
+                      color: widget.hintColor),
+                  prefixIcon: Icon(
+                    widget.prefixIcon,
+                    color: ColorManager.primaryColor,
+                  ),
                   border: InputBorder.none,
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        12,
-                      ),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: const BorderSide(color: Colors.white)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12),
@@ -132,52 +84,115 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
                   ),
                   fillColor: Colors.white,
                   filled: true,
-                  prefixIcon: Icon(
-                    widget.prefixIcon,
-                    color: Colors.grey,
-                  ),
-                  suffixIcon: widget.isPass == true
-                      ? IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isChecked = !isChecked;
-                      });
-                    },
-                    icon: isChecked == true
-                        ? const Icon(
-                      Icons.visibility_off,
-                      color: Colors.grey,
-                    )
-                        : const Icon(
-                      Icons.visibility,
-                      color: Colors.grey,
+                ),
+                maxLines: widget.lines,
+                keyboardType: widget.textInputType,
+                controller: widget.controller,
+                enabled: widget.isEnabled,
+                onChanged: (value) {
+                  widget.value = value;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'قم بإضافة البيانات المطلوبه';
+                  }
+                  return null;
+                },
+              ),
+            ),
+          )
+        : Container(
+            padding: const EdgeInsets.symmetric(
+              vertical: 0,
+              horizontal: 0,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(7),
+            ),
+
+            child: Material(
+              borderRadius: BorderRadius.circular(15),
+              elevation: 3.5,
+              color: Colors.white,
+              child: TextFormField(
+                textInputAction: TextInputAction.done,
+                style: GoogleFonts.almarai(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w200,
+
+                  color: ColorManager.textColor,
+                ),
+                decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    hintStyle: GoogleFonts.almarai(
+                        fontSize: 18.0, color: widget.hintColor,
+                      fontWeight: FontWeight.w200,
                     ),
-                  )
-                      : IconButton(
-                    onPressed: () {},
-                    icon: widget.suffixIcon != null
-                        ? Icon(
-                      widget.suffixIcon,
+                    border: InputBorder.none,
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(
+                          12,
+                        ),
+                        borderSide: const BorderSide(color: Colors.white)),
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
+                        borderSide: const BorderSide(color: Colors.white)),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    errorStyle: GoogleFonts.almarai(
+                      fontSize: 13.0,
+                      color: ColorManager.red,
+                    ),
+                    fillColor: Colors.white,
+                    filled: true,
+                    prefixIcon: Icon(
+                      widget.prefixIcon,
                       color: ColorManager.primaryColor,
-                    )
-                        : const SizedBox(
-                      height: 1,
-                      width: 1,
                     ),
-                  )),
-              keyboardType: widget.textInputType,
-              controller: widget.controller,
-              enabled: widget.isEnabled,
-              obscureText: isChecked,
-              onChanged: (value) {
-                widget.value = value;
-              },
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'قم بإضافة البيانات المطلوبه';
-                }
-                return null;
-              },
+                    suffixIcon: widget.isPass == true
+                        ? IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isChecked = !isChecked;
+                        });
+                      },
+                      icon: isChecked == true
+                          ? const Icon(
+                        Icons.visibility_off,
+                        color: ColorManager.primaryColor,
+                      )
+                          : const Icon(
+                        Icons.visibility,
+                        color: ColorManager.primaryColor,
+                      ),
+                    )
+                        : IconButton(
+                      onPressed: () {},
+                      icon: widget.suffixIcon != null
+                          ? Icon(
+                        widget.suffixIcon,
+                        color: ColorManager.primaryColor,
+                      )
+                          : const SizedBox(
+                        height: 1,
+                        width: 1,
+                      ),
+                    )),
+                keyboardType: widget.textInputType,
+                controller: widget.controller,
+                enabled: widget.isEnabled,
+                obscureText: isChecked,
+                onChanged: (value) {
+                  widget.value = value;
+                },
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'قم بإضافة البيانات المطلوبه';
+                  }
+                  return null;
+                },
+              ),
             ),
     );
   }

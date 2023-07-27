@@ -2,19 +2,26 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
+import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
+import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:cars_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-void main() async{
+import 'firebase_options.dart';
 
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CashHelper.init();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -47,7 +54,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            home: const SplashScreen(),
+            home: const RegisterScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

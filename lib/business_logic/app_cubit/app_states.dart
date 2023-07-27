@@ -20,3 +20,15 @@ class LoginSuccessState extends AppStates {}
 class LoginErrorState extends AppStates {
   LoginErrorState(String error);
 }
+
+//Save user
+class SaveUserLoadingState extends AppStates{}
+class SaveUserSuccessState extends AppStates{}
+class SaveUserErrorState extends AppStates{
+  SaveUserErrorState(String error);
+}
+
+//Get User
+class GetUserLoadingState extends AppStates{}
+class GetUserSuccessState extends AppStates{}
+class GetUserErrorState extends AppStates{}
