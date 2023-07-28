@@ -31,6 +31,45 @@ class AppCubit extends Cubit<AppStates> {
     const SettingScreen()
   ];
 
+  List<String> brandNames=[
+  'تويوتا',
+  'فولكس فاجن',
+  'جنرال موتورز',
+  'فورد',
+  'هوندا',
+  'نيسان',
+  'بي إم دبليو',
+  'مرسيدس بنز',
+  'أودي',
+  'كيا',
+  'هيونداي',
+  'شيفروليه',
+  'لكزس',
+  'سوبارو',
+  'مازدا',
+
+  ];
+
+  List<String> brandImages=[
+    'assets/images/tayota.png',
+    'assets/images/wol.jpg',
+    'assets/images/genral.jpeg',
+    'assets/images/ford.jpg',
+    'assets/images/honda.png',
+    'assets/images/nissan.jpg',
+    'assets/images/bmw.jpeg',
+    'assets/images/marcides.jpg',
+    'assets/images/ody.jpg',
+    'assets/images/kia.jpg',
+    'assets/images/honday.jpg',
+    'assets/images/shfora.jpg',
+    'assets/images/lakris.jpg',
+    'assets/images/sopary.jpg',
+    'assets/images/mazda.jpg',
+
+  ];
+
+
   List<String> screenTitles=[
     'الرئيسيه',
     'الماركات',

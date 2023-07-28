@@ -21,16 +21,17 @@ class HomeScreen extends StatelessWidget {
 
             Container(
               color: ColorManager.primaryColor,
-              padding: EdgeInsets.symmetric(horizontal: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 12),
               height: MediaQuery.of(context).size.height*.1,
               child: Row(
                 children: [
-                   Image(
+
+                   const Image(
                      image: AssetImage('assets/images/ecar.png') ,
                      height: 50,
                      width: 50,
                    ),
-                   SizedBox(width: 15,),
+                   const SizedBox(width: 15,),
                    Expanded(
                      child: DefaultTextField(
                        prefixIcon: Icons.search,
@@ -78,7 +79,7 @@ class HomeScreen extends StatelessWidget {
                     return GestureDetector(
                       onTap: (){
                         Navigator.push(context, MaterialPageRoute(builder: (_){
-                           return CarName();
+                           return const CarName();
                         }));
                       },
                       child: Column(
@@ -92,11 +93,12 @@ class HomeScreen extends StatelessWidget {
                               ),
                               borderRadius: BorderRadius.circular(50)
                             ),
-                            padding: const EdgeInsets.all(10),
+                            clipBehavior: Clip.antiAliasWithSaveLayer,
                             child: Image(
-                              image: const NetworkImage(
-                                  'https://www.pngall.com/wp-content/uploads/11/Kia-Logo-PNG-Photo.png',
+                              image:  AssetImage(
+                                  AppCubit.get(context).brandImages[index],
                               ),
+                              fit: BoxFit.cover,
                               height: MediaQuery.of(context).size.height*.05,
                               width: MediaQuery.of(context).size.height*.05,
                             ),
@@ -104,7 +106,7 @@ class HomeScreen extends StatelessWidget {
 
 
                           Text(
-                            'كيا',
+                            AppCubit.get(context).brandNames[index],
                             style: GoogleFonts.cairo(
                               fontSize: 15.0,
                               fontWeight: FontWeight.w600,
@@ -119,7 +121,7 @@ class HomeScreen extends StatelessWidget {
                   separatorBuilder: (context,index){
                     return const SizedBox(width: 15,);
                   },
-                  itemCount: 12
+                  itemCount: AppCubit.get(context).brandNames.length
               ),
             ),
 
