@@ -1,4 +1,5 @@
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
+import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,6 +110,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ).then((value) => {
                                                 emailController.clear(),
                                                   passwordController.clear(),
+                                                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const HomeLayout(),))
                                               });
                                             }
                                           },

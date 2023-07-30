@@ -2,8 +2,6 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
-import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
-import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:cars_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';

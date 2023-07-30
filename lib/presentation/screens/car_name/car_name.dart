@@ -31,12 +31,11 @@ class CarName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  BlocConsumer<AppCubit,AppStates>(
-      listener: (context,state){
-
-      },
+      listener: (context,state){},
       builder: (context,state){
         return Scaffold(
           appBar: AppBar(
+            iconTheme: const IconThemeData(color: ColorManager.lightColor),
             backgroundColor: ColorManager.primaryColor,
             title: Text(
               'سياره طراز (نيسان)',
@@ -73,7 +72,7 @@ class CarName extends StatelessWidget {
                      children: List.generate(carNames.length, (index) => GestureDetector(
                        onTap: (){
                          Navigator.push(context, MaterialPageRoute(builder: (_){
-                           return CarModel();
+                           return const CarModel();
                          }));
                        },
                        child: Container(
@@ -86,7 +85,7 @@ class CarName extends StatelessWidget {
                            children: [
 
                              Image(
-                               image: NetworkImage('${carNames[index]}'),
+                               image: NetworkImage(carNames[index]),
                                height: MediaQuery.of(context).size.height*.15,
                                width: MediaQuery.of(context).size.height*.25,
                                fit: BoxFit.cover,

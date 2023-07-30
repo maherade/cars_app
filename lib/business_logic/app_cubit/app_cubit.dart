@@ -51,21 +51,21 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<String> brandImages=[
-    'assets/images/tayota.png',
-    'assets/images/wol.jpg',
-    'assets/images/genral.jpeg',
-    'assets/images/ford.jpg',
+    'assets/images/toyota.png',
+    'assets/images/wol.png',
+    'assets/images/cad.png',
+    'assets/images/ford.png',
     'assets/images/honda.png',
-    'assets/images/nissan.jpg',
-    'assets/images/bmw.jpeg',
-    'assets/images/marcides.jpg',
-    'assets/images/ody.jpg',
-    'assets/images/kia.jpg',
-    'assets/images/honday.jpg',
-    'assets/images/shfora.jpg',
-    'assets/images/lakris.jpg',
-    'assets/images/sopary.jpg',
-    'assets/images/mazda.jpg',
+    'assets/images/nissan.png',
+    'assets/images/bmw.png',
+    'assets/images/mercedes.png',
+    'assets/images/audi.png',
+    'assets/images/kia.png',
+    'assets/images/hundai.png',
+    'assets/images/chef.png',
+    'assets/images/lex.png',
+    'assets/images/sub.png',
+    'assets/images/mazda.png',
 
   ];
 
@@ -224,4 +224,7 @@ class AppCubit extends Cubit<AppStates> {
     var myUser = user.data();
     return myUser;
   }
+
+
+  List<Map> cartList=[];
 }

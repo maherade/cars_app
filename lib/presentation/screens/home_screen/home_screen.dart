@@ -6,6 +6,8 @@ import 'package:cars_app/widgets/default_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../widgets/brand_item.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
@@ -18,7 +20,6 @@ class HomeScreen extends StatelessWidget {
       color: ColorManager.lightColor2,
         child: Column(
           children: [
-
             Container(
               color: ColorManager.primaryColor,
               padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -82,40 +83,7 @@ class HomeScreen extends StatelessWidget {
                            return const CarName();
                         }));
                       },
-                      child: Column(
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height*.1,
-                            width: MediaQuery.of(context).size.height*.1,
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black
-                              ),
-                              borderRadius: BorderRadius.circular(50)
-                            ),
-                            clipBehavior: Clip.antiAliasWithSaveLayer,
-                            child: Image(
-                              image:  AssetImage(
-                                  AppCubit.get(context).brandImages[index],
-                              ),
-                              fit: BoxFit.cover,
-                              height: MediaQuery.of(context).size.height*.05,
-                              width: MediaQuery.of(context).size.height*.05,
-                            ),
-                          ),
-
-
-                          Text(
-                            AppCubit.get(context).brandNames[index],
-                            style: GoogleFonts.cairo(
-                              fontSize: 15.0,
-                              fontWeight: FontWeight.w600,
-                              color: ColorManager.black,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ],
-                      ),
+                      child: BrandItem(index: index),
                     );
                   },
                   separatorBuilder: (context,index){
