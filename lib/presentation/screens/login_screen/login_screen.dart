@@ -112,6 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             }else{
                                                 emailController.clear(),
                                                 passwordController.clear(),
+                                                cubit.setIndex(0),
                                                 Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const HomeLayout(),))
                                               },
 
