@@ -10,37 +10,42 @@ class BrandItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          height: MediaQuery.of(context).size.height*.1,
-          width: MediaQuery.of(context).size.height*.1,
-          decoration: BoxDecoration(
-              border: Border.all(
-                  color: Colors.black
-              ),
-              borderRadius: BorderRadius.circular(50)
-          ),
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Image(
-            image:  AssetImage(
-              AppCubit.get(context).brandImages[index],
+    return InkWell(
+      onTap: () {
+
+      },
+      child: Column(
+        children: [
+          Container(
+            height: MediaQuery.of(context).size.height*.1,
+            width: MediaQuery.of(context).size.height*.1,
+            decoration: BoxDecoration(
+                border: Border.all(
+                    color: ColorManager.primaryColor
+                ),
+                borderRadius: BorderRadius.circular(50)
             ),
-            fit: BoxFit.cover,
-            height: MediaQuery.of(context).size.height*.05,
-            width: MediaQuery.of(context).size.height*.05,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Image(
+              image:  AssetImage(
+                AppCubit.get(context).brandImages[index],
+              ),
+              fit: BoxFit.fitWidth,
+              height: MediaQuery.of(context).size.height*.05,
+              width: MediaQuery.of(context).size.height*.05,
+            ),
           ),
-        ),
-        Text(
-          AppCubit.get(context).brandNames[index],
-          style: GoogleFonts.cairo(
-            fontSize: 15.0,
-            fontWeight: FontWeight.w600,
-            color: ColorManager.black,
+          Text(
+            AppCubit.get(context).brandNames[index],
+            style: GoogleFonts.cairo(
+              fontSize: 15.0,
+              fontWeight: FontWeight.w600,
+              color: ColorManager.black,
+            ),
+            textAlign: TextAlign.center,
           ),
-          textAlign: TextAlign.center,
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

@@ -56,7 +56,6 @@ class CartScreen extends StatelessWidget {
               children: [
                 SizedBox(height: 10,),
                 CartItem(),
-
               ],
             ),
           ),

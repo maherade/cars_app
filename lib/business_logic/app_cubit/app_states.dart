@@ -1,5 +1,6 @@
 abstract class AppStates {}
 class InitialState extends AppStates  {}
+class LaunchState extends AppStates {}
 
 
 // Bottom Navigation,
@@ -36,3 +37,9 @@ class SaveUserErrorState extends AppStates{
 class GetUserLoadingState extends AppStates{}
 class GetUserSuccessState extends AppStates{}
 class GetUserErrorState extends AppStates{}
+
+//Delete User
+
+class DeleteUserLoadingState extends AppStates{}
+class DeleteUserSuccessState extends AppStates{}
+class DeleteUserErrorState extends AppStates{}

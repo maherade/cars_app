@@ -23,7 +23,7 @@
 
   Map<String, dynamic> toJson() {
     return {
-      'firstName': userName,
+      'userName': userName,
       'phoneNumber': phoneNumber,
       'email': email,
       'uId': uId,

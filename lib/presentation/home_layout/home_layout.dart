@@ -13,7 +13,6 @@ class HomeLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit,AppStates>(
       listener: (context,state){
-
       },
 
       builder: (context,state){
@@ -29,7 +28,12 @@ class HomeLayout extends StatelessWidget {
             ),
             title: Text(cubit.screenTitles[cubit.currentIndex]),
           ),
-          body: cubit.screenName[cubit.currentIndex],
+          body:cubit.userModel!=null? cubit.screenName[cubit.currentIndex]: const Scaffold(
+            body: SafeArea(
+                child: Center(
+                  child: CircularProgressIndicator(),
+                )),
+          ),
 
 
           bottomNavigationBar: BottomNavigationBar(

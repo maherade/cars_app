@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:cars_app/constants/firebase_errors.dart';
 import 'package:cars_app/data/modles/user_model.dart';
 import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
@@ -10,9 +11,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
+import '../../utiles/local/cash_helper.dart';
 import 'app_states.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -20,9 +23,9 @@ class AppCubit extends Cubit<AppStates> {
 
   static AppCubit get(context) => BlocProvider.of(context);
 
-  int currentIndex=0;
+  int currentIndex = 0;
 
-  List<Widget> screenName=[
+  List<Widget> screenName = [
     const HomeScreen(),
     const BrandScreen(),
     const CartScreen(),
@@ -31,46 +34,41 @@ class AppCubit extends Cubit<AppStates> {
     const SettingScreen()
   ];
 
-  List<String> brandNames=[
-  'تويوتا',
-  'فولكس فاجن',
-  'جنرال موتورز',
-  'فورد',
-  'هوندا',
-  'نيسان',
-  'بي إم دبليو',
-  'مرسيدس بنز',
-  'أودي',
-  'كيا',
-  'هيونداي',
-  'شيفروليه',
-  'لكزس',
-  'سوبارو',
-  'مازدا',
-
+  List<String> brandNames = [
+    'تويوتا',
+    'فولكس واجن',
+    'ميتسوبيشي',
+    'فورد',
+    'شنجان',
+    'نيسان',
+    'BMW',
+    'مرسيدس',
+    'أودي',
+    'شيري',
+    'هفال',
+    'شيفروليه',
+    'سوزوكي',
+    'مازدا',
   ];
 
-  List<String> brandImages=[
+  List<String> brandImages = [
     'assets/images/toyota.png',
     'assets/images/wol.png',
-    'assets/images/cad.png',
+    'assets/images/mits.png',
     'assets/images/ford.png',
-    'assets/images/honda.png',
+    'assets/images/chan.png',
     'assets/images/nissan.png',
     'assets/images/bmw.png',
     'assets/images/mercedes.png',
     'assets/images/audi.png',
-    'assets/images/kia.png',
-    'assets/images/hundai.png',
+    'assets/images/cher.png',
+    'assets/images/hav.png',
     'assets/images/chef.png',
-    'assets/images/lex.png',
-    'assets/images/sub.png',
+    'assets/images/suz.png',
     'assets/images/mazda.png',
-
   ];
 
-
-  List<String> screenTitles=[
+  List<String> screenTitles = [
     'الرئيسيه',
     'الماركات',
     'هويه التسوق',
@@ -79,19 +77,25 @@ class AppCubit extends Cubit<AppStates> {
     'الاعدادات'
   ];
 
-  List<String> carouselImage=[
+  List<String> carouselImage = [
     'https://img.freepik.com/free-photo/blue-sport-sedan-parked-yard_114579-5078.jpg?w=740&t=st=1690366458~exp=1690367058~hmac=6bb66f317c3048bf10b946728971b83c1ebd719a3835d430290b62fe99c55f58',
     'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
     'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
   ];
 
-
-  void setIndex(int value){
-    currentIndex=value;
+  void setIndex(int value) {
+    currentIndex = value;
     emit(SetCurrentIndexStates());
   }
 
-  Future<void> userRegister(
+
+  Future<void> toPrivacy() async {
+    String url =
+        "https://www.freeprivacypolicy.com/live/fe2eb687-ce50-4a3e-89f6-dc489e763af1";
+    await launch(url, forceSafariVC: false);
+    emit(LaunchState());
+  }
+  void createAccountWithFirebaseAuth(
       {required String email,
       required String password,
       required String name,
@@ -103,28 +107,26 @@ class AppCubit extends Cubit<AppStates> {
         email: email,
         password: password,
       );
-      UserModel userModel = UserModel(
+      UserModel user = UserModel(
         uId: credential.user?.uid ?? "",
         userName: name,
         email: email,
         phoneNumber: phone,
       );
-
-      await addUserToFireStore(userModel).then((value) {
+      await addUserToFireStore(user).then((value) {
         emit(SignUpSuccessState());
-        saveUser(
-            name: name, email: email, phoneNumber: phone, id: userModel.uId!);
-        getUser(id: userModel.uId!);
-        print(userModel.uId!);
+        CashHelper.saveData(key: 'isUid', value: credential.user?.uid);
         customToast(
           title: 'Account Created Successfully',
-          color: ColorManager.primaryColor,
+          color: ColorManager.blue,
+
         );
+        getUser(id: (credential.user?.uid)!);
         print("--------------Account Created");
       });
     } on FirebaseAuthException catch (e) {
-      if (e.code == "weakPassword") {
-      } else if (e.code == "Email in Use") {
+      if (e.code == FirebaseErrors.weakPassword) {
+      } else if (e.code == FirebaseErrors.emailInUse) {
         emit(SignUpErrorState(e.toString()));
         customToast(
           title: 'This account already exists',
@@ -135,27 +137,35 @@ class AppCubit extends Cubit<AppStates> {
     }
   }
 
-  Future<void> userLogin({
-    required String email,
-    required String password,
-  }) async {
-    emit(LoginLoadingState());
-    FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password)
-        .then((value) {
-      getUser(id: value.user!.uid);
-      debugPrint(value.user!.uid);
-
-      customToast(
-        title: 'Successfully Login',
-        color: ColorManager.primaryColor,
+  Future<void> loginWithFirebaseAuth(
+      {required String email, required String password}) async {
+    try {
+      emit(LoginLoadingState());
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
       );
-      debugPrint('User Login Success');
-      emit(LoginSuccessState());
-    }).catchError((error) {
-      debugPrint('Error in userRegister is ${error.toString()}');
-      emit(LoginErrorState(error.toString()));
-    });
+      UserModel? user = await readUserFromFireStore(credential.user?.uid ?? "");
+      if (user == null) {
+        return customToast(
+            title: '''This account doesn't exists''' , color: Colors.red.shade700);
+      }
+      if (user != null) {
+        CashHelper.saveData(key: 'isUid', value: credential.user?.uid);
+        emit(LoginSuccessState());
+        await getUser(id: (credential.user?.uid)!);
+        print(CashHelper.getData(key: 'isUid'));
+        print("-----------Login Successfully");
+        return;
+      }
+    } on FirebaseAuthException catch (e) {
+      emit(LoginErrorState(e.toString()));
+      print("-----------Login Failed");
+
+      customToast(title: 'Invalid email or password', color: ColorManager.red);
+    } catch (e) {
+      customToast(title: 'Something went wrong $e', color: ColorManager.red);
+    }
   }
 
   Future<void> saveUser({
@@ -186,19 +196,17 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  Future<void> getUser({
-    required String id,
-  }) async {
+  UserModel? userModel;
+
+  Future<void> getUser({required String id}) async {
     emit(GetUserLoadingState());
-
     FirebaseFirestore.instance.collection('Users').doc(id).get().then((value) {
-      UserModel.fromJson(value.data()!);
-
-      debugPrint('get User Success');
-
+      userModel = UserModel.fromJson(value.data()!);
+      print(userModel!.userName);
+      print('here');
       emit(GetUserSuccessState());
     }).catchError((error) {
-      debugPrint('Error in getUser is ${error.toString()}');
+      print(error);
       emit(GetUserErrorState());
     });
   }
@@ -225,6 +233,26 @@ class AppCubit extends Cubit<AppStates> {
     return myUser;
   }
 
+  Future<void> deleteUser({
+    required String id,
+    required context,
+  }) async {
+    emit(DeleteUserLoadingState());
 
-  List<Map> cartList=[];
+    FirebaseFirestore.instance
+        .collection('Users')
+        .doc(id)
+        .delete()
+        .then((value) {
+      customToast(title: "تم حذف حسابك بنجاح", color: Colors.red.shade700);
+      getUser(id: id);
+
+      debugPrint('Account Deleted Successfully');
+
+      emit(DeleteUserSuccessState());
+    }).catchError((error) {
+      debugPrint('Error in DeleteUser is ${error.toString()}');
+      emit(DeleteUserErrorState());
+    });
+  }
 }

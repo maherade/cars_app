@@ -1,10 +1,9 @@
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
-import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
+import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../../../business_logic/app_cubit/app_cubit.dart';
 import '../../../business_logic/app_cubit/app_states.dart';
 import '../../../styles/color_manager.dart';
@@ -104,13 +103,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           buttonText: "تسجيل الدخول",
                                           onPressed: () {
                                             if(formKey.currentState!.validate()){
-                                              cubit.userLogin(
+                                              cubit.loginWithFirebaseAuth(
                                                   email: emailController.text,
                                                   password: passwordController.text
                                               ).then((value) => {
+                                              if((cubit.userModel!.uId)==null){
+                                                  customToast(title: '''This account doesn't exists''' , color: Colors.red.shade700)
+                                            }else{
                                                 emailController.clear(),
-                                                  passwordController.clear(),
+                                                passwordController.clear(),
                                                 Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const HomeLayout(),))
+                                              },
+
                                               });
                                             }
                                           },

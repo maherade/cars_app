@@ -1,6 +1,5 @@
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -60,7 +59,7 @@ class CartItem extends StatelessWidget {
                       //TODO
                       const CircleAvatar(
                         backgroundImage: AssetImage(
-                            'assets/images/toyota.png'),
+                            'assets/images/lex.png'),
                         radius: 35,
                       ),
                       const SizedBox(
@@ -88,7 +87,7 @@ class CartItem extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                    "200 dollar",
+                                    "200 دولار",
                                     style: GoogleFonts.cairo(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w700,
@@ -96,7 +95,7 @@ class CartItem extends StatelessWidget {
                                     ),
                                     textAlign: TextAlign.center),
                                 Text(
-                                    "200 dollar",
+                                    "50 قطعة",
                                     style: GoogleFonts.cairo(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w700,
