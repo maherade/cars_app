@@ -1,5 +1,6 @@
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
+import 'package:cars_app/presentation/product_screen/product_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,33 +74,40 @@ class CarModel extends StatelessWidget {
                      childAspectRatio: 1/1.4,
                      crossAxisSpacing: 5,
                      mainAxisSpacing: 15,
-                     children: List.generate(4, (index) => Container(
-                       clipBehavior: Clip.antiAliasWithSaveLayer,
-                       decoration: BoxDecoration(
-                         color: ColorManager.lightColor2,
-                         borderRadius: BorderRadius.circular(10)
-                       ),
-                       child: Column(
-                         children: [
-                           
-                           Image(
-                             image: NetworkImage('${carNames[index]}'),
-                             height: MediaQuery.of(context).size.height*.15,
-                             width: MediaQuery.of(context).size.height*.25,
-                             fit: BoxFit.cover,
-                           ),
+                     children: List.generate(4, (index) => GestureDetector(
+                       onTap: (){
+                         Navigator.push(context, MaterialPageRoute(builder: (_){
+                           return  ProductScreen();
+                         }));
+                       },
+                       child: Container(
+                         clipBehavior: Clip.antiAliasWithSaveLayer,
+                         decoration: BoxDecoration(
+                           color: ColorManager.lightColor2,
+                           borderRadius: BorderRadius.circular(10)
+                         ),
+                         child: Column(
+                           children: [
 
-                           SizedBox(height: MediaQuery.of(context).size.height*.02,),
-                           Text(
-                             '2015 - 2019',
-                             style: GoogleFonts.cairo(
-                               fontSize: 15.0,
-                               fontWeight: FontWeight.w600,
-                               color: ColorManager.black,
+                             Image(
+                               image: NetworkImage('${carNames[index]}'),
+                               height: MediaQuery.of(context).size.height*.15,
+                               width: MediaQuery.of(context).size.height*.25,
+                               fit: BoxFit.cover,
                              ),
-                             textAlign: TextAlign.center,
-                           ),
-                         ],
+
+                             SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                             Text(
+                               '2015 - 2019',
+                               style: GoogleFonts.cairo(
+                                 fontSize: 15.0,
+                                 fontWeight: FontWeight.w600,
+                                 color: ColorManager.black,
+                               ),
+                               textAlign: TextAlign.center,
+                             ),
+                           ],
+                         ),
                        ),
                      )),
                    ),

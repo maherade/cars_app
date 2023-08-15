@@ -79,9 +79,7 @@ class HomeScreen extends StatelessWidget {
                   itemBuilder: (context,index){
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_){
-                           return const CarName();
-                        }));
+                         print('Hello');
                       },
                       child: BrandItem(index: index),
                     );

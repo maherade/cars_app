@@ -2,6 +2,9 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
+import 'package:cars_app/presentation/home_layout/home_layout.dart';
+import 'package:cars_app/presentation/product_screen/product_screen.dart';
+import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:cars_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
@@ -31,7 +34,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) => AppCubit()),
+            create: (BuildContext context) => AppCubit()..createDatabase()),
         BlocProvider(
             create: (BuildContext context) =>
             LocalizationCubit()..fetchLocalization()),
@@ -52,7 +55,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            home: const SplashScreen(),
+            home: LoginScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

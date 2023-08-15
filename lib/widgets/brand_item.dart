@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../business_logic/app_cubit/app_cubit.dart';
+import '../presentation/screens/car_name/car_name.dart';
 import '../styles/color_manager.dart';
 
 class BrandItem extends StatelessWidget {
@@ -12,7 +13,9 @@ class BrandItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-
+        Navigator.push(context, MaterialPageRoute(builder: (_){
+          return const CarName();
+        }));
       },
       child: Column(
         children: [

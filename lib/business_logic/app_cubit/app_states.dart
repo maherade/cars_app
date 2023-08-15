@@ -38,6 +38,17 @@ class GetUserLoadingState extends AppStates{}
 class GetUserSuccessState extends AppStates{}
 class GetUserErrorState extends AppStates{}
 
+
+// Local Database
+class CreateTableState  extends AppStates{}
+class CreateDatabaseSuccessState  extends AppStates{}
+class CreateDatabaseErrorState  extends AppStates{}
+class InsertDatabaseSuccessState  extends AppStates{}
+class InsertDatabaseErrorState  extends AppStates{}
+class GetDatabaseSuccessState  extends AppStates{}
+class GetDatabaseErrorState  extends AppStates{}
+class DeleteDatabaseSuccessState  extends AppStates{}
+
 //Delete User
 
 class DeleteUserLoadingState extends AppStates{}
