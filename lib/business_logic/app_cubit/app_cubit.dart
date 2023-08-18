@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
+import 'package:cars_app/data/modles/product_model.dart';
 import 'package:cars_app/data/modles/user_model.dart';
 import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
+import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -72,11 +74,11 @@ class AppCubit extends Cubit<AppStates> {
 
   List<String> brandNames = [
     'تويوتا',
+    'نيسان',
     'فولكس واجن',
     'ميتسوبيشي',
     'فورد',
     'شنجان',
-    'نيسان',
     'BMW',
     'مرسيدس',
     'أودي',
@@ -89,11 +91,11 @@ class AppCubit extends Cubit<AppStates> {
 
   List<String> brandImages = [
     'assets/images/toyota.png',
+    'assets/images/nissan.png',
     'assets/images/wol.png',
     'assets/images/mits.png',
     'assets/images/ford.png',
     'assets/images/chan.png',
-    'assets/images/nissan.png',
     'assets/images/bmw.png',
     'assets/images/mercedes.png',
     'assets/images/audi.png',
@@ -103,6 +105,8 @@ class AppCubit extends Cubit<AppStates> {
     'assets/images/suz.png',
     'assets/images/mazda.png',
   ];
+
+
 
   List<String> screenTitles = [
     'الرئيسيه',
@@ -118,6 +122,107 @@ class AppCubit extends Cubit<AppStates> {
     'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
     'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
   ];
+
+
+  List<String> nissanBrands=[
+       'التيما', 'فيرسا', 'روج', 'نافارا',
+       'سني هندي', 'جوك', 'سينترا',
+  ];
+
+  List<String> toyotaBrands=[
+    'لاندكروز', 'كامري', 'برادو', 'كورلا',
+  ];
+
+  List<String> timaStart=[
+    '2013', '2013', '2019', '2019',
+  ];
+
+  List<String> timaEnd=[
+    '2018', '2015', '2021', '2022',
+  ];
+
+  List<String> versaStart=[
+    '2008', '2012', '2020',
+  ];
+
+  List<String> versaEnd=[
+    '2011', '2019', '2021',
+  ];
+
+  List<String> rogStart=[
+    '2017', '2021',
+  ];
+
+  List<String> rogEnd=[
+    '2020', '2023',
+  ];
+
+  List<String> navaraStart=[
+    '2005', '2016',
+  ];
+
+  List<String> navaraEnd=[
+    '2015', '2020',
+  ];
+
+  List<String> sanyStart=[
+    '2013',
+  ];
+
+  List<String> sanyEnd=[
+    '2021',
+  ];
+
+  List<String> gocStart=[
+    '2011', '2013', '2016',
+  ];
+
+  List<String> gocEnd=[
+    '2014', '2016', '2021',
+  ];
+
+  List<String> santraStart=[
+    '2013', '2020',
+  ];
+
+  List<String> santraEnd=[
+    '2019', '2021',
+  ];
+
+  List<String> koraStart=[
+    '2008', '2011',
+  ];
+
+  List<String> koraEnd=[
+    '2013', '2013',
+  ];
+
+  List<String> landStart=[
+    '2005', '2008',
+  ];
+
+  List<String> landEnd=[
+    '2007', '2015',
+  ];
+
+  List<String> kamaryStart=[
+    '2007', '2018',
+  ];
+
+  List<String> kamaryEnd=[
+    '2011', '2020',
+  ];
+
+
+  List<String> bradoStart=[
+    '2003',
+  ];
+
+  List<String> bradoEnd=[
+    '2010',
+  ];
+
+
 
   void setIndex(int value) {
     currentIndex = value;
@@ -395,6 +500,39 @@ class AppCubit extends Cubit<AppStates> {
       });
       emit(DeleteDatabaseSuccessState());
     });
+
+  }
+
+
+  ProductModel? products;
+
+  Future<void> getProductFromApi({
+    required String factory,
+    required String productModel,
+    required String fromDate,
+    required String toDate,
+   })async{
+
+    Map<String,dynamic> prameters= {
+      'factory':factory,
+      'productModel': productModel,
+      'fromDate': fromDate,
+      'toDate': toDate,
+    };
+
+    emit(GetProductsFromApiLoadingState());
+      DioHelper.postData(
+          url: 'GetProducts?${prameters}',
+      ).then((value) {
+
+        products=ProductModel.fromJson(value.data);
+        print(products!.mainProducts[0]['ProductName']);
+        emit(GetProductsFromApiSuccessState());
+      }).catchError((error){
+
+        print('Error in Get Products From Api is :${error.toString()}');
+        emit(GetProductsFromApiErrorState());
+      });
 
   }
 

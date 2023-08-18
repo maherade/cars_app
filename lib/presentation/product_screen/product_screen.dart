@@ -88,9 +88,9 @@ class ProductScreen extends StatelessWidget {
                   itemBuilder: (context,index){
                     return GestureDetector(
                       onTap: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (_){
-                          return const CarName();
-                        }));
+                        // Navigator.push(context, MaterialPageRoute(builder: (_){
+                        //   return const CarName(brandName: ,);
+                        // }));
                       },
                       child: CompanyWidget(index: index),
                     );

@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CarName extends StatelessWidget {
-  const CarName({super.key});
+
+  final String brandName;
+  const CarName({super.key,required this.brandName});
 
   static List<String> carNames=[
     'https://img.freepik.com/free-photo/white-offroader-jeep-parking_114579-4007.jpg?w=740&t=st=1690366510~exp=1690367110~hmac=c319457f343749d6ada41e08303f9878e5dbd8a7a9065e880521dce93fe93aac',
@@ -38,7 +40,7 @@ class CarName extends StatelessWidget {
             iconTheme: const IconThemeData(color: ColorManager.lightColor),
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              'سياره طراز (نيسان)',
+              ' ${brandName}',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
@@ -61,6 +63,8 @@ class CarName extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children:  [
 
+               brandName=='نيسان' || brandName=='تويوتا'?
+
                Expanded(
                  child: Padding(
                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
@@ -69,10 +73,13 @@ class CarName extends StatelessWidget {
                      childAspectRatio: 1/1.4,
                      crossAxisSpacing: 5,
                      mainAxisSpacing: 15,
-                     children: List.generate(carNames.length, (index) => GestureDetector(
+                     children: List.generate(brandName=='نيسان'?AppCubit.get(context).nissanBrands.length:AppCubit.get(context).toyotaBrands.length, (index) => GestureDetector(
                        onTap: (){
+                         brandName=='نيسان'?
                          Navigator.push(context, MaterialPageRoute(builder: (_){
-                           return const CarModel();
+                           return  CarModel(brandName: brandName,brandModel: AppCubit.get(context).nissanBrands[index], );
+                         })):Navigator.push(context, MaterialPageRoute(builder: (_){
+                           return  CarModel(brandName: brandName,brandModel:AppCubit.get(context).toyotaBrands[index] , );
                          }));
                        },
                        child: Container(
@@ -92,22 +99,32 @@ class CarName extends StatelessWidget {
                              ),
 
                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
-                             Text(
-                               'نيسان',
-                               style: GoogleFonts.cairo(
-                                 fontSize: 15.0,
-                                 fontWeight: FontWeight.w600,
-                                 color: ColorManager.black,
-                               ),
-                               textAlign: TextAlign.center,
-                             ),
+
+
+                           brandName=='نيسان'?
+                           Text( AppCubit.get(context).nissanBrands[index],
+                                   style: GoogleFonts.cairo(
+                                     fontSize: 15.0,
+                                     fontWeight: FontWeight.w600,
+                                     color: ColorManager.black,
+                                   ),
+                                   textAlign: TextAlign.center,
+                                 ):   Text( AppCubit.get(context).toyotaBrands[index],
+                                     style: GoogleFonts.cairo(
+                                       fontSize: 15.0,
+                                       fontWeight: FontWeight.w600,
+                                       color: ColorManager.black,
+                                     ),
+                                     textAlign: TextAlign.center,
+                                   ),
                            ],
                          ),
                        ),
                      )),
                    ),
                  ),
-               )
+               ):
+                   Container()
 
 
 

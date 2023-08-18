@@ -14,7 +14,7 @@ class BrandItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_){
-          return const CarName();
+          return  CarName(brandName:  AppCubit.get(context).brandNames[index],);
         }));
       },
       child: Column(

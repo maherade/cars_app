@@ -54,3 +54,10 @@ class DeleteDatabaseSuccessState  extends AppStates{}
 class DeleteUserLoadingState extends AppStates{}
 class DeleteUserSuccessState extends AppStates{}
 class DeleteUserErrorState extends AppStates{}
+
+
+//Get Products From Api User
+
+class GetProductsFromApiLoadingState extends AppStates{}
+class GetProductsFromApiSuccessState extends AppStates{}
+class GetProductsFromApiErrorState extends AppStates{}

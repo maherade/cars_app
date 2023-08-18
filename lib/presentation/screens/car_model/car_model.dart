@@ -8,7 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CarModel extends StatelessWidget {
-  const CarModel({super.key});
+  final String brandName;
+  final String brandModel;
+  const CarModel({super.key,required this.brandName,required this.brandModel});
 
   static List<String> carNames=[
     'https://img.freepik.com/free-photo/white-offroader-jeep-parking_114579-4007.jpg?w=740&t=st=1690366510~exp=1690367110~hmac=c319457f343749d6ada41e08303f9878e5dbd8a7a9065e880521dce93fe93aac',
@@ -39,7 +41,7 @@ class CarModel extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              'نيسان - فيرسا',
+              '${brandModel} - ${brandName}',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
@@ -66,7 +68,9 @@ class CarModel extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children:  [
 
-               Expanded(
+
+                brandName=='نيسان' && brandModel=='التيما'?
+                Expanded(
                  child: Padding(
                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
                    child: GridView.count(
@@ -74,11 +78,19 @@ class CarModel extends StatelessWidget {
                      childAspectRatio: 1/1.4,
                      crossAxisSpacing: 5,
                      mainAxisSpacing: 15,
-                     children: List.generate(4, (index) => GestureDetector(
+                     children: List.generate(AppCubit.get(context).timaStart.length, (index) => GestureDetector(
                        onTap: (){
-                         Navigator.push(context, MaterialPageRoute(builder: (_){
-                           return  ProductScreen();
-                         }));
+                         AppCubit.get(context).getProductFromApi(
+                             factory: brandName,
+                             productModel: brandModel,
+                             fromDate: AppCubit.get(context).timaStart[index],
+                             toDate: AppCubit.get(context).timaEnd[index]
+                         ).then((value) {
+                           Navigator.push(context, MaterialPageRoute(builder: (_){
+                             return  ProductScreen();
+                           }));
+                         });
+
                        },
                        child: Container(
                          clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -97,23 +109,826 @@ class CarModel extends StatelessWidget {
                              ),
 
                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
-                             Text(
-                               '2015 - 2019',
-                               style: GoogleFonts.cairo(
-                                 fontSize: 15.0,
-                                 fontWeight: FontWeight.w600,
-                                 color: ColorManager.black,
-                               ),
-                               textAlign: TextAlign.center,
-                             ),
+                             Row(
+                               mainAxisAlignment: MainAxisAlignment.center,
+                               children: [
+                                 Text(
+                                   AppCubit.get(context).timaStart[index],
+                                   style: GoogleFonts.cairo(
+                                     fontSize: 15.0,
+                                     fontWeight: FontWeight.w600,
+                                     color: ColorManager.black,
+                                   ),
+                                   textAlign: TextAlign.center,
+                                 ),
+                                 Text(
+                                   '  - ',
+                                   style: GoogleFonts.cairo(
+                                     fontSize: 15.0,
+                                     fontWeight: FontWeight.w600,
+                                     color: ColorManager.black,
+                                   ),
+                                   textAlign: TextAlign.center,
+                                 ),
+                                 Text(
+                                   AppCubit.get(context).timaEnd[index],
+                                   style: GoogleFonts.cairo(
+                                     fontSize: 15.0,
+                                     fontWeight: FontWeight.w600,
+                                     color: ColorManager.black,
+                                   ),
+                                   textAlign: TextAlign.center,
+                                 ),
+                               ],
+                             )
                            ],
                          ),
                        ),
                      )),
                    ),
                  ),
-               )
+               ):
+                brandName=='نيسان' && brandModel=='فيرسا'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).versaStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).versaStart[index],
+                              toDate: AppCubit.get(context).versaEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
 
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).versaStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).versaEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='نيسان' && brandModel=='روج'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).rogStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).rogStart[index],
+                              toDate: AppCubit.get(context).rogEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).rogStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).rogEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='نيسان' && brandModel=='نافارا'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).navaraStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).navaraStart[index],
+                              toDate: AppCubit.get(context).navaraEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).navaraStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).navaraEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='نيسان' && brandModel=='سني هندي'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).sanyStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).sanyStart[index],
+                              toDate: AppCubit.get(context).sanyEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).sanyStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).sanyEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='نيسان' && brandModel=='جوك'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).gocStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).gocStart[index],
+                              toDate: AppCubit.get(context).gocEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).gocStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).gocEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='نيسان' && brandModel=='سينترا'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).santraStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).santraStart[index],
+                              toDate: AppCubit.get(context).santraEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).santraStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).santraEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='تويوتا' && brandModel=='لاندكروز'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).landStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).landStart[index],
+                              toDate: AppCubit.get(context).landEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).landStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).landEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='تويوتا' && brandModel=='كامري'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).kamaryStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).kamaryStart[index],
+                              toDate: AppCubit.get(context).kamaryStart[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).kamaryStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).kamaryEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='تويوتا' && brandModel=='برادو'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).bradoEnd.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).bradoStart[index],
+                              toDate: AppCubit.get(context).bradoEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).bradoStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).bradoEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                brandName=='تويوتا' && brandModel=='كورلا'?
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10,right: 10,top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1/1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(AppCubit.get(context).koraStart.length, (index) => GestureDetector(
+                        onTap: (){
+                          AppCubit.get(context).getProductFromApi(
+                              factory: brandName,
+                              productModel: brandModel,
+                              fromDate: AppCubit.get(context).koraStart[index],
+                              toDate: AppCubit.get(context).koraEnd[index]
+                          ).then((value) {
+                            Navigator.push(context, MaterialPageRoute(builder: (_){
+                              return  ProductScreen();
+                            }));
+                          });
+                        },
+                        child: Container(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
+                          decoration: BoxDecoration(
+                              color: ColorManager.lightColor2,
+                              borderRadius: BorderRadius.circular(10)
+                          ),
+                          child: Column(
+                            children: [
+
+                              Image(
+                                image: NetworkImage('${carNames[index]}'),
+                                height: MediaQuery.of(context).size.height*.15,
+                                width: MediaQuery.of(context).size.height*.25,
+                                fit: BoxFit.cover,
+                              ),
+
+                              SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    AppCubit.get(context).koraStart[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    '  - ',
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  Text(
+                                    AppCubit.get(context).koraEnd[index],
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.black,
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
+                        ),
+                      )),
+                    ),
+                  ),
+                ):
+                Container()
 
 
               ],

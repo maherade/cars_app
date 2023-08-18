@@ -8,6 +8,7 @@ import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:cars_app/presentation/screens/splash_screen/splash_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
+import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ import 'firebase_options.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CashHelper.init();
+  await DioHelper.init();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
