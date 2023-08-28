@@ -21,7 +21,7 @@ class BrandItem extends StatelessWidget {
         children: [
           Container(
             height: MediaQuery.of(context).size.height*.1,
-            width: MediaQuery.of(context).size.height*.1,
+            width: MediaQuery.of(context).size.width*.2,
             decoration: BoxDecoration(
                 border: Border.all(
                     color: ColorManager.primaryColor
@@ -33,9 +33,8 @@ class BrandItem extends StatelessWidget {
               image:  AssetImage(
                 AppCubit.get(context).brandImages[index],
               ),
-              fit: BoxFit.fitWidth,
-              height: MediaQuery.of(context).size.height*.05,
-              width: MediaQuery.of(context).size.height*.05,
+              fit: BoxFit.contain,
+
             ),
           ),
           Text(

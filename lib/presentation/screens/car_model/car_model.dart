@@ -102,7 +102,7 @@ class CarModel extends StatelessWidget {
                            children: [
 
                              Image(
-                               image: NetworkImage('${carNames[index]}'),
+                               image: NetworkImage(carNames[index]),
                                height: MediaQuery.of(context).size.height*.15,
                                width: MediaQuery.of(context).size.height*.25,
                                fit: BoxFit.cover,

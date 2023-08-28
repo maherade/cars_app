@@ -28,15 +28,6 @@ class BrandScreen extends StatelessWidget {
               statusBarIconBrightness: Brightness.dark,
               statusBarColor: ColorManager.lightColor,
             ),
-            leading: IconButton(
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: ColorManager.lightColor,
-              ),
-              onPressed: () {
-                Navigator.pop(context);
-              },
-            ),
             title: Text(
               'الماركات',
               style: GoogleFonts.cairo(

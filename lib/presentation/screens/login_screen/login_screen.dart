@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * .02,
                                     ),
-                                    state is SignUpLoadingState?
+                                    state is LoginLoadingState?
                                     const Center(
                                       child: CircularProgressIndicator(
                                         color: ColorManager.primaryColor,

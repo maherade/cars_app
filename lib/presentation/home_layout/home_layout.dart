@@ -28,7 +28,7 @@ class HomeLayout extends StatelessWidget {
             ),
             title: Text(cubit.screenTitles[cubit.currentIndex]),
           ),
-          body:cubit.userModel!=null? cubit.screenName[cubit.currentIndex]: const Scaffold(
+          body:cubit.userModel!=null? Scaffold(body: cubit.screenName[cubit.currentIndex]): const Scaffold(
             body: SafeArea(
                 child: Center(
                   child: CircularProgressIndicator(),

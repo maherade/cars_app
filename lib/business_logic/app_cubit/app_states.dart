@@ -61,3 +61,19 @@ class DeleteUserErrorState extends AppStates{}
 class GetProductsFromApiLoadingState extends AppStates{}
 class GetProductsFromApiSuccessState extends AppStates{}
 class GetProductsFromApiErrorState extends AppStates{}
+
+//Add User Products To FireStore
+class AddUserProductsLoadingState extends AppStates{}
+class AddUserProductsSuccessState extends AppStates{}
+class AddUserProductsErrorState extends AppStates{}
+
+
+//Get User Products From FireStore
+class GetUserProductsLoadingState extends AppStates{}
+class GetUserProductsSuccessState extends AppStates{}
+class GetUserProductsErrorState extends AppStates{}
+
+
+class DeleteProductsLoadingState extends AppStates{}
+class DeleteProductsSuccessState extends AppStates{}
+class DeleteProductsErrorState extends AppStates{}

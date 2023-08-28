@@ -40,7 +40,7 @@ class CarName extends StatelessWidget {
             iconTheme: const IconThemeData(color: ColorManager.lightColor),
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              ' ${brandName}',
+              ' $brandName',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
