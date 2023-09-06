@@ -20,7 +20,6 @@ class CartScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
           appBar: AppBar(
-            titleSpacing: 0.0,
             iconTheme: const IconThemeData(color: ColorManager.textColor),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
@@ -31,7 +30,7 @@ class CartScreen extends StatelessWidget {
             title: Text(
               'هوية التسوق',
               style: GoogleFonts.cairo(
-                fontSize: 20.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w700,
                 color: ColorManager.lightColor,
               ),
@@ -40,18 +39,8 @@ class CartScreen extends StatelessWidget {
             actions: [
               GestureDetector(
                 onTap: () {
-                  cubit.deleteProducts().then((value) {
-                    cubit.getUserProductsFromFireStore();
-                    for (int i = 0; i < cubit.allFavorite.length; i++) {
-                      cubit.addUserProductsToFireBase(
-                          id: cubit.userModel!.uId!,
-                          name: '${cubit.allFavorite[i]['name']}',
-                          price: '${cubit.allFavorite[i]['price']}',
-                          image: '${cubit.allFavorite[i]['image']}',
-                          number: '${cubit.allFavorite[i]['number']}',
-                          productId: '${cubit.allFavorite[i]['id']}',
-                          code: '${cubit.allFavorite[i]['code']}');
-                    }
+                  cubit.deleteProducts(context).then((value) {
+
                   });
 
                 },
@@ -68,7 +57,7 @@ class CartScreen extends StatelessWidget {
                     child: Text(
                       'استمرار',
                       style: GoogleFonts.cairo(
-                        fontSize: 20.0,
+                        fontSize: 16.0,
                         fontWeight: FontWeight.w600,
                         color: ColorManager.white,
                       ),
@@ -76,6 +65,9 @@ class CartScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              SizedBox(width: 10,),
+
             ],
           ),
           body: Padding(
@@ -144,7 +136,7 @@ class CartScreen extends StatelessWidget {
                                       Row(
                                         children: [
                                           Image(
-                                            image: NetworkImage(
+                                            image: AssetImage(
                                                 '${AppCubit.get(context).allFavorite[index]['image']}'),
                                             height: 70,
                                             width: 70,
@@ -206,9 +198,11 @@ class CartScreen extends StatelessWidget {
                                                 color: ColorManager.black,
                                               )),
                                           const Spacer(),
-                                          Text('22\$',
+                                          Text('${AppCubit.get(context)
+                                              .allFavorite[index]
+                                          ['price']}',
                                               style: GoogleFonts.cairo(
-                                                fontSize: 25.0,
+                                                fontSize: 20.0,
                                                 fontWeight: FontWeight.w600,
                                                 color: ColorManager.black,
                                               )),

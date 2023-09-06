@@ -55,13 +55,13 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
               child: TextFormField(
                 textInputAction: TextInputAction.next,
                 style: GoogleFonts.almarai(
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                   color: ColorManager.textColor,
                 ),
                 decoration: InputDecoration(
                   hintText: widget.hintText,
                   hintStyle: GoogleFonts.almarai(
-                      fontSize: 18.0,
+                      fontSize: 15.0,
                       fontWeight: FontWeight.w200,
                       color: widget.hintColor),
                   prefixIcon: Icon(
@@ -117,7 +117,7 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
               child: TextFormField(
                 textInputAction: TextInputAction.done,
                 style: GoogleFonts.almarai(
-                  fontSize: 18.0,
+                  fontSize: 15.0,
                   fontWeight: FontWeight.w200,
 
                   color: ColorManager.textColor,
@@ -125,7 +125,8 @@ class _DefaultTextFieldState extends State<DefaultTextField> {
                 decoration: InputDecoration(
                     hintText: widget.hintText,
                     hintStyle: GoogleFonts.almarai(
-                        fontSize: 18.0, color: widget.hintColor,
+                        fontSize: 15.0,
+                      color: widget.hintColor,
                       fontWeight: FontWeight.w200,
                     ),
                     border: InputBorder.none,

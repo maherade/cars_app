@@ -33,9 +33,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
         var cubit = AppCubit.get(context);
         return SafeArea(
           child: Scaffold(
-            backgroundColor: ColorManager.primaryColor,
+            backgroundColor: ColorManager.red.withOpacity(.8),
             body: Stack(
               children: [
+                IconButton(
+                    onPressed: (){
+                       Navigator.pop(context);
+                    },
+                    icon: Icon(
+                        Icons.arrow_back_ios,
+                        color: ColorManager.white,
+                        size: mediaQuery.height * .026,
+                    )
+                ),
                 SingleChildScrollView(
                   child: Container(
                     margin: EdgeInsets.only(top: mediaQuery.height * .26),

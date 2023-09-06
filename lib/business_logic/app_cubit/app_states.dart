@@ -77,3 +77,16 @@ class GetUserProductsErrorState extends AppStates{}
 class DeleteProductsLoadingState extends AppStates{}
 class DeleteProductsSuccessState extends AppStates{}
 class DeleteProductsErrorState extends AppStates{}
+
+//Increase Counter
+class IncreaseCounterSuccessState extends AppStates{}
+
+//Get Products NewSell
+class GetNewSellProductsFromApiLoadingState extends AppStates{}
+class GetNewSellProductsFromApiSuccessState extends AppStates{}
+class GetNewSellProductsFromApiErrorState extends AppStates{}
+
+//Get Products BestSell
+class GetBestSellProductsFromApiLoadingState extends AppStates{}
+class GetBestSellProductsFromApiSuccessState extends AppStates{}
+class GetBestSellProductsFromApiErrorState extends AppStates{}

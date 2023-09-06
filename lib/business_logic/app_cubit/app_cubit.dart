@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
 import 'package:cars_app/data/modles/product_model.dart';
@@ -6,6 +7,7 @@ import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
+import 'package:cars_app/presentation/product_screen/product_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -27,6 +29,7 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
+  int counter=0;
 
   List<Widget> screenName = [
     const HomeScreen(),
@@ -53,7 +56,19 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List productsControllers =
-      List.generate(20, (index) => TextEditingController());
+      List.generate(2000, (index) => TextEditingController());
+
+  List productsFavoritesControllers =
+      List.generate(2000, (index) => TextEditingController());
+
+  List productsBestSellControllers =
+  List.generate(2000, (index) => TextEditingController());
+
+  List productsNewSellControllers =
+  List.generate(2000, (index) => TextEditingController());
+
+
+  double totalPrice=0.0;
 
   List<String> companyNames = [
     'Tyc',
@@ -87,6 +102,54 @@ class AppCubit extends Cubit<AppStates> {
     'مازدا',
   ];
 
+
+  List<String> partNames = [
+    'assets/images/part1.jpg',
+    'assets/images/part2.jpg',
+    'assets/images/part3.jpg',
+    'assets/images/part4.jpg',
+    'assets/images/part5.jpg',
+    'assets/images/part6.jpg',
+    'assets/images/part7.jpg',
+    'assets/images/part8.jpg',
+    'assets/images/part9.jpg',
+    'assets/images/part10.jpg',
+    'assets/images/part11.jpg',
+    'assets/images/part1.jpg',
+    'assets/images/part2.jpg',
+    'assets/images/part3.jpg',
+    'assets/images/part4.jpg',
+    'assets/images/part5.jpg',
+    'assets/images/part6.jpg',
+    'assets/images/part7.jpg',
+    'assets/images/part8.jpg',
+    'assets/images/part9.jpg',
+    'assets/images/part10.jpg',
+    'assets/images/part11.jpg',
+    'assets/images/part1.jpg',
+    'assets/images/part2.jpg',
+    'assets/images/part3.jpg',
+    'assets/images/part4.jpg',
+    'assets/images/part5.jpg',
+    'assets/images/part6.jpg',
+    'assets/images/part7.jpg',
+    'assets/images/part8.jpg',
+    'assets/images/part9.jpg',
+    'assets/images/part10.jpg',
+    'assets/images/part11.jpg',
+    'assets/images/part1.jpg',
+    'assets/images/part2.jpg',
+    'assets/images/part3.jpg',
+    'assets/images/part4.jpg',
+    'assets/images/part5.jpg',
+    'assets/images/part6.jpg',
+    'assets/images/part7.jpg',
+    'assets/images/part8.jpg',
+    'assets/images/part9.jpg',
+    'assets/images/part10.jpg',
+    'assets/images/part11.jpg',
+  ];
+
   List<String> brandImages = [
     'assets/images/toyota.png',
     'assets/images/nissan.png',
@@ -117,6 +180,20 @@ class AppCubit extends Cubit<AppStates> {
     'https://img.freepik.com/free-photo/blue-sport-sedan-parked-yard_114579-5078.jpg?w=740&t=st=1690366458~exp=1690367058~hmac=6bb66f317c3048bf10b946728971b83c1ebd719a3835d430290b62fe99c55f58',
     'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
     'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
+  ];
+
+
+  List<String> bestImages = [
+    'assets/images/1.jpg',
+    'assets/images/2.jpg',
+    'assets/images/3.jpg',
+    'assets/images/4.jpg',
+  ];
+
+  List<String> newImages = [
+    'assets/images/logo1.PNG',
+    'assets/images/logo1.PNG',
+    'assets/images/new1.jpg',
   ];
 
   List<String> nissanBrands = [
@@ -507,25 +584,34 @@ class AppCubit extends Cubit<AppStates> {
 
   ProductModel? products;
 
-  Future<void> getProductFromApi({
+  List<MainProducts> myProducts=[];
+
+  Future<void> getProductFromApi(
+      {
     required String factory,
     required String productModel,
     required String fromDate,
     required String toDate,
-  }) async {
-    Map<String, dynamic> prameters = {
-      'factory': factory,
-      'productModel': productModel,
-      'fromDate': fromDate,
-      'toDate': toDate,
-    };
+  }
+  ) async {
+    // Map<String, dynamic> prameters = {
+    //   'factory': factory,
+    //   'productModel': productModel,
+    //   'fromDate': fromDate,
+    //   'toDate': toDate,
+    // };
 
     emit(GetProductsFromApiLoadingState());
     DioHelper.postData(
-      url: 'GetProducts?$prameters',
+      url: 'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
     ).then((value) {
+      print('productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}');
+      print(value);
       products = ProductModel.fromJson(value.data);
-      print(products!.mainProducts[0]['ProductName']);
+      myProducts=products!.mainProducts!;
+      print(myProducts[0].productName);
+
+      // print(products!.mainProducts[0]['ProductName']);
       emit(GetProductsFromApiSuccessState());
     }).catchError((error) {
       print('Error in Get Products From Api is :${error.toString()}');
@@ -574,23 +660,138 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       value.docs.forEach((element) {
         userProduct.add(element.data());
+
         print('----------------------------elements Added');
         emit(GetUserProductsSuccessState());
       });
+      double productNumber=1;
+      for(int i=0; i<userProduct.length ; i++){
+         productNumber=1;
+         productNumber=userProduct[i]['numberOfProducts'];
+         totalPrice=totalPrice+( userProduct[i]['price']*productNumber);
+         print(totalPrice);
+      }
       emit(GetUserProductsErrorState());
     });
   }
 
-  Future<void> deleteProducts() async {
+  Future<void> deleteProducts(context) async {
     emit(DeleteProductsLoadingState());
     FirebaseFirestore.instance
         .collection("userProducts")
-        .doc(userModel!.uId)
-        .delete()
-        .then((value) {
-      print("-------------delete success");
-      emit(DeleteProductsSuccessState());
-    }).catchError(onError);
-    emit(DeleteProductsErrorState());
+        .doc(CashHelper.getData(key:  'isUid'))
+         .collection('products').get().then((snapshot) {
+            for (DocumentSnapshot doc in snapshot.docs) {
+              doc.reference.delete();
+              emit(DeleteProductsSuccessState());
+
+            }
+            print("-------------delete success");
+            for (int i = 0; i < allFavorite.length; i++) {
+              addUserProductsToFireBase(
+                id: userModel!.uId!,
+                name: '${allFavorite[i]['name']}',
+                price: '${allFavorite[i]['price']}',
+                image: '${allFavorite[i]['image']}',
+                number: '${allFavorite[i]['rate']}',
+                productId: '${allFavorite[i]['id']}',
+                code: '${allFavorite[i]['address']}');
+            }
+            getUserProductsFromFireStore();
+
+            for (int i = 0; i < allFavorite.length; i++) {
+                deleteDatabase(
+                  context: context,
+                  id: '${allFavorite[i]['id']}'
+                );
+            }
+            CashHelper.saveData(key: 'counter',value: 0);
+
+            emit(DeleteProductsSuccessState());
+            });
+
   }
+
+
+   void increaseCounter(){
+    counter++;
+    CashHelper.saveData(key: 'counter',value: counter);
+    emit(IncreaseCounterSuccessState());
+
+   }
+
+   ProductModel ?favoriteProducts;
+
+  Future<void> getFavoriteProductFromApi() async {
+
+    emit(GetProductsFromApiLoadingState());
+    await DioHelper.postData(
+      url: 'GetProducts?productModel=التيما&factory=نيسان&fromDate=2013&toDate=2018',
+    ).then((value) {
+      print(value);
+      favoriteProducts = ProductModel.fromJson(value.data);
+
+      // print(products!.mainProducts[0]['ProductName']);
+      emit(GetProductsFromApiSuccessState());
+    }).catchError((error) {
+      print('Error in Get Products From Api is :${error.toString()}');
+      emit(GetProductsFromApiErrorState());
+    });
+  }
+
+
+  ProductModel ?bestSell;
+  List<MainProducts> ?bestSellProducts=[];
+  Future<void> getMostProductSell() async {
+    bestSellProducts=[];
+    emit(GetBestSellProductsFromApiLoadingState());
+    DioHelper.postData(
+      url: 'GetProducts',
+    ).then((value) {
+      print(value);
+      bestSell = ProductModel.fromJson(value.data);
+      bestSell!.mainProducts!.forEach((element) {
+
+        if(element.BestSeller==true){
+          bestSellProducts!.add(element );
+        }
+
+      });
+
+      emit(GetBestSellProductsFromApiSuccessState());
+    }).catchError((error) {
+      print('Error in Get BestSell Products From Api is :${error.toString()}');
+      emit(GetBestSellProductsFromApiErrorState());
+    });
+  }
+
+
+
+  ProductModel ?newSell;
+  List<MainProducts> ?newSellProducts=[];
+  Future<void> getNewProduct() async {
+    bestSellProducts=[];
+    emit(GetNewSellProductsFromApiLoadingState());
+    DioHelper.postData(
+      url: 'GetProducts',
+    ).then((value) {
+      print(value);
+      newSell = ProductModel.fromJson(value.data);
+      newSell!.mainProducts!.forEach((element) {
+
+        if(element.NewItem==true){
+          newSellProducts!.add(element );
+        }
+
+      });
+      emit(GetNewSellProductsFromApiSuccessState());
+    }).catchError((error) {
+      print('Error in Get NewSell Products From Api is :${error.toString()}');
+      emit(GetNewSellProductsFromApiErrorState());
+    });
+  }
+
+
+
+
 }

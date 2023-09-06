@@ -631,7 +631,7 @@ class CarModel extends StatelessWidget {
                               factory: brandName,
                               productModel: brandModel,
                               fromDate: AppCubit.get(context).landStart[index],
-                              toDate: AppCubit.get(context).landEnd[index]
+                              toDate: AppCubit.get(context).landEnd[index],
                           ).then((value) {
                             Navigator.push(context, MaterialPageRoute(builder: (_){
                               return  ProductScreen();
@@ -709,7 +709,7 @@ class CarModel extends StatelessWidget {
                               factory: brandName,
                               productModel: brandModel,
                               fromDate: AppCubit.get(context).kamaryStart[index],
-                              toDate: AppCubit.get(context).kamaryStart[index]
+                              toDate: AppCubit.get(context).kamaryEnd[index]
                           ).then((value) {
                             Navigator.push(context, MaterialPageRoute(builder: (_){
                               return  ProductScreen();

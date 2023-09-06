@@ -2,6 +2,7 @@ import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../../business_logic/app_cubit/app_cubit.dart';
@@ -30,7 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
         var cubit=AppCubit.get(context);
         return SafeArea(
           child: Scaffold(
-            backgroundColor: ColorManager.primaryColor,
+            backgroundColor: ColorManager.red.withOpacity(.8),
             body:Stack(
               children: [
                 SingleChildScrollView(
@@ -136,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         TextButton(
                                             onPressed: () {
-                                              Navigator.of(context).pushReplacement(
+                                              Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                       const RegisterScreen()));

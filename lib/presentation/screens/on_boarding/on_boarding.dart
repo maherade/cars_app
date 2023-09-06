@@ -51,7 +51,7 @@ class OnBoarding extends StatelessWidget {
                           Align(
                             alignment: Alignment.topCenter,
                             child: SvgPicture.asset(
-                              color: ColorManager.primaryColor,
+                              color: ColorManager.textColor,
                               onBoardingData[index].image!,
                               height: MediaQuery.of(context).size.height*.2,
                               width: MediaQuery.of(context).size.height*.3,
@@ -91,7 +91,7 @@ class OnBoarding extends StatelessWidget {
                             effect: const ExpandingDotsEffect(
                                 dotColor: Colors.grey,
                                 dotHeight: 8,
-                                activeDotColor: ColorManager.primaryColor
+                                activeDotColor: ColorManager.textColor
                             ),   // your preferred effect
 
                           ),
@@ -108,8 +108,8 @@ class OnBoarding extends StatelessWidget {
                                     builder: (_) => const LoginScreen()));
 
                           },
-                          color: ColorManager.primaryColor,
-                          color2: Colors.blue,
+                          color: ColorManager.textColor,
+                          color2: ColorManager.red,
                         ),
 
                           SizedBox(height: MediaQuery.sizeOf(context).height*.07,),

@@ -1,3 +1,4 @@
+import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -11,7 +12,6 @@ class CashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        titleSpacing: 0.0,
         iconTheme: const IconThemeData(color: ColorManager.textColor),
         backgroundColor: ColorManager.primaryColor,
         elevation: 0.0,
@@ -22,7 +22,7 @@ class CashScreen extends StatelessWidget {
         title: Text(
           'إيصال',
           style: GoogleFonts.cairo(
-            fontSize: 20.0,
+            fontSize: 16.0,
             fontWeight: FontWeight.w700,
             color: ColorManager.lightColor,
           ),
@@ -32,103 +32,189 @@ class CashScreen extends StatelessWidget {
 
       body: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        child: Material(
+          elevation: 20,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+          ),
+          child: Container(
+            height: MediaQuery.of(context).size.height*.55,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10)
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  width: 120.0,
-                  height: 25.0,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30.0),
-                    border: Border.all(width: 1.0, color: ColorManager.primaryColor),
-                  ),
-                  child: const Center(
-                    child: Text(
-                      'Business Class',
-                      style: TextStyle(color: ColorManager.primaryColor),
-                    ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Container(
+                    //   width: 120.0,
+                    //   height: 25.0,
+                    //
+                    //   decoration: BoxDecoration(
+                    //     color: ColorManager.textColor,
+                    //     borderRadius: BorderRadius.circular(30.0),
+                    //     border: Border.all(width: 1.0, color: ColorManager.primaryColor),
+                    //   ),
+                    //   child: const Center(
+                    //     child: Text(
+                    //       'ايصال',
+                    //       style: TextStyle(color: ColorManager.white),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Row(
+                    //   children: const [
+                    //     Text(
+                    //       'LHR',
+                    //       style: TextStyle(
+                    //           color: Colors.black, fontWeight: FontWeight.bold),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.only(left: 8.0),
+                    //       child: Icon(
+                    //         Icons.flight_takeoff,
+                    //         color: Colors.pink,
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: EdgeInsets.only(left: 8.0),
+                    //       child: Text(
+                    //         'ISL',
+                    //         style: TextStyle(
+                    //             color: Colors.black, fontWeight: FontWeight.bold),
+                    //       ),
+                    //     )
+                    //   ],
+                    // )
+                  ],
+                ),
+                // const Padding(
+                //   padding: EdgeInsets.only(top: 20.0),
+                //   child: Text(
+                //     'الايصال',
+                //     style: TextStyle(
+                //         color: Colors.black,
+                //         fontSize: 20.0,
+                //         fontWeight: FontWeight.bold),
+                //   ),
+                // ),
+                //name
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'الإسم: ${AppCubit.get(context).userModel!.userName}',
+                        style: GoogleFonts.cairo(
+                            color: ColorManager.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                            MediaQuery.of(context).size.height *
+                                .025),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.height * .01,
+                      ),
+                    ],
                   ),
                 ),
-                Row(
-                  children: const [
-                    Text(
-                      'LHR',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Icon(
-                        Icons.flight_takeoff,
-                        color: Colors.pink,
+
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
+                ),
+                //phone
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'رقم الهاتف: ${AppCubit.get(context).userModel!.phoneNumber}',
+                        style: GoogleFonts.cairo(
+                            color: ColorManager.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                            MediaQuery.of(context).size.height *
+                                .025),
                       ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 8.0),
-                      child: Text(
-                        'ISL',
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.height * .01,
                       ),
-                    )
-                  ],
-                )
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  width: MediaQuery.of(context).size.height * .01,
+                ),
+                // عدد المنتجات
+
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .02,
+                ),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        'عدد المشتريات: ${AppCubit.get(context).userProduct.length}',
+                        style: GoogleFonts.cairo(
+                            color: ColorManager.textColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize:
+                            MediaQuery.of(context).size.height *
+                                .025),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.height * .01,
+                      ),
+                    ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * .01,
+                ),
+
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                //   child: Row(
+                //     children: [
+                //       Text(
+                //         'سعر المشتريات: ${AppCubit.get(context).totalPrice}',
+                //         style: GoogleFonts.cairo(
+                //             color: ColorManager.textColor,
+                //             fontWeight: FontWeight.w500,
+                //             fontSize:
+                //             MediaQuery.of(context).size.height *
+                //                 .022),
+                //       ),
+                //       SizedBox(
+                //         width: MediaQuery.of(context).size.height * .01,
+                //       ),
+                //     ],
+                //   ),
+                // ),
+
+
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0, left: 30.0, right: 30.0),
+                  child: Container(
+                    width: 200.0,
+                    height: 200.0,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage('assets/images/logo1.PNG'),
+                            fit: BoxFit.cover)),
+                  ),
+                ),
+
               ],
             ),
-            const Padding(
-              padding: EdgeInsets.only(top: 20.0),
-              child: Text(
-                'Flight Ticket',
-                style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 20.0,
-                    fontWeight: FontWeight.bold),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 25.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ticketDetailsWidget(
-                      'Passengers', 'Hafiz M Mujahid', 'Date', '28-08-2022'),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12.0, right: 52.0),
-                    child: ticketDetailsWidget('Flight', '76836A45', 'Gate', '66B'),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 12.0, right: 53.0),
-                    child: ticketDetailsWidget('Class', 'Business', 'Seat', '21B'),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 80.0, left: 30.0, right: 30.0),
-              child: Container(
-                width: 250.0,
-                height: 60.0,
-                decoration: const BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/audi.png'),
-                        fit: BoxFit.fill)),
-              ),
-            ),
-            const Padding(
-              padding: EdgeInsets.only(top: 10.0, left: 75.0, right: 75.0),
-              child: Text(
-                '0000 +9230 2884 5163',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            const SizedBox(height: 30),
-            const Text('         Developer: instagram.com/DholaSain')
-          ],
+          ),
         ),
       ),
     );

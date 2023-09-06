@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
@@ -5,6 +7,7 @@ import 'package:cars_app/presentation/screens/car_name/car_name.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/widgets/default_text_field.dart';
 import 'package:cars_app/widgets/recomended_item.dart';
+import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +15,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../widgets/brand_item.dart';
 
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  static var searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,66 +32,62 @@ class HomeScreen extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: ColorManager.lightColor,
           ),
+          centerTitle: true,
           title: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Expanded(
-                  flex: 1,
-                  child: Image(
-                    image: AssetImage('assets/images/ecar.png'),
-                    height: 50,
-                    width: 50,
-                  ),
+                Text(
+                    'Nissan Group',
+                    style: GoogleFonts.cairo(
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.w500,
+                      color: ColorManager.white,
+                    )),
+                Image(image:
+                AssetImage(
+                  'assets/images/logo1.PNG',
                 ),
-                Expanded(
-                  flex: 4,
-                  child: SizedBox(
-                    height: 50,
-                    child: DefaultTextField(
-                      prefixIcon: Icons.search,
-                      hintText: 'اجراء البحث..؟',
-                      controller: searchController,
-                      textInputType: TextInputType.text,
-                    ),
-                  ),
+                color: Colors.red,
+                fit: BoxFit.cover,
+                height: MediaQuery.of(context).size.height*.12,
+                  width: MediaQuery.of(context).size.height*.12,
                 ),
+
               ],
             ),
+
+
           ),
         ),
         body: BlocConsumer<AppCubit,AppStates>(builder: (context, state) {
-          return  Padding(
-            padding: const EdgeInsets.all(4.0),
+          return  SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: CarouselSlider(
-                items: AppCubit.get(context).carouselImage.map((e) {
-                  return Image(
-                    image: NetworkImage(e),
-                    width: double.infinity,
-                    fit: BoxFit.fill,
-                  );
-                }).toList(),
-                options: CarouselOptions(
-                    height: MediaQuery.sizeOf(context).height*.25,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    viewportFraction: 1,
-                    scrollDirection: Axis.horizontal,
-                    autoPlayAnimationDuration: const Duration(seconds: 1),
-                    autoPlayInterval: const Duration(seconds: 3),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true),
+              CarouselSlider(
+              items: AppCubit.get(context).carouselImage.map((e) {
+                return Image(
+                  image: NetworkImage(e),
+                  width: double.infinity,
+                  fit: BoxFit.fill,
+                );
+              }).toList(),
+              options: CarouselOptions(
+                  height: MediaQuery.sizeOf(context).height*.25,
+                  initialPage: 0,
+                  enableInfiniteScroll: true,
+                  reverse: false,
+                  autoPlay: true,
+                  viewportFraction: 1,
+                  scrollDirection: Axis.horizontal,
+                  autoPlayAnimationDuration: const Duration(seconds: 1),
+                  autoPlayInterval: const Duration(seconds: 3),
+                  autoPlayCurve: Curves.fastOutSlowIn,
+                  enlargeCenterPage: true),
             ),
-              ),
              SizedBox(
                 height: MediaQuery.of(context).size.height * .01,
               ),
@@ -114,29 +112,333 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
 
-                 Text(
-                    'المنتج الموصي بيه',
-                    style: GoogleFonts.cairo(
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w500,
-                      color: ColorManager.black,
-                    )),
+                SizedBox(height: MediaQuery.of(context).size.height*.01,),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'المنتج الموصي بيه',
+                      style: GoogleFonts.cairo(
+                        fontSize: MediaQuery.of(context).size.height*.023,
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.black,
+                      )),
+                ),
 
                 const SizedBox(height: 5,),
 
-                Expanded(
+
+                // المنتج الموصي بيه
+                AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
+                    Container(
+                      height: MediaQuery.of(context).size.height*.3,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                          itemBuilder: (context,index){
+                            return  RecommendedItem(index: index,);
+                          },
+                          separatorBuilder: (context,index){
+                            return const SizedBox(width: 10,);
+                          },
+                          itemCount:10
+                      ),
+                    ):
+                    const Center(
+                      child: CircularProgressIndicator(color: ColorManager.textColor,),
+                    ),
+
+                 SizedBox(height: 15,),
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'احدث المنتجات',
+                      style: GoogleFonts.cairo(
+                        fontSize: MediaQuery.of(context).size.height*.023,
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.black,
+                      )),
+                ),
+
+                // احدث المنتجات
+                AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
+                Container(
+                  height: MediaQuery.of(context).size.height*.3,
                   child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
+                      scrollDirection: Axis.horizontal,
                       itemBuilder: (context,index){
-                        return const RecommendedItem();
+                        return  Container(
+                            padding: EdgeInsets.all(5),
+                            width: MediaQuery.sizeOf(context).width * .5,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  color: Color(0x3600000F),
+                                  offset: Offset(0, 1),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 10,
+                                  child: Image(
+                                    image: AssetImage(
+                                        AppCubit.get(context).newImages[index]),
+                                    height: 70,
+                                    width: 70,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.05,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius: BorderRadius.circular(40)
+                                    ),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          AppCubit.get(context).allFavorite.clear();
+                                          AppCubit.get(context).insertDatabase(
+                                              name:
+                                              '${ AppCubit.get(context).newSellProducts![index].productName}',
+                                              code:  AppCubit.get(context).newSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).newSellProducts![index].barcode}',
+                                              price: '${ AppCubit.get(context).newSellProducts![index].wholePrice}\$',
+                                              number:  AppCubit.get(context).productsNewSellControllers[index].text==''?'1':AppCubit.get(context).productsNewSellControllers[index].text,
+                                              image:
+                                              AppCubit.get(context).partNames.elementAt(Random().nextInt( AppCubit.get(context).partNames.length)),
+                                              context: context).then((value) {
+                                            customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
+                                          }).then((value) {
+                                            AppCubit.get(context).increaseCounter();
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.add,
+                                          size: 25,
+                                          color: ColorManager.primaryColor,
+                                        )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.12,
+                                  left:MediaQuery.sizeOf(context).width*.008 ,
+                                  right:MediaQuery.sizeOf(context).width*.008 ,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+
+                                    child: Text(
+                                        '${AppCubit.get(context).newSellProducts![index].productName}',
+                                        style: GoogleFonts.cairo(
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorManager.black,
+                                        )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.2,
+                                  left:MediaQuery.sizeOf(context).width*.02 ,
+                                  right:MediaQuery.sizeOf(context).width*.008 ,
+                                  child: Row(
+                                    children: [
+
+                                      Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: TextFormField(
+                                          decoration:  const InputDecoration(
+
+                                            hintStyle: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                            hintText: '0',
+
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(fontSize: 20),
+                                          controller: AppCubit.get(context)
+                                              .productsNewSellControllers[index],
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Text(
+                                            '${AppCubit.get(context).newSellProducts![index].wholePrice}\$',
+                                            style: GoogleFonts.cairo(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.black,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                              ],
+                            ));
                       },
                       separatorBuilder: (context,index){
                         return const SizedBox(width: 10,);
                       },
-                      itemCount: 10
+                      itemCount: AppCubit.get(context).newSellProducts!.length
                   ),
+                ):
+                const Center(
+                  child: CircularProgressIndicator(color: ColorManager.textColor,),
                 ),
 
+
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                      'المنتج الاكثر مبيعا',
+                      style: GoogleFonts.cairo(
+                        fontSize: MediaQuery.of(context).size.height*.023,
+                        fontWeight: FontWeight.w500,
+                        color: ColorManager.black,
+                      )),
+                ),
+
+                // المنتج الاكثر مبيعا
+                AppCubit.get(context).bestSellProducts!.isNotEmpty?
+                Container(
+                  height: MediaQuery.of(context).size.height*.3,
+                  child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context,index){
+                        return  Container(
+                            padding: EdgeInsets.all(5),
+                            width: MediaQuery.sizeOf(context).width * .5,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 4,
+                                  color: Color(0x3600000F),
+                                  offset: Offset(0, 1),
+                                )
+                              ],
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Stack(
+                              children: [
+                                Positioned(
+                                  left: 10,
+                                  child: Image(
+                                    image: AssetImage(
+                                        AppCubit.get(context).bestImages[index]),
+                                    height: 70,
+                                    width: 70,
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.05,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey.shade100,
+                                        borderRadius: BorderRadius.circular(40)
+                                    ),
+                                    child: IconButton(
+                                        onPressed: () {
+                                          AppCubit.get(context).allFavorite.clear();
+                                          AppCubit.get(context).insertDatabase(
+                                              name:
+                                              '${ AppCubit.get(context).bestSellProducts![index].productName}',
+                                              code:  AppCubit.get(context).bestSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).bestSellProducts![index].barcode}',
+                                              price: '${ AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                              number:  AppCubit.get(context).productsBestSellControllers[index].text==''?'1':AppCubit.get(context).productsBestSellControllers[index].text,
+                                              image:
+                                              AppCubit.get(context).partNames.elementAt(Random().nextInt( AppCubit.get(context).partNames.length)),
+                                              context: context).then((value) {
+                                            customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
+                                          }).then((value) {
+                                            AppCubit.get(context).increaseCounter();
+                                          });
+                                        },
+                                        icon: const Icon(
+                                          Icons.add,
+                                          size: 25,
+                                          color: ColorManager.primaryColor,
+                                        )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.12,
+                                  left:MediaQuery.sizeOf(context).width*.008 ,
+                                  right:MediaQuery.sizeOf(context).width*.008 ,
+                                  child: Align(
+                                    alignment: Alignment.centerRight,
+
+                                    child: Text(
+                                        '${AppCubit.get(context).bestSellProducts![index].productName}',
+                                        style: GoogleFonts.cairo(
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.w600,
+                                          color: ColorManager.black,
+                                        )),
+                                  ),
+                                ),
+                                Positioned(
+                                  top: MediaQuery.sizeOf(context).height*.2,
+                                  left:MediaQuery.sizeOf(context).width*.02 ,
+                                  right:MediaQuery.sizeOf(context).width*.008 ,
+                                  child: Row(
+                                    children: [
+
+                                      Container(
+                                        height: 50,
+                                        width: 50,
+                                        child: TextFormField(
+                                          decoration:  const InputDecoration(
+
+                                            hintStyle: TextStyle(
+                                              fontSize: 20,
+                                            ),
+                                            hintText: '0',
+
+                                          ),
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(fontSize: 20),
+                                          controller: AppCubit.get(context)
+                                              .productsBestSellControllers[index],
+                                          keyboardType: TextInputType.number,
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Text(
+                                            '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                            style: GoogleFonts.cairo(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.black,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+
+
+                              ],
+                            ));
+                      },
+                      separatorBuilder: (context,index){
+                        return const SizedBox(width: 10,);
+                      },
+                      itemCount: AppCubit.get(context).bestSellProducts!.length
+                  ),
+                ):
+                const Center(
+                  child: CircularProgressIndicator(color: ColorManager.textColor,),
+                ),
                 ],
             ),
           );
@@ -144,213 +446,6 @@ class HomeScreen extends StatelessWidget {
 
         },),
       ),
-//Padding(
-//             padding: const EdgeInsets.all(4.0),
-//             child: Column(
-//               mainAxisAlignment: MainAxisAlignment.center,
-//               crossAxisAlignment: CrossAxisAlignment.stretch,
-//               children: [
-//                 CarouselSlider(
-//                   items: AppCubit.get(context).carouselImage.map((e) {
-//                     return Image(
-//                       image: NetworkImage(e),
-//                       width: double.infinity,
-//                       fit: BoxFit.fill,
-//                     );
-//                   }).toList(),
-//                   options: CarouselOptions(
-//                       height: 220,
-//                       initialPage: 0,
-//                       enableInfiniteScroll: true,
-//                       reverse: false,
-//                       autoPlay: true,
-//                       viewportFraction: 1,
-//                       scrollDirection: Axis.horizontal,
-//                       autoPlayAnimationDuration: const Duration(seconds: 1),
-//                       autoPlayInterval: const Duration(seconds: 3),
-//                       autoPlayCurve: Curves.fastOutSlowIn,
-//                       enlargeCenterPage: true),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * .02,
-//                 ),
-//                 SizedBox(
-//                   height:150,
-//                   child: ListView.builder(
-//                       shrinkWrap: true,
-//                       physics: const ClampingScrollPhysics(),
-//                       scrollDirection: Axis.horizontal,
-//                       itemBuilder: (context, index) {
-//                         return Padding(
-//                           padding: const EdgeInsets.all(8.0),
-//                           child: BrandItem(index: index),
-//                         );
-//                       },
-//                       itemCount: AppCubit.get(context).brandNames.length),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * .02,
-//                 ),
-//                 Align(
-//                   alignment: Alignment.topRight,
-//                   child: Text(
-//                     'المنتج الموصي بيه',
-//                     style: GoogleFonts.cairo(
-//                       fontSize: 18.0,
-//                       fontWeight: FontWeight.w600,
-//                       color: ColorManager.black,
-//                     ),
-//                   ),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * .01,
-//                 ),
-//                 Expanded(
-//                   flex: 2,
-//                   child:  ListView.separated(
-//                       shrinkWrap: true,
-//                       physics: const ClampingScrollPhysics(),
-//                       scrollDirection: Axis.horizontal,
-//                       itemBuilder: (context, index) {
-//                         return GestureDetector(
-//                           onTap: () {
-//                             print('Hello');
-//                           },
-//                           child: const  RecommendedItem(),
-//                         );
-//                       },
-//                       separatorBuilder: (context, index) {
-//                         return const SizedBox(
-//                           width: 15,
-//                         );
-//                       },
-//                       itemCount: AppCubit.get(context).brandNames.length),
-//                 ),
-//                 SizedBox(
-//                   height: MediaQuery.of(context).size.height * .01,
-//                 ),
-//               ],
-//             ),
-//           )
-
-//       Container(
-//         color: ColorManager.lightColor2,
-//           child: Column(
-//             children: [
-//               Container(
-//                 color: ColorManager.primaryColor,
-//                 padding: const EdgeInsets.symmetric(horizontal: 12),
-//                 height: MediaQuery.of(context).size.height*.1,
-//                 child: Row(
-//                   children: [
-//
-//                      const Image(
-//                        image: AssetImage('assets/images/ecar.png') ,
-//                        height: 50,
-//                        width: 50,
-//                      ),
-//                      const SizedBox(width: 15,),
-//                      Expanded(
-//                        child: DefaultTextField(
-//                          prefixIcon: Icons.search,
-//                         hintText: 'اجراء البحث..؟',
-//                          controller: searchController,
-//                          textInputType: TextInputType.text,
-//
-//                        ),
-//                      )
-//                   ],
-//                 ),
-//               ),
-//
-//               Expanded(
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(8.0),
-//                   child: Column(
-//                     children: [
-//                       Container(
-//                         width: double.infinity,
-//                         decoration: BoxDecoration(
-//                           borderRadius: BorderRadius.circular(12)
-//                         ),
-//                         child: CarouselSlider(
-//                           items: AppCubit.get(context).carouselImage.map((e) {
-//                             return Image(
-//                               image: NetworkImage(e),
-//                               width: double.infinity,
-//                               fit: BoxFit.fitWidth,
-//
-//                             );
-//                           }).toList(),
-//                           options: CarouselOptions(
-//                               height: 220,
-//                               initialPage: 0,
-//                               enableInfiniteScroll: true,
-//                               reverse: false,
-//                               autoPlay: true,
-//                               viewportFraction: 1,
-//                               scrollDirection: Axis.horizontal,
-//                               autoPlayAnimationDuration: const Duration(seconds: 1),
-//                               autoPlayInterval: const Duration(seconds: 3),
-//                               autoPlayCurve: Curves.fastOutSlowIn,
-//                               enlargeCenterPage: true
-//
-//                           ),
-//                         ),
-//                       ),
-//                       SizedBox(height: MediaQuery.of(context).size.height*.02,),
-//                       Expanded(
-// flex: 1,
-//                         child: ListView.separated(
-//                             shrinkWrap: true,
-//                             physics: const ClampingScrollPhysics(),
-//                             scrollDirection: Axis.horizontal,
-//                             itemBuilder: (context,index){
-//                               return GestureDetector(
-//                                 onTap: (){
-//                                    print('Hello');
-//                                 },
-//                                 child: BrandItem(index: index),
-//                               );
-//                             },
-//                             separatorBuilder: (context,index){
-//                               return const SizedBox(width: 15,);
-//                             },
-//                             itemCount: AppCubit.get(context).brandNames.length
-//                         ),
-//                       ),
-//                       Align(
-//                         alignment: Alignment.topRight,
-//                         child: Text(
-//                           'المنتج الموصي بيه',
-//                           style: GoogleFonts.cairo(
-//                             fontSize: 18.0,
-//                             fontWeight: FontWeight.w600,
-//                             color: ColorManager.black,
-//                           ),
-//                         ),
-//                       ),
-//                        Expanded(
-//                          flex: 2,
-//                          child: Row(
-//                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                            children: [
-//                              Expanded(child: RecommendedItem()),
-//                              SizedBox(width: MediaQuery.of(context).size.height*.01,),
-//                              Expanded(child: RecommendedItem()),
-//                            ],
-//                          ),
-//                        ),
-//                     ],
-//                   ),
-//                 ),
-//               )
-//
-//
-//             ],
-//           )
-//
-//       ),
     );
   }
 }

@@ -40,7 +40,7 @@ class BrandItem extends StatelessWidget {
           Text(
             AppCubit.get(context).brandNames[index],
             style: GoogleFonts.cairo(
-              fontSize: 15.0,
+              fontSize: 13.0,
               fontWeight: FontWeight.w600,
               color: ColorManager.black,
             ),

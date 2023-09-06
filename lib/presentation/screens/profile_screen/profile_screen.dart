@@ -22,8 +22,8 @@ class ProfileScreen extends StatelessWidget {
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
             systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.dark,
-              statusBarColor: ColorManager.lightColor,
+              statusBarIconBrightness: Brightness.light,
+              statusBarColor: ColorManager.textColor,
             ),
             leading: IconButton(
               icon: const Icon(

@@ -2,6 +2,7 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
+import 'package:cars_app/constants/constatnts.dart';
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/product_screen/product_screen.dart';
 import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
@@ -22,6 +23,7 @@ void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CashHelper.init();
   await DioHelper.init();
+  uId=CashHelper.getData(key: 'isUid');
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -29,6 +31,7 @@ void main() async{
 }
 
 class MyApp extends StatelessWidget {
+
   const MyApp({super.key});
 
   @override
@@ -36,7 +39,13 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (BuildContext context) => AppCubit()..createDatabase()),
+            create: (BuildContext context) => AppCubit()
+              ..createDatabase()
+              ..getMostProductSell()
+              ..getFavoriteProductFromApi()
+              ..getNewProduct()
+              ..getUser(id: uId==null?uId='':uId!)
+        ),
         BlocProvider(
             create: (BuildContext context) =>
             LocalizationCubit()..fetchLocalization()),
@@ -46,7 +55,9 @@ class MyApp extends StatelessWidget {
         builder: (context, state) {
           return MaterialApp(
             theme: ThemeData(
-              appBarTheme: const AppBarTheme(
+              primaryColor: ColorManager.textColor,
+              appBarTheme: const
+              AppBarTheme(
                 iconTheme: IconThemeData(
                     color: Colors.black
                 ),
@@ -57,7 +68,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            home: LoginScreen(),
+            home: SplashScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

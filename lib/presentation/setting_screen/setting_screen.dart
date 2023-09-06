@@ -21,7 +21,6 @@ class SettingScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
           appBar: AppBar(
-            titleSpacing: 0.0,
             iconTheme: const IconThemeData(color: ColorManager.textColor),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
@@ -32,7 +31,7 @@ class SettingScreen extends StatelessWidget {
             title: Text(
               'الإعدادات',
               style: GoogleFonts.cairo(
-                fontSize: 20.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w700,
                 color: ColorManager.lightColor,
               ),
@@ -72,7 +71,7 @@ class SettingScreen extends StatelessWidget {
                             Text(
                               'الحساب',
                               style: GoogleFonts.cairo(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.primaryColor,
                               ),
@@ -116,7 +115,7 @@ class SettingScreen extends StatelessWidget {
                             Text(
                               'السياسات & الخصوصية',
                               style: GoogleFonts.cairo(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.primaryColor,
                               ),
@@ -158,7 +157,7 @@ class SettingScreen extends StatelessWidget {
                             Text(
                               'اللغة',
                               style: GoogleFonts.cairo(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.primaryColor,
                               ),
@@ -207,7 +206,7 @@ class SettingScreen extends StatelessWidget {
                             Text(
                               'تسجيل الخروج',
                               style: GoogleFonts.cairo(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 color: ColorManager.primaryColor,
                               ),
@@ -254,7 +253,7 @@ class SettingScreen extends StatelessWidget {
                             Text(
                               'حذف الحساب',
                               style: GoogleFonts.cairo(
-                                fontSize: 20.0,
+                                fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.red.shade700,
                               ),

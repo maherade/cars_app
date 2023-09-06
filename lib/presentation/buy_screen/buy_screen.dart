@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +19,6 @@ class BuyScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            titleSpacing: 0.0,
             iconTheme: const IconThemeData(color: ColorManager.textColor),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
@@ -28,7 +29,7 @@ class BuyScreen extends StatelessWidget {
             title: Text(
               'يشتري',
               style: GoogleFonts.cairo(
-                fontSize: 20.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w700,
                 color: ColorManager.lightColor,
               ),
@@ -68,8 +69,8 @@ class BuyScreen extends StatelessWidget {
                                   Row(
                                     children: [
                                       Image(
-                                        image: NetworkImage(
-                                            '${AppCubit.get(context).userProduct[index]['image']}'),
+                                        image: AssetImage(
+                                            AppCubit.get(context).partNames.elementAt(Random().nextInt(AppCubit.get(context).partNames.length))),
                                         height: 70,
                                         width: 70,
                                       ),
@@ -124,9 +125,10 @@ class BuyScreen extends StatelessWidget {
                                             color: ColorManager.black,
                                           )),
                                       const Spacer(),
-                                      Text('22\$',
+                                      Text( AppCubit.get(context)
+                                          .userProduct[index]['price'],
                                           style: GoogleFonts.cairo(
-                                            fontSize: 25.0,
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.w600,
                                             color: ColorManager.black,
                                           )),
