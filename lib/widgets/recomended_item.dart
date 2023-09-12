@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
@@ -33,11 +34,16 @@ class RecommendedItem extends StatelessWidget {
           children: [
             Positioned(
               left: 10,
-              child: Image(
-                image: AssetImage(
-                    'assets/images/logo1.PNG'),
+              child: CachedNetworkImage(
+                imageUrl:'${AppCubit.get(context).newSellProducts![index].imgUrl}',
                 height: 70,
                 width: 70,
+                placeholder: (context, url) => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+                errorWidget: (context, url, error) =>  Center(
+                  child: Image.asset('assets/images/logo1.PNG',),
+                ),
               ),
             ),
             Positioned(
@@ -56,8 +62,7 @@ class RecommendedItem extends StatelessWidget {
                           code: cubit.favoriteProducts!.mainProducts![index].barcode ==null?'F0010-23250':'${cubit.favoriteProducts!.mainProducts![index].barcode}',
                           price: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
                           number: cubit.productsFavoritesControllers[index].text==''?'1':cubit.productsFavoritesControllers[index].text,
-                          image:
-                          cubit.partNames.elementAt(Random().nextInt(cubit.partNames.length)),
+                          image: '${AppCubit.get(context).newSellProducts![index].imgUrl}',
                           context: context).then((value) {
                         customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
                       }).then((value) {

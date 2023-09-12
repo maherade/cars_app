@@ -73,6 +73,8 @@ class MainProducts {
   double? _wholePrice;
   bool? _NewItem;
   bool? _BestSeller;
+  String? _ImgUrl;
+  List<ProductModel>? productsList;
 
   MainProducts(
       {String? productModelGuide,
@@ -98,6 +100,8 @@ class MainProducts {
         double? wholePrice,
         double? NewItem,
         double? BestSeller,
+        String? ImgUrl,
+        List<ProductModel>? productsList,
       }) {
     if (productModelGuide != null) {
       this._productModelGuide = productModelGuide;
@@ -167,12 +171,13 @@ class MainProducts {
     }
     if (BestSeller != null) {
       this._BestSeller = BestSeller as bool?;
+    }  if (ImgUrl != null) {
+      this._ImgUrl = ImgUrl;
     }
   }
 
   String? get productModelGuide => _productModelGuide;
-  set productModelGuide(String? productModelGuide) =>
-      _productModelGuide = productModelGuide;
+  set productModelGuide(String? productModelGuide) => _productModelGuide = productModelGuide;
   String? get factoryGuide => _factoryGuide;
   set factoryGuide(String? factoryGuide) => _factoryGuide = factoryGuide;
   String? get cardGuide => _cardGuide;
@@ -220,6 +225,8 @@ class MainProducts {
   set NewItem(bool? NewItem) => _NewItem = NewItem;
   bool? get BestSeller => _BestSeller;
   set BestSeller(bool? BestSeller) => _BestSeller = BestSeller;
+  String? get imgUrl  => _ImgUrl;
+  set imgUrl (String? imgUrl) => _ImgUrl = imgUrl;
 
   MainProducts.fromJson(Map<String, dynamic> json) {
     _productModelGuide = json['productModelGuide'];
@@ -245,6 +252,7 @@ class MainProducts {
     _wholePrice = json['WholePrice'];
     _BestSeller = json['BestSeller'];
     _NewItem = json['NewItem'];
+    _ImgUrl = json['ImgUrl'];
   }
 
   Map<String, dynamic> toJson() {
@@ -272,6 +280,10 @@ class MainProducts {
     data['WholePrice'] = this._wholePrice;
     data['NewItem'] = this._NewItem;
     data['BestSeller'] = this._BestSeller;
+    data['ImgUrl'] = this._ImgUrl;
+    if (productsList != null) {
+      data['articles'] = productsList?.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }

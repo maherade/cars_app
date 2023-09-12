@@ -183,18 +183,18 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
 
-  List<String> bestImages = [
-    'assets/images/1.jpg',
-    'assets/images/2.jpg',
-    'assets/images/3.jpg',
-    'assets/images/4.jpg',
-  ];
-
-  List<String> newImages = [
-    'assets/images/logo1.PNG',
-    'assets/images/logo1.PNG',
-    'assets/images/new1.jpg',
-  ];
+  // List<String> bestImages = [
+  //   'assets/images/1.jpg',
+  //   'assets/images/2.jpg',
+  //   'assets/images/3.jpg',
+  //   'assets/images/4.jpg',
+  // ];
+  //
+  // List<String> newImages = [
+  //   'assets/images/logo1.PNG',
+  //   'assets/images/logo1.PNG',
+  //   'assets/images/new1.jpg',
+  // ];
 
   List<String> nissanBrands = [
     'التيما',
@@ -741,6 +741,7 @@ class AppCubit extends Cubit<AppStates> {
 
 
   ProductModel ?bestSell;
+  ProductModel ?imageUrl;
   List<MainProducts> ?bestSellProducts=[];
   Future<void> getMostProductSell() async {
     bestSellProducts=[];
@@ -754,6 +755,13 @@ class AppCubit extends Cubit<AppStates> {
 
         if(element.BestSeller==true){
           bestSellProducts!.add(element );
+        }
+
+      });
+      imageUrl = ProductModel.fromJson(value.data);
+      imageUrl!.mainProducts!.forEach((element) {
+        if(element.imgUrl==true){
+          bestSellProducts!.add(element);
         }
 
       });
@@ -778,9 +786,15 @@ class AppCubit extends Cubit<AppStates> {
       print(value);
       newSell = ProductModel.fromJson(value.data);
       newSell!.mainProducts!.forEach((element) {
-
         if(element.NewItem==true){
           newSellProducts!.add(element );
+        }
+
+      });
+      imageUrl = ProductModel.fromJson(value.data);
+      imageUrl!.mainProducts!.forEach((element) {
+        if(element.imgUrl==true){
+          newSellProducts!.add(element);
         }
 
       });

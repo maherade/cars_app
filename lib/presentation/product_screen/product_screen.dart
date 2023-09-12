@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/product_screen/widgets/company_widget.dart';
@@ -149,11 +150,20 @@ class ProductScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                       Image(
-                                        image: AssetImage(
-                                            cubit.partNames.elementAt(Random().nextInt(cubit.partNames.length))),
+                                      CachedNetworkImage(
+                                        imageUrl: '${cubit.products!.mainProducts![index].imgUrl}',
                                         height: 70,
                                         width: 70,
+                                        placeholder: (context, url) => const Center(
+                                          child: CircularProgressIndicator(
+                                            color:ColorManager.red,
+
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>  Center(
+                                          child: Image.asset('assets/images/logo1.PNG',),
+                                        ),
+
                                       ),
                                       const SizedBox(
                                         width: 15,
@@ -228,13 +238,11 @@ class ProductScreen extends StatelessWidget {
                                         onPressed: () {
                                           AppCubit.get(context).allFavorite.clear();
                                           AppCubit.get(context).insertDatabase(
-                                              name:
-                                              '${cubit.products!.mainProducts![index].productName}',
+                                              name: '${cubit.products!.mainProducts![index].productName}',
                                               code: cubit.products!.mainProducts![index].barcode ==null?'F0010-23250':'${cubit.products!.mainProducts![index].barcode}',
                                               price: '${cubit.products!.mainProducts![index].wholePrice}\$',
                                               number: cubit.productsControllers[index].text==''?'1':cubit.productsControllers[index].text,
-                                              image:
-                                              cubit.partNames.elementAt(Random().nextInt(cubit.partNames.length)),
+                                              image: '${cubit.products!.mainProducts![index].imgUrl}',
                                               context: context).then((value) {
                                             customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
                                           }).then((value) {

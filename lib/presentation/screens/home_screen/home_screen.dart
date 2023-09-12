@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
                       color: ColorManager.white,
                     )),
                 Image(image:
-                AssetImage(
+                const AssetImage(
                   'assets/images/logo1.PNG',
                 ),
                 color: Colors.red,
@@ -99,7 +100,7 @@ class HomeScreen extends StatelessWidget {
                         return GestureDetector(
                           onTap: (){
                             Navigator.push(context, MaterialPageRoute(builder: (_){
-                              return  CarName(brandName: '',);
+                              return  const CarName(brandName: '',);
                             }));
                           },
                           child: BrandItem(index: index),
@@ -130,7 +131,7 @@ class HomeScreen extends StatelessWidget {
 
                 // المنتج الموصي بيه
                 AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
-                    Container(
+                    SizedBox(
                       height: MediaQuery.of(context).size.height*.3,
                       child: ListView.separated(
                         scrollDirection: Axis.horizontal,
@@ -140,14 +141,14 @@ class HomeScreen extends StatelessWidget {
                           separatorBuilder: (context,index){
                             return const SizedBox(width: 10,);
                           },
-                          itemCount:10
+                          itemCount:AppCubit.get(context).newSellProducts!.length,
                       ),
                     ):
                     const Center(
                       child: CircularProgressIndicator(color: ColorManager.textColor,),
                     ),
 
-                 SizedBox(height: 15,),
+                 const SizedBox(height: 15,),
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -162,13 +163,13 @@ class HomeScreen extends StatelessWidget {
 
                 // احدث المنتجات
                 AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height*.3,
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context,index){
                         return  Container(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             width: MediaQuery.sizeOf(context).width * .5,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -185,9 +186,17 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Positioned(
                                   left: 10,
-                                  child: Image(
-                                    image: AssetImage(
-                                        AppCubit.get(context).newImages[index]),
+                                  child: CachedNetworkImage(
+                                    imageUrl: '${ AppCubit.get(context).newSellProducts![index].imgUrl}',
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(
+                                        color: ColorManager.red,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>  Center(
+                                      child: Image.asset('assets/images/logo1.PNG',
+                                     fit: BoxFit.contain,),
+                                    ),
                                     height: 70,
                                     width: 70,
                                   ),
@@ -208,8 +217,7 @@ class HomeScreen extends StatelessWidget {
                                               code:  AppCubit.get(context).newSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).newSellProducts![index].barcode}',
                                               price: '${ AppCubit.get(context).newSellProducts![index].wholePrice}\$',
                                               number:  AppCubit.get(context).productsNewSellControllers[index].text==''?'1':AppCubit.get(context).productsNewSellControllers[index].text,
-                                              image:
-                                              AppCubit.get(context).partNames.elementAt(Random().nextInt( AppCubit.get(context).partNames.length)),
+                                              image: '${ AppCubit.get(context).newSellProducts![index].imgUrl}',
                                               context: context).then((value) {
                                             customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
                                           }).then((value) {
@@ -246,7 +254,7 @@ class HomeScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
 
-                                      Container(
+                                      SizedBox(
                                         height: 50,
                                         width: 50,
                                         child: TextFormField(
@@ -265,7 +273,7 @@ class HomeScreen extends StatelessWidget {
                                           keyboardType: TextInputType.number,
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Align(
                                         alignment: Alignment.bottomLeft,
                                         child: Text(
@@ -308,13 +316,13 @@ class HomeScreen extends StatelessWidget {
 
                 // المنتج الاكثر مبيعا
                 AppCubit.get(context).bestSellProducts!.isNotEmpty?
-                Container(
+                SizedBox(
                   height: MediaQuery.of(context).size.height*.3,
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context,index){
                         return  Container(
-                            padding: EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
                             width: MediaQuery.sizeOf(context).width * .5,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -331,11 +339,18 @@ class HomeScreen extends StatelessWidget {
                               children: [
                                 Positioned(
                                   left: 10,
-                                  child: Image(
-                                    image: AssetImage(
-                                        AppCubit.get(context).bestImages[index]),
+                                  child: CachedNetworkImage(
+                                    imageUrl: '${AppCubit.get(context).bestSellProducts![index].imgUrl}',
                                     height: 70,
                                     width: 70,
+                                    placeholder: (context, url) => const Center(
+                                      child: CircularProgressIndicator(
+                                        color:ColorManager.red,
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>  Center(
+                                      child: Image.asset('assets/images/logo1.PNG',),
+                                    ),
                                   ),
                                 ),
                                 Positioned(
@@ -349,13 +364,11 @@ class HomeScreen extends StatelessWidget {
                                         onPressed: () {
                                           AppCubit.get(context).allFavorite.clear();
                                           AppCubit.get(context).insertDatabase(
-                                              name:
-                                              '${ AppCubit.get(context).bestSellProducts![index].productName}',
+                                              name: '${ AppCubit.get(context).bestSellProducts![index].productName}',
                                               code:  AppCubit.get(context).bestSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).bestSellProducts![index].barcode}',
                                               price: '${ AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
                                               number:  AppCubit.get(context).productsBestSellControllers[index].text==''?'1':AppCubit.get(context).productsBestSellControllers[index].text,
-                                              image:
-                                              AppCubit.get(context).partNames.elementAt(Random().nextInt( AppCubit.get(context).partNames.length)),
+                                              image: "${AppCubit.get(context).bestSellProducts![index].imgUrl}",
                                               context: context).then((value) {
                                             customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
                                           }).then((value) {
@@ -392,7 +405,7 @@ class HomeScreen extends StatelessWidget {
                                   child: Row(
                                     children: [
 
-                                      Container(
+                                      SizedBox(
                                         height: 50,
                                         width: 50,
                                         child: TextFormField(
@@ -411,7 +424,7 @@ class HomeScreen extends StatelessWidget {
                                           keyboardType: TextInputType.number,
                                         ),
                                       ),
-                                      Spacer(),
+                                      const Spacer(),
                                       Align(
                                         alignment: Alignment.bottomLeft,
                                         child: Text(

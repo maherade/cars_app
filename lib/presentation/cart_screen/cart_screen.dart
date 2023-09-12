@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -40,10 +41,19 @@ class CartScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   cubit.deleteProducts(context).then((value) {
-
+                    cubit.getUserProductsFromFireStore();
+                    for (int i = 0; i < cubit.allFavorite.length; i++) {
+                      cubit.addUserProductsToFireBase(
+                          id: cubit.userModel!.uId!,
+                          name: '${cubit.allFavorite[i]['name']}',
+                          price: '${cubit.allFavorite[i]['price']}',
+                          image: '${cubit.allFavorite[i]['image']}',
+                          number: '${cubit.allFavorite[i]['number']}',
+                          productId: '${cubit.allFavorite[i]['id']}',
+                          code: '${cubit.allFavorite[i]['code']}');
+                    }
                   });
-
-                },
+                  },
                 child: Container(
                   margin: EdgeInsets.symmetric(
                       vertical: MediaQuery.of(context).size.width * .02),
@@ -85,9 +95,9 @@ class CartScreen extends StatelessWidget {
                           onTap: () {
                             print(
                                 AppCubit.get(context).allFavorite[index]['id']);
-                            AppCubit.get(context).deleteDatabase(
-                                id: '${AppCubit.get(context).allFavorite[index]['id']}',
-                                context: context);
+                            // AppCubit.get(context).deleteDatabase(
+                            //     id: '${AppCubit.get(context).allFavorite[index]['id']}',
+                            //     context: context);
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -124,22 +134,30 @@ class CartScreen extends StatelessWidget {
                                 child: Container(
                                   padding: const EdgeInsets.all(20),
                                   height:
-                                      MediaQuery.of(context).size.height * .26,
+                                  MediaQuery.of(context).size.height * .26,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Column(
+                                    mainAxisSize: MainAxisSize.max,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.center,
+                                    CrossAxisAlignment.center,
                                     children: [
                                       Row(
                                         children: [
-                                          Image(
-                                            image: AssetImage(
-                                                '${AppCubit.get(context).allFavorite[index]['image']}'),
+                                          CachedNetworkImage(
+                                            imageUrl: '${AppCubit.get(context).allFavorite[index]['image']}',
                                             height: 70,
                                             width: 70,
+                                            placeholder: (context, url) => const Center(
+                                              child: CircularProgressIndicator(
+                                                color:ColorManager.red,
+                                              ),
+                                            ),
+                                            errorWidget: (context, url, error) =>  Center(
+                                              child: Image.asset('assets/images/logo1.PNG',),
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 15,
@@ -149,12 +167,12 @@ class CartScreen extends StatelessWidget {
                                               children: [
                                                 Text(
                                                     AppCubit.get(context)
-                                                            .allFavorite[index]
-                                                        ['name'],
+                                                        .allFavorite[index]
+                                                    ['name'],
                                                     style: GoogleFonts.cairo(
                                                       fontSize: 15.0,
                                                       fontWeight:
-                                                          FontWeight.w600,
+                                                      FontWeight.w600,
                                                       color: ColorManager.black,
                                                     )),
                                                 Row(
@@ -165,14 +183,14 @@ class CartScreen extends StatelessWidget {
                                                     ),
                                                     Text(
                                                       AppCubit.get(context)
-                                                              .allFavorite[
-                                                          index]['rate'],
+                                                          .allFavorite[
+                                                      index]['rate'],
                                                       style: GoogleFonts.cairo(
                                                         fontSize: 15.0,
                                                         fontWeight:
-                                                            FontWeight.w600,
+                                                        FontWeight.w600,
                                                         color:
-                                                            ColorManager.black,
+                                                        ColorManager.black,
                                                       ),
                                                     )
                                                   ],
@@ -190,8 +208,8 @@ class CartScreen extends StatelessWidget {
                                           ),
                                           Text(
                                               AppCubit.get(context)
-                                                      .allFavorite[index]
-                                                  ['address'],
+                                                  .allFavorite[index]
+                                              ['address'],
                                               style: GoogleFonts.cairo(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.w600,
