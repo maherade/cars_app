@@ -1,7 +1,9 @@
 
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
+import 'package:cars_app/data/modles/invoice_details_model.dart';
 import 'package:cars_app/data/modles/product_model.dart';
+import 'package:cars_app/data/modles/token_model.dart';
 import 'package:cars_app/data/modles/user_model.dart';
 import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
@@ -21,6 +23,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
 import '../../utiles/local/cash_helper.dart';
+import '../../utiles/remote/dio_helper2/dio_helper2.dart';
 import 'app_states.dart';
 
 class AppCubit extends Cubit<AppStates> {
@@ -30,6 +33,8 @@ class AppCubit extends Cubit<AppStates> {
 
   int currentIndex = 0;
   int counter=0;
+  var userNameController = TextEditingController();
+
 
   List<Widget> screenName = [
     const HomeScreen(),
@@ -664,6 +669,11 @@ class AppCubit extends Cubit<AppStates> {
         print('----------------------------elements Added');
         emit(GetUserProductsSuccessState());
       });
+      for(int i=0;i<userProduct.length;i++){
+        invoiceDetails[i].productGuide!=userProduct[i]['code'];
+        invoiceDetails[i].quantity!=userProduct[i]['numberOfProducts'];
+        invoiceDetails[i].totalValue!=userProduct[i]['price'];
+      }
       double productNumber=1;
       for(int i=0; i<userProduct.length ; i++){
          productNumber=1;
@@ -698,6 +708,7 @@ class AppCubit extends Cubit<AppStates> {
                 code: '${allFavorite[i]['address']}');
             }
             getUserProductsFromFireStore();
+            addCashWithApi();
 
             for (int i = 0; i < allFavorite.length; i++) {
                 deleteDatabase(
@@ -805,7 +816,63 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  TokenModel? tokenModel;
+  Future<void> loginWithApi({required String? userName,required String? password}) async {
+    emit(GetTokenFromApiLoadingState());
+    await DioHelper2.postData(
+      url: 'Login/CheckLogin',
+      body: {
+        "username":userName,
+        "password":password,
+      }
+    ).then((value) {
+      print(value);
+      tokenModel = TokenModel.fromJson(value.data);
+      CashHelper.saveData(key: 'loginToken',value: tokenModel!.myToken);
+      print(tokenModel!.myToken);
+      emit(GetTokenFromApiSuccessState());
+    }).catchError((error) {
+      print('Error in Get token From Api is :${error.toString()}');
+      emit(GetTokenFromApiErrorState());
+    });
+  }
 
 
+  List<InvoiceDetailsModel>invoiceDetails=[];
+  Future<void> addCashWithApi() async {
+    emit(GetTokenFromApiLoadingState());
+    await DioHelper2.postData(
+        url: 'Invoice/AddMainInvoice',
+        body: {
+          "Invoice":{
+            "AgentGuide":CashHelper.getData(key: "loginToken"),
+          },
+          "InvoiceDetails":invoiceDetails
+        }
+    ).then((value) {
+      print("--------------------------hi");
+      print(value);
+      tokenModel = TokenModel.fromJson(value.data);
+      CashHelper.saveData(key: 'loginToken',value: tokenModel!.myToken);
+
+      emit(GetTokenFromApiSuccessState());
+    }).catchError((error) {
+      print('Error in Get token From Api is :${error.toString()}');
+      emit(GetTokenFromApiErrorState());
+    });
+  }
+
+// "ProductGuide":"D2B9B04D-33EA-4122-8FF5-010E32FBEE5E",
+//               "Quantity" :"1",
+//               "Unit" :"1",
+//               "TotalValue" :"100",
+//               "DiscountValue" :"0",
+//               "ExtraValue" :"0"
+//"ProductGuide":"8EEEC6C9-304B-46D6-9558-0175447BC557",
+//               "Quantity" :"1",
+//               "Unit" :"1",
+//               "TotalValue" :"100",
+//               "DiscountValue" :"0",
+//               "ExtraValue" :"0"
 
 }

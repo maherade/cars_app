@@ -90,3 +90,7 @@ class GetNewSellProductsFromApiErrorState extends AppStates{}
 class GetBestSellProductsFromApiLoadingState extends AppStates{}
 class GetBestSellProductsFromApiSuccessState extends AppStates{}
 class GetBestSellProductsFromApiErrorState extends AppStates{}
+
+class GetTokenFromApiLoadingState extends AppStates{}
+class GetTokenFromApiSuccessState extends AppStates{}
+class GetTokenFromApiErrorState extends AppStates{}

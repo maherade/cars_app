@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 
-class DioHelper {
+class DioHelper2 {
   static Dio? dio;
 
   static init() {
     dio = Dio(
       BaseOptions(
-        baseUrl: 'https://trsrv.xtra-go.com:8010/Products/',
+        baseUrl: 'https://trsrv.xtra-go.com:8010/',
         receiveDataWhenStatusError: true,
       ),
     );
@@ -29,4 +29,3 @@ class DioHelper {
     return await dio!.post(url, data: body);
   }
 }
-

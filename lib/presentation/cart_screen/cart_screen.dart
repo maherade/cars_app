@@ -41,7 +41,6 @@ class CartScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   cubit.deleteProducts(context).then((value) {
-                    cubit.getUserProductsFromFireStore();
                     for (int i = 0; i < cubit.allFavorite.length; i++) {
                       cubit.addUserProductsToFireBase(
                           id: cubit.userModel!.uId!,
@@ -202,19 +201,19 @@ class CartScreen extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
-                                          const Icon(
-                                            Icons.qr_code,
-                                            color: Colors.black,
-                                          ),
-                                          Text(
-                                              AppCubit.get(context)
-                                                  .allFavorite[index]
-                                              ['address'],
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorManager.black,
-                                              )),
+                                          // const Icon(
+                                          //   Icons.qr_code,
+                                          //   color: Colors.black,
+                                          // ),
+                                          // Text(
+                                          //     AppCubit.get(context)
+                                          //         .allFavorite[index]
+                                          //     ['address'],
+                                          //     style: GoogleFonts.cairo(
+                                          //       fontSize: 15.0,
+                                          //       fontWeight: FontWeight.w600,
+                                          //       color: ColorManager.black,
+                                          //     )),
                                           const Spacer(),
                                           Text('${AppCubit.get(context)
                                               .allFavorite[index]

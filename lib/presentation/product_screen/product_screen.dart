@@ -186,16 +186,16 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.qr_code,
-                                        color: Colors.black,
-                                      ),
-                                      Text(cubit.products!.mainProducts![index].barcode ==null? 'F0010-23250':cubit.products!.mainProducts![index].barcode!,
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.black,
-                                          )),
+                                      // const Icon(
+                                      //   Icons.qr_code,
+                                      //   color: Colors.black,
+                                      // ),
+                                      // Text("{cubit.products!.mainProducts![index].productModelGuide}",
+                                      //     style: GoogleFonts.cairo(
+                                      //       fontSize: 15.0,
+                                      //       fontWeight: FontWeight.w600,
+                                      //       color: ColorManager.black,
+                                      //     )),
                                       const Spacer(),
                                       Text('${cubit.products!.mainProducts![index].wholePrice!}\$',
                                           style: GoogleFonts.cairo(
@@ -239,7 +239,7 @@ class ProductScreen extends StatelessWidget {
                                           AppCubit.get(context).allFavorite.clear();
                                           AppCubit.get(context).insertDatabase(
                                               name: '${cubit.products!.mainProducts![index].productName}',
-                                              code: cubit.products!.mainProducts![index].barcode ==null?'F0010-23250':'${cubit.products!.mainProducts![index].barcode}',
+                                              code: '${cubit.products!.mainProducts![index].productModelGuide}',
                                               price: '${cubit.products!.mainProducts![index].wholePrice}\$',
                                               number: cubit.productsControllers[index].text==''?'1':cubit.productsControllers[index].text,
                                               image: '${cubit.products!.mainProducts![index].imgUrl}',

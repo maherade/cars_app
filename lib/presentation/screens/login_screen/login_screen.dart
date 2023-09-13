@@ -1,5 +1,6 @@
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
+import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -108,6 +109,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   email: emailController.text,
                                                   password: passwordController.text
                                               ).then((value) => {
+                                                cubit.loginWithApi(userName: "maher55", password: "123456"),
                                               if((cubit.userModel!.uId)==null){
                                                   customToast(title: '''This account doesn't exists''' , color: Colors.red.shade700)
                                             }else{

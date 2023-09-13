@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -68,12 +69,19 @@ class BuyScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                                      Image(
-                                        image: AssetImage(
-                                            AppCubit.get(context).partNames.elementAt(Random().nextInt(AppCubit.get(context).partNames.length))),
-                                        height: 70,
-                                        width: 70,
-                                      ),
+                              CachedNetworkImage(
+                              imageUrl: '${AppCubit.get(context).userProduct[index]['image']}',
+                              height: 70,
+                              width: 70,
+                              placeholder: (context, url) => const Center(
+                                child: CircularProgressIndicator(
+                                  color:ColorManager.red,
+                                ),
+                              ),
+                              errorWidget: (context, url, error) =>  Center(
+                                child: Image.asset('assets/images/logo1.PNG',),
+                              ),
+                            ),
                                       const SizedBox(
                                         width: 15,
                                       ),
@@ -112,18 +120,18 @@ class BuyScreen extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      const Icon(
-                                        Icons.qr_code,
-                                        color: Colors.black,
-                                      ),
-                                      Text(
-                                          AppCubit.get(context).userProduct[index]
-                                          ['code'],
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.black,
-                                          )),
+                                      // const Icon(
+                                      //   Icons.qr_code,
+                                      //   color: Colors.black,
+                                      // ),
+                                      // Text(
+                                      //     AppCubit.get(context).userProduct[index]
+                                      //     ['code'],
+                                      //     style: GoogleFonts.cairo(
+                                      //       fontSize: 15.0,
+                                      //       fontWeight: FontWeight.w600,
+                                      //       color: ColorManager.black,
+                                      //     )),
                                       const Spacer(),
                                       Text( AppCubit.get(context)
                                           .userProduct[index]['price'],

@@ -59,7 +59,7 @@ class RecommendedItem extends StatelessWidget {
                       AppCubit.get(context).insertDatabase(
                           name:
                           '${cubit.favoriteProducts!.mainProducts![index].productName}',
-                          code: cubit.favoriteProducts!.mainProducts![index].barcode ==null?'F0010-23250':'${cubit.favoriteProducts!.mainProducts![index].barcode}',
+                          code:'${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
                           price: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
                           number: cubit.productsFavoritesControllers[index].text==''?'1':cubit.productsFavoritesControllers[index].text,
                           image: '${AppCubit.get(context).newSellProducts![index].imgUrl}',

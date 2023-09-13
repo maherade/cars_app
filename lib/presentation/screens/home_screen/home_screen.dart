@@ -214,7 +214,7 @@ class HomeScreen extends StatelessWidget {
                                           AppCubit.get(context).insertDatabase(
                                               name:
                                               '${ AppCubit.get(context).newSellProducts![index].productName}',
-                                              code:  AppCubit.get(context).newSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).newSellProducts![index].barcode}',
+                                              code:  '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
                                               price: '${ AppCubit.get(context).newSellProducts![index].wholePrice}\$',
                                               number:  AppCubit.get(context).productsNewSellControllers[index].text==''?'1':AppCubit.get(context).productsNewSellControllers[index].text,
                                               image: '${ AppCubit.get(context).newSellProducts![index].imgUrl}',
@@ -365,7 +365,7 @@ class HomeScreen extends StatelessWidget {
                                           AppCubit.get(context).allFavorite.clear();
                                           AppCubit.get(context).insertDatabase(
                                               name: '${ AppCubit.get(context).bestSellProducts![index].productName}',
-                                              code:  AppCubit.get(context).bestSellProducts![index].barcode ==null?'F0010-23250':'${AppCubit.get(context).bestSellProducts![index].barcode}',
+                                              code:  '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
                                               price: '${ AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
                                               number:  AppCubit.get(context).productsBestSellControllers[index].text==''?'1':AppCubit.get(context).productsBestSellControllers[index].text,
                                               image: "${AppCubit.get(context).bestSellProducts![index].imgUrl}",

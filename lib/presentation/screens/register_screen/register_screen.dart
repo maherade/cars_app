@@ -1,6 +1,7 @@
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/styles/color_manager.dart';
+import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/default_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +23,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var emailController = TextEditingController();
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
-  var userNameController = TextEditingController();
   bool isPassword = false;
 
   @override
@@ -89,7 +89,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           horizontal: 12.0),
                                       child: DefaultTextField(
                                         hintText: 'الإسم',
-                                        controller: userNameController,
+                                        controller: cubit.userNameController,
                                         textInputType: TextInputType.name,
                                         prefixIcon: Icons.person,
                                         hintColor: ColorManager.primaryColor,
@@ -209,8 +209,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
   void validateForm(Widget widget) {
     if (formKey.currentState!.validate()) {
+      CashHelper.saveData(key: 'userName',value: AppCubit.get(context). userNameController.text);
       AppCubit.get(context).createAccountWithFirebaseAuth(
-        name: userNameController.text,
+        name: AppCubit.get(context).userNameController.text,
         email: emailController.text,
         phone: phoneController.text,
         password: passwordController.text
@@ -218,7 +219,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
       emailController.clear();
       passwordController.clear();
-      userNameController.clear();
+      AppCubit.get(context). userNameController.clear();
       phoneController.clear();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => widget));
