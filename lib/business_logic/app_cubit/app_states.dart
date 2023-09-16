@@ -62,6 +62,10 @@ class GetProductsFromApiLoadingState extends AppStates{}
 class GetProductsFromApiSuccessState extends AppStates{}
 class GetProductsFromApiErrorState extends AppStates{}
 
+class GetAllProductsFromApiLoadingState extends AppStates{}
+class GetAllProductsFromApiSuccessState extends AppStates{}
+class GetAllProductsFromApiErrorState extends AppStates{}
+
 //Add User Products To FireStore
 class AddUserProductsLoadingState extends AppStates{}
 class AddUserProductsSuccessState extends AppStates{}

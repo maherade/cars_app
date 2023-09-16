@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
 import 'package:cars_app/data/modles/invoice_details_model.dart';
@@ -9,7 +8,6 @@ import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
-import 'package:cars_app/presentation/product_screen/product_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -32,9 +30,8 @@ class AppCubit extends Cubit<AppStates> {
   static AppCubit get(context) => BlocProvider.of(context);
 
   int currentIndex = 0;
-  int counter=0;
+  int counter = 0;
   var userNameController = TextEditingController();
-
 
   List<Widget> screenName = [
     const HomeScreen(),
@@ -67,13 +64,12 @@ class AppCubit extends Cubit<AppStates> {
       List.generate(2000, (index) => TextEditingController());
 
   List productsBestSellControllers =
-  List.generate(2000, (index) => TextEditingController());
+      List.generate(2000, (index) => TextEditingController());
 
   List productsNewSellControllers =
-  List.generate(2000, (index) => TextEditingController());
+      List.generate(2000, (index) => TextEditingController());
 
-
-  double totalPrice=0.0;
+  double totalPrice = 0.0;
 
   List<String> companyNames = [
     'Tyc',
@@ -106,7 +102,6 @@ class AppCubit extends Cubit<AppStates> {
     'سوزوكي',
     'مازدا',
   ];
-
 
   List<String> partNames = [
     'assets/images/part1.jpg',
@@ -187,6 +182,56 @@ class AppCubit extends Cubit<AppStates> {
     'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
   ];
 
+//Toyota cars
+  List<String> landCars = [
+    'https://th.bing.com/th/id/OIP.yKfI3VjPfM00suoyrvVh1gHaFj?pid=ImgDet&w=474&h=355&rs=1',
+    'https://th.bing.com/th/id/R.c98af2dee08626c298a3c85052d9d35e?rik=Rv%2bHUgeKFG5XdA&riu=http%3a%2f%2fimages.hgmsites.net%2fmed%2f2008-toyota-land-cruiser-4wd-4dr-gs-white_100053025_m.jpg&ehk=DjxS%2fXmNk19LNHPY5MRdCWwO5uRB970k2F5Xyc%2fVLyY%3d&risl=&pid=ImgRaw&r=0',
+  ];
+  List<String> camryCars = [
+    'https://th.bing.com/th/id/OIP.QFWMsCxXIel5dLWeh4slWQHaFj?pid=ImgDet&rs=1',
+    'https://th.bing.com/th/id/OIP.ikwK4owiqghKUQWSF3m3OQHaDf?pid=ImgDet&rs=1',
+  ];
+  List<String> bradoCars = [
+    'https://th.bing.com/th/id/OIP.Es_wK6HeWJQ4B9_nMn9PCQHaEA?pid=ImgDet&rs=1',
+  ];
+  List<String> crollaCars = [
+    'https://th.bing.com/th/id/OIP.QFWMsCxXIel5dLWeh4slWQHaFj?pid=ImgDet&rs=1',
+    'https://cdn.shopify.com/s/files/1/0017/2861/0406/products/69590U20N_Car2_600x.jpg?v=1604371434',
+  ];
+
+  //nissan cars
+  List<String> timaCars = [
+    'https://th.bing.com/th/id/OIP.C3bEa3xQMgKsxVGevMMD4AHaFj?pid=ImgDet&rs=1',
+    'https://tdrresearch.azureedge.net/photos/chrome/Expanded/White/2015NIS002b/2015NIS002b01.jpg?w=400',
+    'https://di-uploads-pod14.dealerinspire.com/auffenbergnissan/uploads/2019/02/2019-Nissan-Altima-Hero.png',
+    'https://platform.cstatic-images.com/in/v2/stock_photos/88766870-80a9-4a34-bdfa-f8fdc35fb9f8/4d0ed0ae-1c10-473e-9e94-f1ad598bfd6d.png',
+  ];
+  List<String> versaCars = [
+    'https://th.bing.com/th/id/R.3d2ae0d3a3494bee9c16c18c4313f4c4?rik=lb%2bnu6Ql6fMXFA&riu=http%3a%2f%2fimages.nadaguides.com%2fChromeImageGallery%2fExpanded%2fTransparent%2f640%2f2011NIS013a_640%2f2011NIS013a_640_01.png&ehk=FIFOdHKxyIhE7wKF2G0Wwb42H7Yj%2f1MKvXTO3luAac8%3d&risl=&pid=ImgRaw&r=0',
+    'https://th.bing.com/th/id/OIP.UDBiNcH1FdluTeIx4J7htQHaFj?pid=ImgDet&rs=1',
+    'https://media.assets.sincrod.com/websites/content/nissan-lexington-md/21f877d7d89048b2a8cf0b2b8717a954_700x525.png',
+  ];
+  List<String> rougeCars = [
+    'https://th.bing.com/th/id/OIP.0mT3rTtDAWyM3W4bPdl3owHaFj?pid=ImgDet&rs=1',
+    'https://th.bing.com/th/id/OIP.7bYZdr4CUdiNesvCsrEkbgHaFj?pid=ImgDet&rs=1',
+
+  ];
+  List<String> nafaraCars = [
+    'https://th.bing.com/th/id/R.93d35ec0d15ce3b5ff2ce3f142251458?rik=ZbAL82SI1oLJyw&riu=http%3a%2f%2fwww.apinz.com%2fparts%2fDT%2fDTJ3.jpg&ehk=frIQgfp0wXZXO4IQQIi7ptjxP6Ne4mIlZuvce9hkYBU%3d&risl=&pid=ImgRaw&r=0',
+    'https://th.bing.com/th/id/OIP._C2NOSBJ77nEjsDtctmhKAHaE7?pid=ImgDet&rs=1',
+  ];
+  List<String> sunnyCars = [
+    'https://i.pinimg.com/originals/17/ea/d9/17ead9dcfacdfd19072afacf10da1894.jpg',
+  ];
+  List<String> jokCars = [
+    'https://th.bing.com/th/id/OIP.-rZ93nlMFuAeO4tJ_M9GZgHaDj?pid=ImgDet&rs=1',
+    'https://th.bing.com/th/id/OIP.o39N6NOh33sgFFx7Ia-rfwHaE6?pid=ImgDet&rs=1',
+    'https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_large_thumbnail/v1/editorial/nissan-juke-my20-index-1.png',
+  ];
+  List<String> cintraCars = [
+'https://th.bing.com/th/id/OIP.UyRtpidjo6Fxlzqqmo4qZQAAAA?pid=ImgDet&rs=1',
+    'https://th.bing.com/th/id/R.b1adcd7d42b7c75990f58ef32c43bbbc?rik=Qq%2fLsr5zqIrtFA&pid=ImgRaw&r=0',
+  ];
 
   // List<String> bestImages = [
   //   'assets/images/1.jpg',
@@ -589,16 +634,14 @@ class AppCubit extends Cubit<AppStates> {
 
   ProductModel? products;
 
-  List<MainProducts> myProducts=[];
+  List<MainProducts> myProducts = [];
 
-  Future<void> getProductFromApi(
-      {
+  Future<void> getProductFromApi({
     required String factory,
     required String productModel,
     required String fromDate,
     required String toDate,
-  }
-  ) async {
+  }) async {
     // Map<String, dynamic> prameters = {
     //   'factory': factory,
     //   'productModel': productModel,
@@ -610,10 +653,11 @@ class AppCubit extends Cubit<AppStates> {
     DioHelper.postData(
       url: 'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
     ).then((value) {
-      print('productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}');
+      print(
+          'productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}');
       print(value);
       products = ProductModel.fromJson(value.data);
-      myProducts=products!.mainProducts!;
+      myProducts = products!.mainProducts!;
       print(myProducts[0].productName);
 
       // print(products!.mainProducts[0]['ProductName']);
@@ -621,6 +665,34 @@ class AppCubit extends Cubit<AppStates> {
     }).catchError((error) {
       print('Error in Get Products From Api is :${error.toString()}');
       emit(GetProductsFromApiErrorState());
+    });
+  }
+
+
+  ProductModel? products2;
+  List<MainProducts> allProducts = [];
+  Future<void> getAllProductFromApi() async {
+    // Map<String, dynamic> prameters = {
+    //   'factory': factory,
+    //   'productModel': productModel,
+    //   'fromDate': fromDate,
+    //   'toDate': toDate,
+    // };
+
+    emit(GetAllProductsFromApiLoadingState());
+    DioHelper2.postData(
+      url: 'Products/GetProducts',
+    ).then((value) {
+      print(value);
+      products2 = ProductModel.fromJson(value.data);
+      allProducts = products2!.mainProducts!;
+      print(allProducts[0].productName);
+
+      // print(products!.mainProducts[0]['ProductName']);
+      emit(GetAllProductsFromApiSuccessState());
+    }).catchError((error) {
+      print('-------------------------------------Error in Get Products From Api is :${error.toString()}');
+      emit(GetAllProductsFromApiErrorState());
     });
   }
 
@@ -669,17 +741,17 @@ class AppCubit extends Cubit<AppStates> {
         print('----------------------------elements Added');
         emit(GetUserProductsSuccessState());
       });
-      for(int i=0;i<userProduct.length;i++){
-        invoiceDetails[i].productGuide!=userProduct[i]['code'];
-        invoiceDetails[i].quantity!=userProduct[i]['numberOfProducts'];
-        invoiceDetails[i].totalValue!=userProduct[i]['price'];
+      for (int i = 0; i < userProduct.length; i++) {
+        invoiceDetails[i].productGuide != userProduct[i]['code'];
+        invoiceDetails[i].quantity != userProduct[i]['numberOfProducts'];
+        invoiceDetails[i].totalValue != userProduct[i]['price'];
       }
-      double productNumber=1;
-      for(int i=0; i<userProduct.length ; i++){
-         productNumber=1;
-         productNumber=userProduct[i]['numberOfProducts'];
-         totalPrice=totalPrice+( userProduct[i]['price']*productNumber);
-         print(totalPrice);
+      double productNumber = 1;
+      for (int i = 0; i < userProduct.length; i++) {
+        productNumber = 1;
+        productNumber = userProduct[i]['numberOfProducts'];
+        totalPrice = totalPrice + (userProduct[i]['price'] * productNumber);
+        print(totalPrice);
       }
       emit(GetUserProductsErrorState());
     });
@@ -689,55 +761,50 @@ class AppCubit extends Cubit<AppStates> {
     emit(DeleteProductsLoadingState());
     FirebaseFirestore.instance
         .collection("userProducts")
-        .doc(CashHelper.getData(key:  'isUid'))
-         .collection('products').get().then((snapshot) {
-            for (DocumentSnapshot doc in snapshot.docs) {
-              doc.reference.delete();
-              emit(DeleteProductsSuccessState());
+        .doc(CashHelper.getData(key: 'isUid'))
+        .collection('products')
+        .get()
+        .then((snapshot) {
+      for (DocumentSnapshot doc in snapshot.docs) {
+        doc.reference.delete();
+        emit(DeleteProductsSuccessState());
+      }
+      print("-------------delete success");
+      for (int i = 0; i < allFavorite.length; i++) {
+        addUserProductsToFireBase(
+            id: userModel!.uId!,
+            name: '${allFavorite[i]['name']}',
+            price: '${allFavorite[i]['price']}',
+            image: '${allFavorite[i]['image']}',
+            number: '${allFavorite[i]['rate']}',
+            productId: '${allFavorite[i]['id']}',
+            code: '${allFavorite[i]['address']}');
+      }
+      getUserProductsFromFireStore();
+      addCashWithApi();
 
-            }
-            print("-------------delete success");
-            for (int i = 0; i < allFavorite.length; i++) {
-              addUserProductsToFireBase(
-                id: userModel!.uId!,
-                name: '${allFavorite[i]['name']}',
-                price: '${allFavorite[i]['price']}',
-                image: '${allFavorite[i]['image']}',
-                number: '${allFavorite[i]['rate']}',
-                productId: '${allFavorite[i]['id']}',
-                code: '${allFavorite[i]['address']}');
-            }
-            getUserProductsFromFireStore();
-            addCashWithApi();
+      for (int i = 0; i < allFavorite.length; i++) {
+        deleteDatabase(context: context, id: '${allFavorite[i]['id']}');
+      }
+      CashHelper.saveData(key: 'counter', value: 0);
 
-            for (int i = 0; i < allFavorite.length; i++) {
-                deleteDatabase(
-                  context: context,
-                  id: '${allFavorite[i]['id']}'
-                );
-            }
-            CashHelper.saveData(key: 'counter',value: 0);
-
-            emit(DeleteProductsSuccessState());
-            });
-
+      emit(DeleteProductsSuccessState());
+    });
   }
 
-
-   void increaseCounter(){
+  void increaseCounter() {
     counter++;
-    CashHelper.saveData(key: 'counter',value: counter);
+    CashHelper.saveData(key: 'counter', value: counter);
     emit(IncreaseCounterSuccessState());
+  }
 
-   }
-
-   ProductModel ?favoriteProducts;
+  ProductModel? favoriteProducts;
 
   Future<void> getFavoriteProductFromApi() async {
-
     emit(GetProductsFromApiLoadingState());
     await DioHelper.postData(
-      url: 'GetProducts?productModel=التيما&factory=نيسان&fromDate=2013&toDate=2018',
+      url:
+          'GetProducts?productModel=التيما&factory=نيسان&fromDate=2013&toDate=2018',
     ).then((value) {
       print(value);
       favoriteProducts = ProductModel.fromJson(value.data);
@@ -750,12 +817,12 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  ProductModel? bestSell;
+  ProductModel? imageUrl;
+  List<MainProducts>? bestSellProducts = [];
 
-  ProductModel ?bestSell;
-  ProductModel ?imageUrl;
-  List<MainProducts> ?bestSellProducts=[];
   Future<void> getMostProductSell() async {
-    bestSellProducts=[];
+    bestSellProducts = [];
     emit(GetBestSellProductsFromApiLoadingState());
     DioHelper.postData(
       url: 'GetProducts',
@@ -763,18 +830,15 @@ class AppCubit extends Cubit<AppStates> {
       print(value);
       bestSell = ProductModel.fromJson(value.data);
       bestSell!.mainProducts!.forEach((element) {
-
-        if(element.BestSeller==true){
-          bestSellProducts!.add(element );
+        if (element.BestSeller == true) {
+          bestSellProducts!.add(element);
         }
-
       });
       imageUrl = ProductModel.fromJson(value.data);
       imageUrl!.mainProducts!.forEach((element) {
-        if(element.imgUrl==true){
+        if (element.imgUrl == true) {
           bestSellProducts!.add(element);
         }
-
       });
 
       emit(GetBestSellProductsFromApiSuccessState());
@@ -784,12 +848,11 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  ProductModel? newSell;
+  List<MainProducts>? newSellProducts = [];
 
-
-  ProductModel ?newSell;
-  List<MainProducts> ?newSellProducts=[];
   Future<void> getNewProduct() async {
-    bestSellProducts=[];
+    bestSellProducts = [];
     emit(GetNewSellProductsFromApiLoadingState());
     DioHelper.postData(
       url: 'GetProducts',
@@ -797,17 +860,15 @@ class AppCubit extends Cubit<AppStates> {
       print(value);
       newSell = ProductModel.fromJson(value.data);
       newSell!.mainProducts!.forEach((element) {
-        if(element.NewItem==true){
-          newSellProducts!.add(element );
+        if (element.NewItem == true) {
+          newSellProducts!.add(element);
         }
-
       });
       imageUrl = ProductModel.fromJson(value.data);
       imageUrl!.mainProducts!.forEach((element) {
-        if(element.imgUrl==true){
+        if (element.imgUrl == true) {
           newSellProducts!.add(element);
         }
-
       });
       emit(GetNewSellProductsFromApiSuccessState());
     }).catchError((error) {
@@ -817,18 +878,17 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   TokenModel? tokenModel;
-  Future<void> loginWithApi({required String? userName,required String? password}) async {
+
+  Future<void> loginWithApi(
+      {required String? userName, required String? password}) async {
     emit(GetTokenFromApiLoadingState());
-    await DioHelper2.postData(
-      url: 'Login/CheckLogin',
-      body: {
-        "username":userName,
-        "password":password,
-      }
-    ).then((value) {
+    await DioHelper2.postData(url: 'Login/CheckLogin', body: {
+      "username": userName,
+      "password": password,
+    }).then((value) {
       print(value);
       tokenModel = TokenModel.fromJson(value.data);
-      CashHelper.saveData(key: 'loginToken',value: tokenModel!.myToken);
+      CashHelper.saveData(key: 'loginToken', value: tokenModel!.myToken);
       print(tokenModel!.myToken);
       emit(GetTokenFromApiSuccessState());
     }).catchError((error) {
@@ -837,23 +897,20 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  List<InvoiceDetailsModel> invoiceDetails = [];
 
-  List<InvoiceDetailsModel>invoiceDetails=[];
   Future<void> addCashWithApi() async {
     emit(GetTokenFromApiLoadingState());
-    await DioHelper2.postData(
-        url: 'Invoice/AddMainInvoice',
-        body: {
-          "Invoice":{
-            "AgentGuide":CashHelper.getData(key: "loginToken"),
-          },
-          "InvoiceDetails":invoiceDetails
-        }
-    ).then((value) {
+    await DioHelper2.postData(url: 'Invoice/AddMainInvoice', body: {
+      "Invoice": {
+        "AgentGuide": CashHelper.getData(key: "loginToken"),
+      },
+      "InvoiceDetails": invoiceDetails
+    }).then((value) {
       print("--------------------------hi");
       print(value);
       tokenModel = TokenModel.fromJson(value.data);
-      CashHelper.saveData(key: 'loginToken',value: tokenModel!.myToken);
+      CashHelper.saveData(key: 'loginToken', value: tokenModel!.myToken);
 
       emit(GetTokenFromApiSuccessState());
     }).catchError((error) {
@@ -874,5 +931,4 @@ class AppCubit extends Cubit<AppStates> {
 //               "TotalValue" :"100",
 //               "DiscountValue" :"0",
 //               "ExtraValue" :"0"
-
 }
