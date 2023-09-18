@@ -669,30 +669,18 @@ class AppCubit extends Cubit<AppStates> {
   }
 
 
-  ProductModel? products2;
-  List<MainProducts> allProducts = [];
-  Future<void> getAllProductFromApi() async {
-    // Map<String, dynamic> prameters = {
-    //   'factory': factory,
-    //   'productModel': productModel,
-    //   'fromDate': fromDate,
-    //   'toDate': toDate,
-    // };
-
-    emit(GetAllProductsFromApiLoadingState());
-    DioHelper2.postData(
-      url: 'Products/GetProducts',
-    ).then((value) {
-      print(value);
-      products2 = ProductModel.fromJson(value.data);
-      allProducts = products2!.mainProducts!;
-      print(allProducts[0].productName);
-
-      // print(products!.mainProducts[0]['ProductName']);
-      emit(GetAllProductsFromApiSuccessState());
-    }).catchError((error) {
-      print('-------------------------------------Error in Get Products From Api is :${error.toString()}');
-      emit(GetAllProductsFromApiErrorState());
+  List<dynamic> search = [];
+  void getSearch(String value) {
+    emit(GetSearchLoadingState());
+    DioHelper.postData(
+        url: 'GetProducts?ItemName=$value',
+        ).then((value) {
+      search =value.data['MainProducts'];
+      print(search[2]['ProductName']);
+      emit(GetSearchSuccessState());
+    }).catchError((error){
+      debugPrint('error during calling api ${error.toString()}');
+      emit(GetSearchErrorState());
     });
   }
 

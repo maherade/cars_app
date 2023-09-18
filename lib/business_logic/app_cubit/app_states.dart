@@ -98,3 +98,7 @@ class GetBestSellProductsFromApiErrorState extends AppStates{}
 class GetTokenFromApiLoadingState extends AppStates{}
 class GetTokenFromApiSuccessState extends AppStates{}
 class GetTokenFromApiErrorState extends AppStates{}
+
+class GetSearchLoadingState extends AppStates{}
+class GetSearchSuccessState extends AppStates{}
+class GetSearchErrorState extends AppStates{}

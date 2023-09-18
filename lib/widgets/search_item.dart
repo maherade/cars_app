@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cars_app/data/modles/product_model.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,9 @@ import '../styles/color_manager.dart';
 
 class SearchItem extends StatelessWidget {
   int? index;
-   SearchItem({required index,super.key});
+   SearchItem(this.mainProducts,{required index,super.key});
+
+   MainProducts mainProducts;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class SearchItem extends StatelessWidget {
               children: [
                 CachedNetworkImage(
                   imageUrl:
-                  '${AppCubit.get(context).products2!.mainProducts![index!].imgUrl}',
+                  '${AppCubit.get(context).products!.mainProducts![index!].imgUrl}',
                   height: 70,
                   width: 70,
                   placeholder: (context, url) =>
@@ -53,10 +56,7 @@ class SearchItem extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                      Text(
-                          AppCubit.get(context)
-                              .products2!
-                              .mainProducts![index!]
+                      Text(mainProducts
                               .productName!,
                           style: GoogleFonts.cairo(
                             fontSize: 15.0,
@@ -82,7 +82,7 @@ class SearchItem extends StatelessWidget {
                 //     )),
                 const Spacer(),
                 Text(
-                    '${AppCubit.get(context).products2!.mainProducts![index!].wholePrice!}\$',
+                    '${mainProducts.wholePrice!}\$',
                     style: GoogleFonts.cairo(
                       fontSize: 21.0,
                       fontWeight: FontWeight.w600,
@@ -126,11 +126,11 @@ class SearchItem extends StatelessWidget {
                     AppCubit.get(context)
                         .insertDatabase(
                         name:
-                        '${AppCubit.get(context).products2!.mainProducts![index!].productName}',
+                        '${mainProducts.productName}',
                         code:
-                        '${AppCubit.get(context).products2!.mainProducts![index!].productModelGuide}',
+                        '${mainProducts.productModelGuide}',
                         price:
-                        '${AppCubit.get(context).products2!.mainProducts![index!].wholePrice}\$',
+                        '${mainProducts.wholePrice}\$',
                         number: AppCubit.get(context)
                             .productsControllers[
                         index!]
@@ -142,7 +142,7 @@ class SearchItem extends StatelessWidget {
                         index!]
                             .text,
                         image:
-                        '${AppCubit.get(context).products2!.mainProducts![index!].imgUrl}',
+                        '${mainProducts..imgUrl}',
                         context: context)
                         .then((value) {
                       customToast(

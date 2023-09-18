@@ -10,48 +10,21 @@ import '../../../styles/color_manager.dart';
 import '../../../widgets/toast.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  SearchScreen({super.key});
+
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  @override
-  void initState() {
-    AppCubit.get(context).getAllProductFromApi();
-    super.initState();
-  }
-
-  void searchProducts( query) {
-    List<MainProducts> product = AppCubit.get(context).allProducts;
-    List<MainProducts> mainProducts = product;
-    setState(() {
-      mainProducts =
-          product.where((element) => product.map((query) => String).contains(query)).toList();
-    });
-  }
-
-  // void runFilter(String keyword) {
-  //   List<MainProducts> results = [];
-  //   if (keyword.isEmpty) {
-  //     // if the search field is empty or only contains white-space, we'll display all users
-  //
-  //     // results = AppCubit.get(context).allProducts;
-  //   } else {
-  //     setState(() {
-  //       results = AppCubit.get(context).allProducts;
-  //     });
-  //     // we use the toLowerCase() method to make it case-insensitive
-  //   }
-  //
-  // }
 
   @override
   Widget build(BuildContext context) {
     var cubit = AppCubit.get(context);
     return BlocConsumer<AppCubit, AppStates>(
       builder: (context, state) {
+        var list =AppCubit.get(context).search;
         return Scaffold(
             appBar: AppBar(
               titleSpacing: 0.0,
@@ -68,7 +41,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 margin: const EdgeInsets.all(10.0),
                 child: TextFormField(
                   onChanged: (value) {
-                    searchProducts(value);
+
+                    cubit.getSearch(value);
                   },
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -107,9 +81,7 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
               leadingWidth: 8,
             ),
-            body: AppCubit.get(context).allProducts.isEmpty
-                ? const Center(child: CircularProgressIndicator())
-                : Padding(
+            body: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.separated(
                       itemBuilder: (context, index) {
@@ -131,22 +103,21 @@ class _SearchScreenState extends State<SearchScreen> {
                                 Row(
                                   children: [
                                     CachedNetworkImage(
-                                      imageUrl:
-                                          '${cubit.allProducts[index].imgUrl}',
+                                      imageUrl: '${AppCubit.get(context).search[index]['ImgUrl']}',
                                       height: 70,
                                       width: 70,
                                       placeholder: (context, url) =>
-                                          const Center(
+                                      const Center(
                                         child: CircularProgressIndicator(
                                           color: ColorManager.red,
                                         ),
                                       ),
                                       errorWidget: (context, url, error) =>
                                           Center(
-                                        child: Image.asset(
-                                          'assets/images/logo1.PNG',
-                                        ),
-                                      ),
+                                            child: Image.asset(
+                                              'assets/images/logo1.PNG',
+                                            ),
+                                          ),
                                     ),
                                     const SizedBox(
                                       width: 15,
@@ -155,8 +126,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                       child: Column(
                                         children: [
                                           Text(
-                                              cubit.allProducts[index]
-                                                  .productName!,
+                                              AppCubit.get(context).search[index]['ProductName'],
                                               style: GoogleFonts.cairo(
                                                 fontSize: 15.0,
                                                 fontWeight: FontWeight.w600,
@@ -181,7 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     //     )),
                                     const Spacer(),
                                     Text(
-                                        '${cubit.allProducts[index].wholePrice!}\$',
+                                        '${AppCubit.get(context).search[index]['WholePrice']}\$',
                                         style: GoogleFonts.cairo(
                                           fontSize: 21.0,
                                           fontWeight: FontWeight.w600,
@@ -195,11 +165,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                 Row(
                                   children: [
                                     Container(
-                                      width: MediaQuery.of(context).size.width *
+                                      width:
+                                      MediaQuery.of(context).size.width *
                                           .15,
                                       height:
-                                          MediaQuery.of(context).size.width *
-                                              .15,
+                                      MediaQuery.of(context).size.width *
+                                          .15,
                                       padding: const EdgeInsets.all(2),
                                       child: TextFormField(
                                         decoration: const InputDecoration(
@@ -211,7 +182,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         textAlign: TextAlign.center,
                                         style: const TextStyle(fontSize: 20),
                                         controller: AppCubit.get(context)
-                                            .productsControllers[index],
+                                            .productsControllers[index!],
                                         keyboardType: TextInputType.number,
                                       ),
                                     ),
@@ -223,36 +194,37 @@ class _SearchScreenState extends State<SearchScreen> {
                                             .clear();
                                         AppCubit.get(context)
                                             .insertDatabase(
-                                                name:
-                                                    '${cubit.allProducts[index].productName}',
-                                                code:
-                                                    '${cubit.allProducts[index].productModelGuide}',
-                                                price:
-                                                    '${cubit.allProducts[index].wholePrice}\$',
-                                                number: cubit
-                                                            .productsControllers[
-                                                                index]
-                                                            .text ==
-                                                        ''
-                                                    ? '1'
-                                                    : cubit
-                                                        .productsControllers[
-                                                            index]
-                                                        .text,
-                                                image:
-                                                    '${cubit.allProducts[index].imgUrl}',
-                                                context: context)
+                                            name:
+                                            '${AppCubit.get(context).products!.mainProducts![index!].productName}',
+                                            code:
+                                            '${AppCubit.get(context).products!.mainProducts![index!].productModelGuide}',
+                                            price:
+                                            '${AppCubit.get(context).products!.mainProducts![index!].wholePrice}\$',
+                                            number: AppCubit.get(context)
+                                                .productsControllers[
+                                            index!]
+                                                .text ==
+                                                ''
+                                                ? '1'
+                                                : AppCubit.get(context)
+                                                .productsControllers[
+                                            index!]
+                                                .text,
+                                            image:
+                                            '${AppCubit.get(context).products!.mainProducts![index!].imgUrl}',
+                                            context: context)
                                             .then((value) {
                                           customToast(
                                               color: ColorManager.darkGrey,
                                               title:
-                                                  'تم اضافه المنتج في السله');
+                                              'تم اضافه المنتج في السله');
                                         }).then((value) {
-                                          cubit.increaseCounter();
+                                          AppCubit.get(context).increaseCounter();
                                         });
                                       },
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(12),
+                                        borderRadius:
+                                        BorderRadius.circular(12),
                                       ),
                                       color: ColorManager.primaryColor,
                                       child: Text('اضافه',
@@ -269,7 +241,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                         );
                       },
-                      itemCount: cubit.allProducts.length,
+                      itemCount: list.length,
                       separatorBuilder: (context, index) {
                         return const SizedBox(
                           height: 15,
@@ -279,7 +251,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   ));
       },
       listener: (context, state) {
-        if (State is GetAllProductsFromApiSuccessState) {}
       },
     );
   }

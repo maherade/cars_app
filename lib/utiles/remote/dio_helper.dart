@@ -1,3 +1,4 @@
+import 'package:cars_app/data/modles/product_model.dart';
 import 'package:dio/dio.dart';
 
 class DioHelper {
