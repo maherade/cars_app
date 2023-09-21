@@ -56,7 +56,7 @@ class CarModel extends StatelessWidget {
             ),
             elevation: 0.0,
             titleSpacing: 0.0,
-            iconTheme: IconThemeData(
+            iconTheme: const IconThemeData(
                 color: Colors.white
             ),
             systemOverlayStyle: const SystemUiOverlayStyle(

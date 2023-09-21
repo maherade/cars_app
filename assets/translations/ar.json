@@ -24,7 +24,7 @@
   "recommended": "المنتج الموصي به",
   "newProducts": "احدث المنتجات",
   "bestSell": "المنتج الأكثر مبيعا",
-  "landCruz": "-لاندكروز",
+  "landcruz": "-لاندكروز",
   "camri": "كامري",
   "brado": "برادو",
   "crolla": "كرولا",
@@ -50,5 +50,6 @@
   "haval": "هفال",
   "chevrolet": "شيفروليه",
   "suzuki": "سوزوكي",
-  "mazda": "مازدا"
+  "mazda": "مازدا",
+  "delete": "حذف"
 }

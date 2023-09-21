@@ -45,7 +45,7 @@ class BrandScreen extends StatelessWidget {
               statusBarColor: ColorManager.lightColor,
             ),
             title: Text(
-              'الماركات',
+              AppLocalizations.of(context)!.translate('brands').toString(),
               style: GoogleFonts.cairo(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w700,

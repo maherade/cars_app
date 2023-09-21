@@ -199,22 +199,7 @@ class AppCubit extends Cubit<AppStates> {
   //   'assets/images/new1.jpg',
   // ];
 
-  List<String> nissanBrands = [
-    'التيما',
-    'فيرسا',
-    'روج',
-    'نافارا',
-    'سني هندي',
-    'جوك',
-    'سينترا',
-  ];
 
-  List<String> toyotaBrands = [
-    'لاندكروز',
-    'كامري',
-    'برادو',
-    'كورلا',
-  ];
 
   List<String> timaStart = [
     '2013',

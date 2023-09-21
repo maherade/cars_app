@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../business_logic/localization_cubit/app_localization.dart';
+import '../../utiles/local/cash_helper.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -47,7 +48,7 @@ class SettingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 //Profile
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     Navigator.push(context, MaterialPageRoute(
                       builder: (context) {
@@ -97,7 +98,7 @@ class SettingScreen extends StatelessWidget {
                   color: ColorManager.primaryColor,
                 ),
                 //Privacy
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     cubit.toPrivacy();
                   },
@@ -143,8 +144,20 @@ class SettingScreen extends StatelessWidget {
                   color: ColorManager.primaryColor,
                 ),
                 //Language
-                GestureDetector(
-                  onTap: () {},
+                InkWell(
+                  onTap: () {
+
+                    if (CashHelper.getData(
+                        key: CashHelper.languageKey)
+                        .toString() ==
+                        "en") {
+                      LocalizationCubit.get(context)
+                          .changeLanguage(code: "ar");
+                    } else {
+                      LocalizationCubit.get(context)
+                          .changeLanguage(code: "en");
+                    }
+                  },
                   child: Container(
                     padding: const EdgeInsets.all(10),
                     width: double.infinity,
@@ -174,9 +187,10 @@ class SettingScreen extends StatelessWidget {
                           ],
                         ),
                         Text(
-                          LocalizationCubit.get(context)
-                                      .changeLanguage(code: 'ar') ==
-                                  true
+                          CashHelper.getData(
+                              key: CashHelper.languageKey)
+                              .toString() ==
+                              "ar"
                               ? AppLocalizations.of(context)!
                                   .translate("arabic")
                                   .toString()
@@ -198,7 +212,7 @@ class SettingScreen extends StatelessWidget {
                   color: ColorManager.primaryColor,
                 ),
                 //Log Out
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     FirebaseAuth.instance.signOut();
                     Navigator.pushAndRemoveUntil(
@@ -249,7 +263,7 @@ class SettingScreen extends StatelessWidget {
                   color: ColorManager.primaryColor,
                 ),
                 //Delete Account
-                GestureDetector(
+                InkWell(
                   onTap: () {
                     cubit
                         .deleteUser(

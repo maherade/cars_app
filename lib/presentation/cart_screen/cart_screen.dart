@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../business_logic/app_cubit/app_cubit.dart';
 import '../../business_logic/app_cubit/app_states.dart';
 import '../../business_logic/localization_cubit/app_localization.dart';
+import '../../utiles/local/cash_helper.dart';
 
 class CartScreen extends StatelessWidget {
   const CartScreen({super.key});
@@ -121,11 +122,24 @@ class CartScreen extends StatelessWidget {
                                           context: context);
                                     },
                                     backgroundColor: Colors.red,
-                                    label: 'حذف',
+                                    label: AppLocalizations.of(context)!
+                                        .translate("delete")
+                                        .toString(),
                                     icon: Icons.delete,
-                                    borderRadius: const BorderRadius.only(
-                                      topRight: Radius.circular(12),
-                                      bottomRight: Radius.circular(12),
+                                    borderRadius:  BorderRadius.only(
+                                      topRight: CashHelper.languageKey
+                                        .toString() ==
+                                        "ar"? const Radius.circular(12):const Radius.circular(0),
+                                      topLeft: CashHelper.languageKey
+                                          .toString() ==
+                                          "ar"? const Radius.circular(12):const Radius.circular(0),
+                                      bottomRight: CashHelper.languageKey
+                                          .toString() ==
+                                          "ar"? const Radius.circular(12):const Radius.circular(0),
+                                      bottomLeft: CashHelper.languageKey
+                                          .toString() ==
+                                          "ar"? const Radius.circular(12):const Radius.circular(0),
+
                                     ),
                                   ),
                                 ],

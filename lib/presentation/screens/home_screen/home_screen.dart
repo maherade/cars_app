@@ -13,6 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../business_logic/localization_cubit/app_localization.dart';
+import '../../../utiles/local/cash_helper.dart';
 import '../../../widgets/brand_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -117,7 +118,7 @@ class HomeScreen extends StatelessWidget {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
-                                return const CarName(
+                                return  CarName(
                                   brandName: '',
                                 );
                               }));
@@ -240,8 +241,11 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     child: Stack(
                                       children: [
-                                        Positioned(
-                                          left: 10,
+                                        Align(
+                                          alignment: CashHelper.getData(
+                                              key: CashHelper.languageKey)
+                                              .toString() ==
+                                              "ar"? Alignment.topRight:Alignment.topLeft,
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 '${AppCubit.get(context).newSellProducts![index].imgUrl}',
@@ -262,10 +266,11 @@ class HomeScreen extends StatelessWidget {
                                             width: 70,
                                           ),
                                         ),
-                                        Positioned(
-                                          top: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .05,
+                                        Align(
+                                          alignment: CashHelper.getData(
+                                              key: CashHelper.languageKey)
+                                              .toString() ==
+                                              "ar"? Alignment.topLeft:Alignment.topRight,
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.grey.shade100,
@@ -279,7 +284,10 @@ class HomeScreen extends StatelessWidget {
                                                   AppCubit.get(context)
                                                       .insertDatabase(
                                                           name:
-                                                              '${AppCubit.get(context).newSellProducts![index].productName}',
+                                                          '${CashHelper.getData(
+                                                              key: CashHelper.languageKey)
+                                                              .toString() ==
+                                                              "ar"? AppCubit.get(context).newSellProducts![index].productName:AppCubit.get(context).newSellProducts![index].latinName}',
                                                           code:
                                                               '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
                                                           price:
@@ -335,7 +343,10 @@ class HomeScreen extends StatelessWidget {
                                           child: Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
-                                                '${AppCubit.get(context).newSellProducts![index].productName}',
+                                                '${CashHelper.getData(
+                                                    key: CashHelper.languageKey)
+                                                    .toString() ==
+                                                    "ar"? AppCubit.get(context).newSellProducts![index].productName:AppCubit.get(context).newSellProducts![index].latinName}',
                                                 style: GoogleFonts.cairo(
                                                   fontSize: 13.0,
                                                   fontWeight: FontWeight.w600,
@@ -447,8 +458,11 @@ class HomeScreen extends StatelessWidget {
                                     ),
                                     child: Stack(
                                       children: [
-                                        Positioned(
-                                          left: 10,
+                                        Align(
+                                          alignment: CashHelper.getData(
+                                              key: CashHelper.languageKey)
+                                              .toString() ==
+                                              "ar"? Alignment.topRight:Alignment.topLeft,
                                           child: CachedNetworkImage(
                                             imageUrl:
                                                 '${AppCubit.get(context).bestSellProducts![index].imgUrl}',
@@ -468,10 +482,11 @@ class HomeScreen extends StatelessWidget {
                                             ),
                                           ),
                                         ),
-                                        Positioned(
-                                          top: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              .05,
+                                        Align(
+                                          alignment: CashHelper.getData(
+                                              key: CashHelper.languageKey)
+                                              .toString() ==
+                                              "ar"? Alignment.topLeft:Alignment.topRight,
                                           child: Container(
                                             decoration: BoxDecoration(
                                                 color: Colors.grey.shade100,
@@ -485,7 +500,10 @@ class HomeScreen extends StatelessWidget {
                                                   AppCubit.get(context)
                                                       .insertDatabase(
                                                           name:
-                                                              '${AppCubit.get(context).bestSellProducts![index].productName}',
+                                                          '${CashHelper.getData(
+                                                              key: CashHelper.languageKey)
+                                                              .toString() ==
+                                                              "ar"? AppCubit.get(context).bestSellProducts![index].productName:AppCubit.get(context).bestSellProducts![index].latinName}',
                                                           code:
                                                               '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
                                                           price:
@@ -540,7 +558,10 @@ class HomeScreen extends StatelessWidget {
                                           child: Align(
                                             alignment: Alignment.centerRight,
                                             child: Text(
-                                                '${AppCubit.get(context).bestSellProducts![index].productName}',
+                                                '${CashHelper.getData(
+                                                    key: CashHelper.languageKey)
+                                                    .toString() ==
+                                                    "ar"? AppCubit.get(context).bestSellProducts![index].productName:AppCubit.get(context).bestSellProducts![index].latinName}',
                                                 style: GoogleFonts.cairo(
                                                   fontSize: 13.0,
                                                   fontWeight: FontWeight.w600,

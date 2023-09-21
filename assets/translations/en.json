@@ -24,7 +24,7 @@
   "recommended": "Hilbera pêşniyar",
   "newProducts": "Berhemên herî dawî",
   "bestSell": "Hilbera Hilberîna çêtirîn",
-  "landcruz": "-Erdê Cruise",
+  "landcruz": "Erdê Cruise",
   "camri": "Camry",
   "brado": "Prado",
   "crolla": "Krola",
@@ -50,5 +50,7 @@
   "haval": "Hval",
   "chevrolet": "Chevrolet",
   "suzuki": "Suzuki",
-  "mazda": "Mazda"
+  "mazda": "Mazda",
+  "delete": "jêbirin"
+
 }

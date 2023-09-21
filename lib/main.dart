@@ -72,7 +72,7 @@ class MyApp extends StatelessWidget {
               ),
             ),
             debugShowCheckedModeBanner: false,
-            home: SplashScreen(),
+            home: const SplashScreen(),
             localizationsDelegates: const [
               AppLocalizations.delegate,
               GlobalMaterialLocalizations.delegate,

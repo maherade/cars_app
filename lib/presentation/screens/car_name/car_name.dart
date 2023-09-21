@@ -12,7 +12,7 @@ import '../../../business_logic/localization_cubit/app_localization.dart';
 class CarName extends StatelessWidget {
   final String brandName;
 
-  const CarName({super.key, required this.brandName});
+   CarName({super.key, required this.brandName});
 
   static List<String> carNames = [
     'https://th.bing.com/th/id/OIP.TO45779tzyhiqY9n7ySUYAHaE6?pid=ImgDet&rs=1',
@@ -41,11 +41,52 @@ class CarName extends StatelessWidget {
     'https://cars.usnews.com/static/images/Auto/izmo/Colors/nissan_15sentrasr7a_amethystgray.jpg',
   ];
 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        List<String> nissanBrands = [
+          AppLocalizations.of(context)!
+              .translate("tima")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("virsa")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("rouge")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("navara")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("sunny")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("jouke")
+              .toString(),
+
+          AppLocalizations.of(context)!
+              .translate("sintra")
+              .toString(),
+        ];
+
+        List<String> toyotaBrands = [
+          AppLocalizations.of(context)!
+              .translate("landcruz")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("camri")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("brado")
+              .toString(),
+          AppLocalizations.of(context)!
+              .translate("crolla")
+              .toString(),
+        ];
         return Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(color: ColorManager.lightColor),
@@ -92,13 +133,9 @@ class CarName extends StatelessWidget {
                               AppLocalizations.of(context)!
                                   .translate("nissan")
                                   .toString()
-                              ? AppCubit
-                              .get(context)
-                              .nissanBrands
+                              ? nissanBrands
                               .length
-                              : AppCubit
-                              .get(context)
-                              .toyotaBrands
+                              : toyotaBrands
                               .length,
                               (index) =>
                               GestureDetector(
@@ -112,9 +149,7 @@ class CarName extends StatelessWidget {
                                         return CarModel(
                                           brandName: brandName,
                                           brandModel:
-                                          AppCubit
-                                              .get(context)
-                                              .nissanBrands[index],
+                                          nissanBrands[index],
                                         );
                                       }))
                                       : Navigator.push(context,
@@ -122,8 +157,7 @@ class CarName extends StatelessWidget {
                                                 return CarModel(
                                                   brandName: brandName,
                                                   brandModel:
-                                                      AppCubit.get(context)
-                                                          .toyotaBrands[index],
+                                                      toyotaBrands[index],
                                                 );
                                               }));
                                       },
@@ -170,9 +204,7 @@ class CarName extends StatelessWidget {
                                                     .translate("nissan")
                                                     .toString()
                                                 ? Text(
-                                              AppCubit
-                                                  .get(context)
-                                                  .nissanBrands[index],
+                                              nissanBrands[index],
                                               style: GoogleFonts.cairo(
                                                 fontSize: 15.0,
                                                 fontWeight:
@@ -182,8 +214,7 @@ class CarName extends StatelessWidget {
                                               textAlign: TextAlign.center,
                                                   )
                                                 : Text(
-                                                    AppCubit.get(context)
-                                                        .toyotaBrands[index],
+                                                    toyotaBrands[index],
                                                     style: GoogleFonts.cairo(
                                                       fontSize: 15.0,
                                                       fontWeight:

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../styles/color_manager.dart';
+import '../utiles/local/cash_helper.dart';
 
 class RecommendedItem extends StatelessWidget {
   const RecommendedItem({super.key,required this.index});
@@ -17,7 +18,7 @@ class RecommendedItem extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit=AppCubit.get(context);
     return Container(
-      padding: EdgeInsets.all(5),
+      padding: const EdgeInsets.all(5),
         width: MediaQuery.sizeOf(context).width * .5,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -32,8 +33,11 @@ class RecommendedItem extends StatelessWidget {
         ),
         child: Stack(
           children: [
-            Positioned(
-              left: 10,
+            Align(
+              alignment: CashHelper.getData(
+                  key: CashHelper.languageKey)
+                  .toString() ==
+                  "ar"? Alignment.topRight:Alignment.topLeft,
               child: CachedNetworkImage(
                 imageUrl:'${AppCubit.get(context).favoriteProducts!.mainProducts![index].imgUrl}',
                 height: 70,
@@ -46,8 +50,11 @@ class RecommendedItem extends StatelessWidget {
                 ),
               ),
             ),
-            Positioned(
-              top: MediaQuery.sizeOf(context).height*.05,
+            Align(
+              alignment: CashHelper.getData(
+                  key: CashHelper.languageKey)
+                  .toString() ==
+                  "ar"? Alignment.topLeft:Alignment.topRight,
               child: Container(
                 decoration: BoxDecoration(
                   color: Colors.grey.shade100,
@@ -58,7 +65,10 @@ class RecommendedItem extends StatelessWidget {
                       AppCubit.get(context).allFavorite.clear();
                       AppCubit.get(context).insertDatabase(
                           name:
-                          '${cubit.favoriteProducts!.mainProducts![index].productName}',
+                          '${CashHelper.getData(
+                              key: CashHelper.languageKey)
+                              .toString() ==
+                              "ar"?cubit.favoriteProducts!.mainProducts![index].productName:cubit.favoriteProducts!.mainProducts![index].latinName}',
                           code:'${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
                           price: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
                           number: cubit.productsFavoritesControllers[index].text==''?'1':cubit.productsFavoritesControllers[index].text,
@@ -84,7 +94,10 @@ class RecommendedItem extends StatelessWidget {
                 alignment: Alignment.centerRight,
 
                 child: Text(
-                    '${cubit.favoriteProducts!.mainProducts![index].productName}',
+                    '${CashHelper.getData(
+                        key: CashHelper.languageKey)
+                        .toString() ==
+                        "ar"?cubit.favoriteProducts!.mainProducts![index].productName:cubit.favoriteProducts!.mainProducts![index].latinName}',
                     style: GoogleFonts.cairo(
                       fontSize: 13.0,
                       fontWeight: FontWeight.w600,
@@ -118,7 +131,7 @@ class RecommendedItem extends StatelessWidget {
                       keyboardType: TextInputType.number,
                     ),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   Align(
                     alignment: Alignment.bottomLeft,
                     child: Text(
