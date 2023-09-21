@@ -28,7 +28,7 @@ class _SearchScreenState extends State<SearchScreen> {
         return Scaffold(
             appBar: AppBar(
               titleSpacing: 0.0,
-              iconTheme: const IconThemeData(color: ColorManager.white),
+              iconTheme: const IconThemeData(color: ColorManager.primaryColor),
               backgroundColor: ColorManager.primaryColor,
               elevation: 0.0,
               systemOverlayStyle: const SystemUiOverlayStyle(

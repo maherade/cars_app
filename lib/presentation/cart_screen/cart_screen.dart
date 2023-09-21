@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -52,6 +53,7 @@ class CartScreen extends StatelessWidget {
                           code: '${cubit.allFavorite[i]['code']}');
                     }
                   });
+                  PaymentManager.makePayment(2000, "USD");
                   },
                 child: Container(
                   margin: EdgeInsets.symmetric(
@@ -75,7 +77,7 @@ class CartScreen extends StatelessWidget {
                 ),
               ),
 
-              SizedBox(width: 10,),
+              const SizedBox(width: 10,),
 
             ],
           ),

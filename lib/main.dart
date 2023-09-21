@@ -3,6 +3,7 @@ import 'package:cars_app/business_logic/localization_cubit/app_localization.dart
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
 import 'package:cars_app/constants/constatnts.dart';
+import 'package:cars_app/constants/stripe/stripe_keys.dart';
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/product_screen/product_screen.dart';
 import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
@@ -17,12 +18,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await CashHelper.init();
+  Stripe.publishableKey=ApiKeys.publishedKey;
   await DioHelper.init();
   await DioHelper2.init();
   uId=CashHelper.getData(key: 'isUid');
