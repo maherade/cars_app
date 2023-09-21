@@ -6,14 +6,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../business_logic/localization_cubit/app_localization.dart';
+
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(
+    return BlocConsumer<AppCubit, AppStates>(
       builder: (context, state) {
-        var cubit=AppCubit.get(context);
+        var cubit = AppCubit.get(context);
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
           appBar: AppBar(
@@ -35,7 +37,7 @@ class ProfileScreen extends StatelessWidget {
               },
             ),
             title: Text(
-              'الحساب',
+              AppLocalizations.of(context)!.translate("account").toString(),
               style: GoogleFonts.cairo(
                 fontSize: 20.0,
                 fontWeight: FontWeight.w700,
@@ -44,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          body:  Padding(
+          body: Padding(
             padding: const EdgeInsets.all(15),
             child: Column(
               children: [
@@ -52,13 +54,11 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'الإسم: ${cubit.userModel!.userName}',
+                      '${AppLocalizations.of(context)!.translate("userName").toString()}: ${cubit.userModel!.userName}',
                       style: GoogleFonts.almarai(
                           color: ColorManager.textColor,
                           fontWeight: FontWeight.w500,
-                          fontSize:
-                          MediaQuery.of(context).size.height *
-                              .025),
+                          fontSize: MediaQuery.of(context).size.height * .025),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.height * .01,
@@ -75,13 +75,11 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'البريد الإلكتروني: ${cubit.userModel!.email}',
+                      '${AppLocalizations.of(context)!.translate("email").toString()}: ${cubit.userModel!.email}',
                       style: GoogleFonts.almarai(
                           color: ColorManager.textColor,
                           fontWeight: FontWeight.w500,
-                          fontSize:
-                          MediaQuery.of(context).size.height *
-                              .025),
+                          fontSize: MediaQuery.of(context).size.height * .025),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.height * .01,
@@ -98,13 +96,11 @@ class ProfileScreen extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      'رقم الهاتف: ${cubit.userModel!.phoneNumber}',
+                      '${AppLocalizations.of(context)!.translate("phone").toString()}: ${cubit.userModel!.phoneNumber}',
                       style: GoogleFonts.almarai(
                           color: ColorManager.textColor,
                           fontWeight: FontWeight.w500,
-                          fontSize:
-                          MediaQuery.of(context).size.height *
-                              .025),
+                          fontSize: MediaQuery.of(context).size.height * .025),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.height * .01,
@@ -117,16 +113,12 @@ class ProfileScreen extends StatelessWidget {
                 const Divider(
                   color: ColorManager.textColor,
                 ),
-
-
               ],
             ),
           ),
         );
       },
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
     );
   }
 }

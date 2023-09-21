@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../business_logic/app_cubit/app_cubit.dart';
+import '../../business_logic/localization_cubit/app_localization.dart';
 import '../../styles/color_manager.dart';
 
 class BuyScreen extends StatelessWidget {
@@ -15,9 +14,8 @@ class BuyScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(
+    return BlocConsumer<AppCubit, AppStates>(
       builder: (context, state) {
-
         return Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(color: ColorManager.textColor),
@@ -28,7 +26,7 @@ class BuyScreen extends StatelessWidget {
               statusBarColor: ColorManager.lightColor,
             ),
             title: Text(
-              'يشتري',
+              AppLocalizations.of(context)!.translate("buy").toString(),
               style: GoogleFonts.cairo(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w700,
@@ -69,19 +67,24 @@ class BuyScreen extends StatelessWidget {
                                 children: [
                                   Row(
                                     children: [
-                              CachedNetworkImage(
-                              imageUrl: '${AppCubit.get(context).userProduct[index]['image']}',
-                              height: 70,
-                              width: 70,
-                              placeholder: (context, url) => const Center(
-                                child: CircularProgressIndicator(
-                                  color:ColorManager.red,
-                                ),
-                              ),
-                              errorWidget: (context, url, error) =>  Center(
-                                child: Image.asset('assets/images/logo1.PNG',),
-                              ),
-                            ),
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            '${AppCubit.get(context).userProduct[index]['image']}',
+                                        height: 70,
+                                        width: 70,
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                          child: CircularProgressIndicator(
+                                            color: ColorManager.red,
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Center(
+                                          child: Image.asset(
+                                            'assets/images/logo1.PNG',
+                                          ),
+                                        ),
+                                      ),
                                       const SizedBox(
                                         width: 15,
                                       ),
@@ -104,7 +107,8 @@ class BuyScreen extends StatelessWidget {
                                                 ),
                                                 Text(
                                                   AppCubit.get(context)
-                                                      .userProduct[index]['numberOfProducts'],
+                                                          .userProduct[index]
+                                                      ['numberOfProducts'],
                                                   style: GoogleFonts.cairo(
                                                     fontSize: 15.0,
                                                     fontWeight: FontWeight.w600,
@@ -133,8 +137,9 @@ class BuyScreen extends StatelessWidget {
                                       //       color: ColorManager.black,
                                       //     )),
                                       const Spacer(),
-                                      Text( AppCubit.get(context)
-                                          .userProduct[index]['price'],
+                                      Text(
+                                          AppCubit.get(context)
+                                              .userProduct[index]['price'],
                                           style: GoogleFonts.cairo(
                                             fontSize: 20.0,
                                             fontWeight: FontWeight.w600,

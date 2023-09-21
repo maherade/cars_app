@@ -1,5 +1,6 @@
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
+import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
 import 'package:cars_app/presentation/screens/profile_screen/profile_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
@@ -8,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../business_logic/localization_cubit/app_localization.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
@@ -29,7 +32,7 @@ class SettingScreen extends StatelessWidget {
               statusBarColor: ColorManager.lightColor,
             ),
             title: Text(
-              'الإعدادات',
+              AppLocalizations.of(context)!.translate("settings").toString(),
               style: GoogleFonts.cairo(
                 fontSize: 16.0,
                 fontWeight: FontWeight.w700,
@@ -69,7 +72,9 @@ class SettingScreen extends StatelessWidget {
                               width: mediaQuery.width * .02,
                             ),
                             Text(
-                              'الحساب',
+                              AppLocalizations.of(context)!
+                                  .translate("account")
+                                  .toString(),
                               style: GoogleFonts.cairo(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -113,7 +118,9 @@ class SettingScreen extends StatelessWidget {
                               width: mediaQuery.width * .02,
                             ),
                             Text(
-                              'السياسات & الخصوصية',
+                              AppLocalizations.of(context)!
+                                  .translate("privacy")
+                                  .toString(),
                               style: GoogleFonts.cairo(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -155,7 +162,9 @@ class SettingScreen extends StatelessWidget {
                               width: mediaQuery.width * .02,
                             ),
                             Text(
-                              'اللغة',
+                              AppLocalizations.of(context)!
+                                  .translate("language")
+                                  .toString(),
                               style: GoogleFonts.cairo(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -164,10 +173,21 @@ class SettingScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Icon(
-                          Icons.arrow_forward_ios,
-                          color: ColorManager.primaryColor,
-                          size: 20,
+                        Text(
+                          LocalizationCubit.get(context)
+                                      .changeLanguage(code: 'ar') ==
+                                  true
+                              ? AppLocalizations.of(context)!
+                                  .translate("arabic")
+                                  .toString()
+                              : AppLocalizations.of(context)!
+                                  .translate("kurdi")
+                                  .toString(),
+                          style: GoogleFonts.cairo(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                            color: ColorManager.primaryColor,
+                          ),
                         ),
                       ],
                     ),
@@ -184,8 +204,8 @@ class SettingScreen extends StatelessWidget {
                     Navigator.pushAndRemoveUntil(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const LoginScreen()),
-                                (Route<dynamic> route) => false);
+                            builder: (context) => const LoginScreen()),
+                        (Route<dynamic> route) => false);
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -204,7 +224,9 @@ class SettingScreen extends StatelessWidget {
                               width: mediaQuery.width * .02,
                             ),
                             Text(
-                              'تسجيل الخروج',
+                              AppLocalizations.of(context)!
+                                  .translate("logOut")
+                                  .toString(),
                               style: GoogleFonts.cairo(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -232,7 +254,11 @@ class SettingScreen extends StatelessWidget {
                     cubit
                         .deleteUser(
                             id: (cubit.userModel!.uId)!, context: context)
-                        .then((value) => Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_)=>const LoginScreen()), (route) => false));
+                        .then((value) => Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (_) => const LoginScreen()),
+                            (route) => false));
                   },
                   child: Container(
                     padding: const EdgeInsets.all(10),
@@ -251,7 +277,9 @@ class SettingScreen extends StatelessWidget {
                               width: mediaQuery.width * .02,
                             ),
                             Text(
-                              'حذف الحساب',
+                              AppLocalizations.of(context)!
+                                  .translate("deleteAccount")
+                                  .toString(),
                               style: GoogleFonts.cairo(
                                 fontSize: 16.0,
                                 fontWeight: FontWeight.w500,
@@ -269,7 +297,6 @@ class SettingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-
               ],
             ),
           ),

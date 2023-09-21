@@ -1,13 +1,13 @@
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
-import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+
 import '../../../business_logic/app_cubit/app_cubit.dart';
 import '../../../business_logic/app_cubit/app_states.dart';
+import '../../../business_logic/localization_cubit/app_localization.dart';
 import '../../../styles/color_manager.dart';
 import '../../../widgets/default_text_field.dart';
 import '../../../widgets/defualtButton.dart';
@@ -26,18 +26,18 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var mediaQuery=MediaQuery.sizeOf(context);
-    return BlocConsumer<AppCubit,AppStates>(
+    var mediaQuery = MediaQuery.sizeOf(context);
+    return BlocConsumer<AppCubit, AppStates>(
       builder: (context, state) {
-        var cubit=AppCubit.get(context);
+        var cubit = AppCubit.get(context);
         return SafeArea(
           child: Scaffold(
             backgroundColor: ColorManager.red.withOpacity(.8),
-            body:Stack(
+            body: Stack(
               children: [
                 SingleChildScrollView(
                   child: Container(
-                    margin: EdgeInsets.only(top: mediaQuery.height*.35),
+                    margin: EdgeInsets.only(top: mediaQuery.height * .35),
                     width: double.infinity,
                     height: mediaQuery.height * .61,
                     decoration: const BoxDecoration(
@@ -46,18 +46,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         topLeft: Radius.circular(150),
                       ),
                     ),
-                    child:SingleChildScrollView(
+                    child: SingleChildScrollView(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(height: mediaQuery.height*.08,),
-                          Text('تسجيل الدخول',style: GoogleFonts.cairo(
-                              fontWeight: FontWeight.w700,
-                              fontSize: MediaQuery.of(context).size.height*.03,
-                              color: ColorManager.primaryColor),
+                          SizedBox(
+                            height: mediaQuery.height * .08,
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate('login')
+                                .toString(),
+                            style: GoogleFonts.cairo(
+                                fontWeight: FontWeight.w700,
+                                fontSize:
+                                    MediaQuery.of(context).size.height * .03,
+                                color: ColorManager.primaryColor),
                             textAlign: TextAlign.center,
                           ),
-                          SizedBox(height: mediaQuery.height*.04,),
+                          SizedBox(
+                            height: mediaQuery.height * .04,
+                          ),
                           SingleChildScrollView(
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -67,22 +76,29 @@ class _LoginScreenState extends State<LoginScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0),
                                       child: DefaultTextField(
-                                          hintText: "البريد الإلكتروني",
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .translate('email')
+                                                  .toString(),
                                           controller: emailController,
-                                          textInputType: TextInputType.emailAddress,
+                                          textInputType:
+                                              TextInputType.emailAddress,
                                           prefixIcon: Icons.email,
-                                          hintColor: ColorManager.primaryColor
-                                      ),
+                                          hintColor: ColorManager.primaryColor),
                                     ),
                                     SizedBox(
                                       height: mediaQuery.height * .02,
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12.0),
                                       child: DefaultTextField(
-                                        hintText: "كلمة المرور",
+                                        hintText: AppLocalizations.of(context)!
+                                            .translate('password')
+                                            .toString(),
                                         controller: passwordController,
                                         textInputType: TextInputType.text,
                                         prefixIcon: Icons.lock,
@@ -93,46 +109,84 @@ class _LoginScreenState extends State<LoginScreen> {
                                     SizedBox(
                                       height: mediaQuery.height * .02,
                                     ),
-                                    state is LoginLoadingState?
-                                    const Center(
-                                      child: CircularProgressIndicator(
-                                        color: ColorManager.primaryColor,
-                                      ),
-                                    ):
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-                                      child: DefaultButton(
-                                          buttonText: "تسجيل الدخول",
-                                          onPressed: () {
-                                            if(formKey.currentState!.validate()){
-                                              cubit.loginWithFirebaseAuth(
-                                                  email: emailController.text,
-                                                  password: passwordController.text
-                                              ).then((value) => {
-                                                cubit.loginWithApi(userName: "maher55", password: "123456"),
-                                              if((cubit.userModel!.uId)==null){
-                                                  customToast(title: '''This account doesn't exists''' , color: Colors.red.shade700)
-                                            }else{
-                                                emailController.clear(),
-                                                passwordController.clear(),
-                                                cubit.setIndex(0),
-                                                Navigator.pushReplacement(context, MaterialPageRoute(builder:(context) => const HomeLayout(),))
-                                              },
-
-                                              });
-                                            }
-                                          },
-                                          width: mediaQuery.width * .6,
-                                          color2: ColorManager.primaryColor),
-                                    ),
+                                    state is LoginLoadingState
+                                        ? const Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorManager.primaryColor,
+                                            ),
+                                          )
+                                        : Padding(
+                                            padding: const EdgeInsets.symmetric(
+                                                horizontal: 12.0),
+                                            child: DefaultButton(
+                                                buttonText: AppLocalizations.of(
+                                                        context)!
+                                                    .translate('login')
+                                                    .toString(),
+                                                onPressed: () {
+                                                  if (formKey.currentState!
+                                                      .validate()) {
+                                                    cubit
+                                                        .loginWithFirebaseAuth(
+                                                            email:
+                                                                emailController
+                                                                    .text,
+                                                            password:
+                                                                passwordController
+                                                                    .text)
+                                                        .then((value) => {
+                                                              cubit.loginWithApi(
+                                                                  userName:
+                                                                      "maher55",
+                                                                  password:
+                                                                      "123456"),
+                                                              if ((cubit
+                                                                      .userModel!
+                                                                      .uId) ==
+                                                                  null)
+                                                                {
+                                                                  customToast(
+                                                                      title:
+                                                                          '''This account doesn't exists''',
+                                                                      color: Colors
+                                                                          .red
+                                                                          .shade700)
+                                                                }
+                                                              else
+                                                                {
+                                                                  emailController
+                                                                      .clear(),
+                                                                  passwordController
+                                                                      .clear(),
+                                                                  cubit
+                                                                      .setIndex(
+                                                                          0),
+                                                                  Navigator.pushReplacement(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                        builder:
+                                                                            (context) =>
+                                                                                const HomeLayout(),
+                                                                      ))
+                                                                },
+                                                            });
+                                                  }
+                                                },
+                                                width: mediaQuery.width * .6,
+                                                color2:
+                                                    ColorManager.primaryColor),
+                                          ),
                                     SizedBox(
                                       height: mediaQuery.height * .01,
                                     ),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "ليس لديك حساب؟",
+                                          AppLocalizations.of(context)!
+                                              .translate("don'tHaveAccount")
+                                              .toString(),
                                           style: GoogleFonts.cairo(
                                               fontWeight: FontWeight.w500,
                                               color: ColorManager.textColor),
@@ -142,14 +196,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                               Navigator.of(context).push(
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                      const RegisterScreen()));
+                                                          const RegisterScreen()));
                                             },
                                             child: Text(
-                                              "إنشاء حساب",
+                                              AppLocalizations.of(context)!
+                                                  .translate("createAccount")
+                                                  .toString(),
                                               style: GoogleFonts.cairo(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,
-                                                  color: ColorManager.primaryColor),
+                                                  color: ColorManager
+                                                      .primaryColor),
                                             )),
                                       ],
                                     )
@@ -158,15 +215,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                             ),
                           ),
-
-
-
-
-
                         ],
                       ),
                     ),
-
                   ),
                 ),
               ],
@@ -174,15 +225,13 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         );
       },
-      listener:(context, state) {
-
-        if(state is LoginSuccessState){
-          Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          const HomeLayout()
-          ), (Route<dynamic> route) => false);        }
-
+      listener: (context, state) {
+        if (state is LoginSuccessState) {
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(builder: (context) => const HomeLayout()),
+              (Route<dynamic> route) => false);
+        }
       },
-
     );
   }
 }

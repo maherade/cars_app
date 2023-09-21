@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../business_logic/localization_cubit/app_localization.dart';
+
 class CarName extends StatelessWidget {
   final String brandName;
 
@@ -68,33 +70,54 @@ class CarName extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                brandName == 'نيسان' || brandName == 'تويوتا'
+                brandName ==
+                    AppLocalizations.of(context)!
+                        .translate("nissan")
+                        .toString() ||
+                    brandName ==
+                        AppLocalizations.of(context)!
+                            .translate("toyota")
+                            .toString()
                     ? Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 10, right: 10, top: 10),
-                          child: GridView.count(
-                            crossAxisCount: 3,
-                            childAspectRatio: 1 / 1.4,
-                            crossAxisSpacing: 5,
-                            mainAxisSpacing: 15,
-                            children: List.generate(
-                                brandName == 'نيسان'
-                                    ? AppCubit.get(context).nissanBrands.length
-                                    : AppCubit.get(context).toyotaBrands.length,
-                                (index) => GestureDetector(
-                                      onTap: () {
-                                        brandName == 'نيسان'
-                                            ? Navigator.push(context,
-                                                MaterialPageRoute(builder: (_) {
-                                                return CarModel(
-                                                  brandName: brandName,
-                                                  brandModel:
-                                                      AppCubit.get(context)
-                                                          .nissanBrands[index],
-                                                );
-                                              }))
-                                            : Navigator.push(context,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 10, right: 10, top: 10),
+                    child: GridView.count(
+                      crossAxisCount: 3,
+                      childAspectRatio: 1 / 1.4,
+                      crossAxisSpacing: 5,
+                      mainAxisSpacing: 15,
+                      children: List.generate(
+                          brandName ==
+                              AppLocalizations.of(context)!
+                                  .translate("nissan")
+                                  .toString()
+                              ? AppCubit
+                              .get(context)
+                              .nissanBrands
+                              .length
+                              : AppCubit
+                              .get(context)
+                              .toyotaBrands
+                              .length,
+                              (index) =>
+                              GestureDetector(
+                                onTap: () {
+                                  brandName ==
+                                      AppLocalizations.of(context)!
+                                          .translate("nissan")
+                                          .toString()
+                                      ? Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
+                                        return CarModel(
+                                          brandName: brandName,
+                                          brandModel:
+                                          AppCubit
+                                              .get(context)
+                                              .nissanBrands[index],
+                                        );
+                                      }))
+                                      : Navigator.push(context,
                                                 MaterialPageRoute(builder: (_) {
                                                 return CarModel(
                                                   brandName: brandName,
@@ -114,37 +137,49 @@ class CarName extends StatelessWidget {
                                         child: Column(
                                           children: [
                                             Image(
-                                              image: brandName == 'نيسان'
+                                              image: brandName ==
+                                                  AppLocalizations.of(
+                                                      context)!
+                                                      .translate("nissan")
+                                                      .toString()
                                                   ? NetworkImage(nissan[index])
                                                   : NetworkImage(
-                                                      carNames[index]),
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                                  carNames[index]),
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
                                                   .15,
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                              width: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
                                                   .25,
                                               fit: BoxFit.cover,
                                             ),
                                             SizedBox(
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .height *
+                                              height: MediaQuery
+                                                  .of(context)
+                                                  .size
+                                                  .height *
                                                   .02,
                                             ),
-                                            brandName == 'نيسان'
+                                            brandName ==
+                                                AppLocalizations.of(
+                                                    context)!
+                                                    .translate("nissan")
+                                                    .toString()
                                                 ? Text(
-                                                    AppCubit.get(context)
-                                                        .nissanBrands[index],
-                                                    style: GoogleFonts.cairo(
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: ColorManager.black,
-                                                    ),
-                                                    textAlign: TextAlign.center,
+                                              AppCubit
+                                                  .get(context)
+                                                  .nissanBrands[index],
+                                              style: GoogleFonts.cairo(
+                                                fontSize: 15.0,
+                                                fontWeight:
+                                                FontWeight.w600,
+                                                color: ColorManager.black,
+                                              ),
+                                              textAlign: TextAlign.center,
                                                   )
                                                 : Text(
                                                     AppCubit.get(context)

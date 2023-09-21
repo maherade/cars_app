@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../business_logic/app_cubit/app_cubit.dart';
+import '../../business_logic/localization_cubit/app_localization.dart';
 import '../../styles/color_manager.dart';
 
 class BrandScreen extends StatelessWidget {
@@ -13,9 +14,25 @@ class BrandScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppCubit,AppStates>(
-      builder:(context, state) {
-        var cubit=AppCubit.get(context);
+    return BlocConsumer<AppCubit, AppStates>(
+      builder: (context, state) {
+        var cubit = AppCubit.get(context);
+        List<String> brandNames = [
+          AppLocalizations.of(context)!.translate('toyota').toString(),
+          AppLocalizations.of(context)!.translate('nissan').toString(),
+          AppLocalizations.of(context)!.translate('wolex').toString(),
+          AppLocalizations.of(context)!.translate('mitsubeshi').toString(),
+          AppLocalizations.of(context)!.translate('ford').toString(),
+          AppLocalizations.of(context)!.translate('shangan').toString(),
+          'BMW',
+          AppLocalizations.of(context)!.translate('mercides').toString(),
+          AppLocalizations.of(context)!.translate('audi').toString(),
+          AppLocalizations.of(context)!.translate('cheri').toString(),
+          AppLocalizations.of(context)!.translate('haval').toString(),
+          AppLocalizations.of(context)!.translate('chevrolet').toString(),
+          AppLocalizations.of(context)!.translate('suzuki').toString(),
+          AppLocalizations.of(context)!.translate('mazda').toString(),
+        ];
 
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
@@ -40,11 +57,11 @@ class BrandScreen extends StatelessWidget {
           body: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-
               children: [
                 Expanded(
                   child: GridView.builder(
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3,
                       crossAxisSpacing: 8,
                       mainAxisSpacing: 8,
@@ -53,18 +70,15 @@ class BrandScreen extends StatelessWidget {
                     itemBuilder: (BuildContext context, int index) {
                       return BrandItem(index: index);
                     },
-                    itemCount: AppCubit.get(context).brandNames.length,
+                    itemCount: brandNames.length,
                   ),
                 ),
-
               ],
             ),
           ),
         );
       },
-      listener:(context, state) {
-
-      },
+      listener: (context, state) {},
     );
   }
 }

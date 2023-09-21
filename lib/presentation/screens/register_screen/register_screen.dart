@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../business_logic/app_cubit/app_states.dart';
+import '../../../business_logic/localization_cubit/app_localization.dart';
 import '../../../widgets/defualtButton.dart';
 import '../login_screen/login_screen.dart';
 
@@ -37,15 +38,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
             body: Stack(
               children: [
                 IconButton(
-                    onPressed: (){
-                       Navigator.pop(context);
+                    onPressed: () {
+                      Navigator.pop(context);
                     },
                     icon: Icon(
-                        Icons.arrow_back_ios,
-                        color: ColorManager.white,
-                        size: mediaQuery.height * .026,
-                    )
-                ),
+                      Icons.arrow_back_ios,
+                      color: ColorManager.white,
+                      size: mediaQuery.height * .026,
+                    )),
                 SingleChildScrollView(
                   child: Container(
                     margin: EdgeInsets.only(top: mediaQuery.height * .26),
@@ -65,7 +65,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             height: mediaQuery.height * .04,
                           ),
                           Text(
-                            'إنشاء حساب جديد',
+                            AppLocalizations.of(context)!
+                                .translate("createNewAccount")
+                                .toString(),
                             style: GoogleFonts.cairo(
                                 fontWeight: FontWeight.w700,
                                 fontSize:
@@ -88,7 +90,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0),
                                       child: DefaultTextField(
-                                        hintText: 'الإسم',
+                                        hintText: AppLocalizations.of(context)!
+                                            .translate("userName")
+                                            .toString(),
                                         controller: cubit.userNameController,
                                         textInputType: TextInputType.name,
                                         prefixIcon: Icons.person,
@@ -102,7 +106,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0),
                                       child: DefaultTextField(
-                                          hintText: "رقم الهاتف",
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .translate("phone")
+                                                  .toString(),
                                           controller: phoneController,
                                           textInputType: TextInputType.phone,
                                           prefixIcon: Icons.phone,
@@ -115,7 +122,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0),
                                       child: DefaultTextField(
-                                          hintText: "البريد الإلكتروني",
+                                          hintText:
+                                              AppLocalizations.of(context)!
+                                                  .translate("email")
+                                                  .toString(),
                                           controller: emailController,
                                           textInputType:
                                               TextInputType.emailAddress,
@@ -129,7 +139,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 12.0),
                                       child: DefaultTextField(
-                                        hintText: "كلمة المرور",
+                                        hintText: AppLocalizations.of(context)!
+                                            .translate("password")
+                                            .toString(),
                                         controller: passwordController,
                                         textInputType: TextInputType.text,
                                         prefixIcon: Icons.lock,
@@ -150,10 +162,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             padding: const EdgeInsets.symmetric(
                                                 horizontal: 12.0),
                                             child: DefaultButton(
-                                                buttonText: "إنشاء حساب",
+                                                buttonText: AppLocalizations.of(
+                                                        context)!
+                                                    .translate("createAccount")
+                                                    .toString(),
                                                 onPressed: () {
-                                                validateForm(const HomeLayout());
-
+                                                  validateForm(
+                                                      const HomeLayout());
                                                 },
                                                 width: mediaQuery.width * .6,
                                                 color2:
@@ -167,7 +182,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          "هل لديك حساب بالفعل؟",
+                                          AppLocalizations.of(context)!
+                                              .translate("haveAccount")
+                                              .toString(),
                                           style: GoogleFonts.cairo(
                                               fontWeight: FontWeight.w500,
                                               color: ColorManager.textColor),
@@ -180,7 +197,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                                           const LoginScreen()));
                                             },
                                             child: Text(
-                                              "تسجيل الدخول",
+                                              AppLocalizations.of(context)!
+                                                  .translate("login")
+                                                  .toString(),
                                               style: GoogleFonts.cairo(
                                                   fontSize: 15,
                                                   fontWeight: FontWeight.bold,
@@ -207,23 +226,23 @@ class _RegisterScreenState extends State<RegisterScreen> {
       listener: (context, state) {},
     );
   }
+
   void validateForm(Widget widget) {
     if (formKey.currentState!.validate()) {
-      CashHelper.saveData(key: 'userName',value: AppCubit.get(context). userNameController.text);
+      CashHelper.saveData(
+          key: 'userName',
+          value: AppCubit.get(context).userNameController.text);
       AppCubit.get(context).createAccountWithFirebaseAuth(
-        name: AppCubit.get(context).userNameController.text,
-        email: emailController.text,
-        phone: phoneController.text,
-        password: passwordController.text
-        
-      );
+          name: AppCubit.get(context).userNameController.text,
+          email: emailController.text,
+          phone: phoneController.text,
+          password: passwordController.text);
       emailController.clear();
       passwordController.clear();
-      AppCubit.get(context). userNameController.clear();
+      AppCubit.get(context).userNameController.clear();
       phoneController.clear();
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (_) => widget));
     }
   }
-
 }

@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
@@ -7,7 +5,6 @@ import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/screens/car_name/car_name.dart';
 import 'package:cars_app/presentation/screens/search_screen/search_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
-import 'package:cars_app/widgets/default_text_field.dart';
 import 'package:cars_app/widgets/recomended_item.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../business_logic/localization_cubit/app_localization.dart';
 import '../../../widgets/brand_item.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -49,10 +47,13 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Text('Nissan Group',
                     style: GoogleFonts.cairo(
-                  fontSize: MediaQuery.of(context).size.height * .03,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.red,
-                ))
+                      fontSize: MediaQuery
+                          .of(context)
+                          .size
+                          .height * .03,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.red,
+                    ))
               ],
             ),
           ),
@@ -62,7 +63,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>  SearchScreen(),
+                      builder: (context) => SearchScreen(),
                     ));
               },
               child: const Padding(
@@ -138,9 +139,15 @@ class HomeScreen extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('المنتج الموصي بيه',
+                    child: Text(
+                        AppLocalizations.of(context)!
+                            .translate('recommended')
+                            .toString(),
                         style: GoogleFonts.cairo(
-                          fontSize: MediaQuery.of(context).size.height * .023,
+                          fontSize: MediaQuery
+                              .of(context)
+                              .size
+                              .height * .023,
                           fontWeight: FontWeight.w500,
                           color: ColorManager.black,
                         )),
@@ -151,16 +158,21 @@ class HomeScreen extends StatelessWidget {
                   ),
 
                   // المنتج الموصي بيه
-                  AppCubit.get(context)
-                          .favoriteProducts!
-                          .mainProducts!
-                          .isEmpty
+                  AppCubit
+                      .get(context)
+                      .favoriteProducts!
+                      .mainProducts!
+                      .isEmpty
                       ? const Center(
-                          child: CircularProgressIndicator(
-                            color: ColorManager.textColor,
-                          ),
-                        ):SizedBox(
-                    height: MediaQuery.of(context).size.height * .3,
+                    child: CircularProgressIndicator(
+                      color: ColorManager.textColor,
+                    ),
+                  )
+                      : SizedBox(
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * .3,
                     child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
@@ -174,10 +186,12 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                       itemCount:
-                      AppCubit.get(context).newSellProducts!.length,
+                      AppCubit
+                          .get(context)
+                          .newSellProducts!
+                          .length,
                     ),
                   ),
-
 
                   const SizedBox(
                     height: 15,
@@ -185,9 +199,15 @@ class HomeScreen extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('احدث المنتجات',
+                    child: Text(
+                        AppLocalizations.of(context)!
+                            .translate('newProducts')
+                            .toString(),
                         style: GoogleFonts.cairo(
-                          fontSize: MediaQuery.of(context).size.height * .023,
+                          fontSize: MediaQuery
+                              .of(context)
+                              .size
+                              .height * .023,
                           fontWeight: FontWeight.w500,
                           color: ColorManager.black,
                         )),
@@ -284,7 +304,11 @@ class HomeScreen extends StatelessWidget {
                                                         color: ColorManager
                                                             .darkGrey,
                                                         title:
-                                                            'تم اضافه المنتج في السله');
+                                                        AppLocalizations.of(
+                                                            context)!
+                                                            .translate(
+                                                            'addToCart')
+                                                            .toString());
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
@@ -388,7 +412,10 @@ class HomeScreen extends StatelessWidget {
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('المنتج الاكثر مبيعا',
+                    child: Text(
+                        AppLocalizations.of(context)!
+                            .translate('bestSell')
+                            .toString(),
                         style: GoogleFonts.cairo(
                           fontSize: MediaQuery.of(context).size.height * .023,
                           fontWeight: FontWeight.w500,
@@ -482,8 +509,11 @@ class HomeScreen extends StatelessWidget {
                                                     customToast(
                                                         color: ColorManager
                                                             .darkGrey,
-                                                        title:
-                                                            'تم اضافه المنتج في السله');
+                                                        title: AppLocalizations
+                                                                .of(context)!
+                                                            .translate(
+                                                                'addedToCart')
+                                                            .toString());
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
