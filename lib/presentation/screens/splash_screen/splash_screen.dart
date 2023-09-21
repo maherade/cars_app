@@ -29,19 +29,20 @@ class _SplashScreenState extends State<SplashScreen> {
 
     Future.delayed(const Duration(seconds: 3),()async{
 
-      CashHelper.getData(key: 'isUid')==null?
+      AppCubit.get(context).getFavoriteProductFromApi().then((value) {
+        CashHelper.getData(key: 'isUid')==null?
 
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
+        const LoginScreen()
+        ), (Route<dynamic> route) => false)
+
+            :{
+          AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-          const OnBoarding()
-          ), (Route<dynamic> route) => false)
-
-          :{
-            AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty?
-            Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-             const HomeLayout()
-             ), (Route<dynamic> route) => false):Container()
-      };
-
+          const HomeLayout()
+          ), (Route<dynamic> route) => false):Container()
+        };
+      });
 
 
     });
@@ -75,26 +76,25 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               height: double.infinity,
               width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+              child: Stack(
 
                 children:  [
 
-                  SizedBox(height: MediaQuery.of(context).size.height*.22,),
-                  Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Image(
-                      image: AssetImage(
-                        'assets/images/logo1.PNG',
-                      ),
-                      width: MediaQuery.of(context).size.height*.5,
-                      height: MediaQuery.of(context).size.height*.5,
-                    )
+                  Positioned(
+                    top: MediaQuery.of(context).size.height*.15,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Image(
+                        image: const AssetImage(
+                          'assets/images/logo1.PNG',
+                        ),
+                        width: MediaQuery.of(context).size.height*.5,
+                        height: MediaQuery.of(context).size.height*.5,
+                      )
+                    ),
                   ),
 
                   SizedBox(height: MediaQuery.of(context).size.height*.02,),
-
-
 
 
                 ],

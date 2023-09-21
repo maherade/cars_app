@@ -35,7 +35,7 @@ class RecommendedItem extends StatelessWidget {
             Positioned(
               left: 10,
               child: CachedNetworkImage(
-                imageUrl:'${AppCubit.get(context).newSellProducts![index].imgUrl}',
+                imageUrl:'${AppCubit.get(context).favoriteProducts!.mainProducts![index].imgUrl}',
                 height: 70,
                 width: 70,
                 placeholder: (context, url) => const Center(

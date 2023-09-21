@@ -47,7 +47,6 @@ class MyApp extends StatelessWidget {
             create: (BuildContext context) => AppCubit()
               ..createDatabase()
               ..getMostProductSell()
-              ..getFavoriteProductFromApi()
               ..getNewProduct()
               ..getUser(id: uId==null?uId='':uId!)
         ),

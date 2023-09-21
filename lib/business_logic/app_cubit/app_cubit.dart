@@ -38,7 +38,6 @@ class AppCubit extends Cubit<AppStates> {
     const BrandScreen(),
     const CartScreen(),
     const BuyScreen(),
-    const CashScreen(),
     const SettingScreen()
   ];
 
@@ -103,52 +102,7 @@ class AppCubit extends Cubit<AppStates> {
     'مازدا',
   ];
 
-  List<String> partNames = [
-    'assets/images/part1.jpg',
-    'assets/images/part2.jpg',
-    'assets/images/part3.jpg',
-    'assets/images/part4.jpg',
-    'assets/images/part5.jpg',
-    'assets/images/part6.jpg',
-    'assets/images/part7.jpg',
-    'assets/images/part8.jpg',
-    'assets/images/part9.jpg',
-    'assets/images/part10.jpg',
-    'assets/images/part11.jpg',
-    'assets/images/part1.jpg',
-    'assets/images/part2.jpg',
-    'assets/images/part3.jpg',
-    'assets/images/part4.jpg',
-    'assets/images/part5.jpg',
-    'assets/images/part6.jpg',
-    'assets/images/part7.jpg',
-    'assets/images/part8.jpg',
-    'assets/images/part9.jpg',
-    'assets/images/part10.jpg',
-    'assets/images/part11.jpg',
-    'assets/images/part1.jpg',
-    'assets/images/part2.jpg',
-    'assets/images/part3.jpg',
-    'assets/images/part4.jpg',
-    'assets/images/part5.jpg',
-    'assets/images/part6.jpg',
-    'assets/images/part7.jpg',
-    'assets/images/part8.jpg',
-    'assets/images/part9.jpg',
-    'assets/images/part10.jpg',
-    'assets/images/part11.jpg',
-    'assets/images/part1.jpg',
-    'assets/images/part2.jpg',
-    'assets/images/part3.jpg',
-    'assets/images/part4.jpg',
-    'assets/images/part5.jpg',
-    'assets/images/part6.jpg',
-    'assets/images/part7.jpg',
-    'assets/images/part8.jpg',
-    'assets/images/part9.jpg',
-    'assets/images/part10.jpg',
-    'assets/images/part11.jpg',
-  ];
+
 
   List<String> brandImages = [
     'assets/images/toyota.png',
@@ -172,7 +126,6 @@ class AppCubit extends Cubit<AppStates> {
     'الماركات',
     'هويه التسوق',
     'يشتري',
-    'ايصال',
     'الاعدادات'
   ];
 
@@ -852,12 +805,12 @@ class AppCubit extends Cubit<AppStates> {
           newSellProducts!.add(element);
         }
       });
-      imageUrl = ProductModel.fromJson(value.data);
-      imageUrl!.mainProducts!.forEach((element) {
-        if (element.imgUrl == true) {
-          newSellProducts!.add(element);
-        }
-      });
+      // imageUrl = ProductModel.fromJson(value.data);
+      // imageUrl!.mainProducts!.forEach((element) {
+      //   if (element.imgUrl == true) {
+      //     newSellProducts!.add(element);
+      //   }
+      // });
       emit(GetNewSellProductsFromApiSuccessState());
     }).catchError((error) {
       print('Error in Get NewSell Products From Api is :${error.toString()}');

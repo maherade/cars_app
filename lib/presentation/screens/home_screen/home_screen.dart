@@ -154,30 +154,30 @@ class HomeScreen extends StatelessWidget {
                   AppCubit.get(context)
                           .favoriteProducts!
                           .mainProducts!
-                          .isNotEmpty
-                      ? SizedBox(
-                          height: MediaQuery.of(context).size.height * .3,
-                          child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return RecommendedItem(
-                                index: index,
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                width: 10,
-                              );
-                            },
-                            itemCount:
-                                AppCubit.get(context).newSellProducts!.length,
-                          ),
-                        )
-                      : const Center(
+                          .isEmpty
+                      ? const Center(
                           child: CircularProgressIndicator(
                             color: ColorManager.textColor,
                           ),
-                        ),
+                        ):SizedBox(
+                    height: MediaQuery.of(context).size.height * .3,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (context, index) {
+                        return RecommendedItem(
+                          index: index,
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const SizedBox(
+                          width: 10,
+                        );
+                      },
+                      itemCount:
+                      AppCubit.get(context).newSellProducts!.length,
+                    ),
+                  ),
+
 
                   const SizedBox(
                     height: 15,

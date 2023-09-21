@@ -20,7 +20,6 @@ class BrandScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
           appBar: AppBar(
-            titleSpacing: 0.0,
             iconTheme: const IconThemeData(color: ColorManager.textColor),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,

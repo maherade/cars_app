@@ -269,10 +269,7 @@ class SettingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                Divider(
-                  height: mediaQuery.height * .01,
-                  color: ColorManager.primaryColor,
-                ),
+
               ],
             ),
           ),
