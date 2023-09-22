@@ -172,10 +172,11 @@ class ProductScreen extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 Text(
-                                                    cubit
-                                                        .products!
-                                                        .mainProducts![index]
-                                                        .productName!,
+                                                    '${CashHelper.getData(
+                                                key: CashHelper.languageKey)
+                                                .toString() ==
+                                                "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
+
                                                     style: GoogleFonts.cairo(
                                                       fontSize: 15.0,
                                                       fontWeight:
@@ -249,7 +250,10 @@ class ProductScreen extends StatelessWidget {
                                               AppCubit.get(context)
                                                   .insertDatabase(
                                                       name:
-                                                          '${cubit.products!.mainProducts![index].productName}',
+                                                      '${CashHelper.getData(
+                                                          key: CashHelper.languageKey)
+                                                          .toString() ==
+                                                          "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
                                                       code:
                                                           '${cubit.products!.mainProducts![index].productModelGuide}',
                                                       price:

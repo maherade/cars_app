@@ -14,20 +14,20 @@ class BrandItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> brandNames = [
-      AppLocalizations.of(context)!.translate('toyota').toString(),
-      AppLocalizations.of(context)!.translate('nissan').toString(),
-      AppLocalizations.of(context)!.translate('wolex').toString(),
-      AppLocalizations.of(context)!.translate('mitsubeshi').toString(),
-      AppLocalizations.of(context)!.translate('ford').toString(),
-      AppLocalizations.of(context)!.translate('shangan').toString(),
+      'تويوتا',
+      'نيسان',
+      'فولكس واجن',
+      'ميتسوبيشي',
+      'فورد',
+      'شنجان',
       'BMW',
-      AppLocalizations.of(context)!.translate('mercides').toString(),
-      AppLocalizations.of(context)!.translate('audi').toString(),
-      AppLocalizations.of(context)!.translate('cheri').toString(),
-      AppLocalizations.of(context)!.translate('haval').toString(),
-      AppLocalizations.of(context)!.translate('chevrolet').toString(),
-      AppLocalizations.of(context)!.translate('suzuki').toString(),
-      AppLocalizations.of(context)!.translate('mazda').toString(),
+      'مرسيدس',
+      'أودي',
+      'شيري',
+      'هفال',
+      'شيفروليه',
+      'سوزوكي',
+      'مازدا',
     ];
 
     return InkWell(

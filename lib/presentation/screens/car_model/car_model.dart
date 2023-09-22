@@ -46,7 +46,7 @@ class CarModel extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              '${brandModel} - ${brandName}',
+              '$brandModel - $brandName',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
@@ -74,10 +74,7 @@ class CarModel extends StatelessWidget {
               children: [
 
 
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("tima").toString() ?
+            brandName=='نيسان' && brandModel=='التيما'?
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -178,11 +175,7 @@ class CarModel extends StatelessWidget {
                     ),
                   ),
                 ) :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("virsa").toString()
-                    ?
+            brandName=='نيسان' && brandModel=='فيرسا'?
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -284,12 +277,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("rouge").toString()
-                    ?
-                Expanded(
+            brandName=='نيسان' && brandModel=='روج'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -390,12 +380,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("navara").toString()
-                    ?
-                Expanded(
+            brandName=='نيسان' && brandModel=='نافارا'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -497,12 +484,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("sunny").toString()
-                    ?
-                Expanded(
+            brandName=='نيسان' && brandModel=='سني هندي'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -603,12 +587,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("jouke").toString()
-                    ?
-                Expanded(
+            brandName=='نيسان' && brandModel=='جوك'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -709,12 +690,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("nissan")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("sintra").toString()
-                    ?
-                Expanded(
+            brandName=='نيسان' && brandModel=='سينترا'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -816,12 +794,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("toyota")
-                    .toString() && brandModel == AppLocalizations.of(context)!
-                    .translate("landCruz")
-                    .toString() ?
-                Expanded(
+            brandName=='تويوتا' && brandModel=='لاندكروز'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -921,12 +896,9 @@ class CarModel extends StatelessWidget {
                     ),
                   ),
                 ) :
-                brandName == AppLocalizations.of(context)!
-                    .translate("toyota")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("camri").toString()
-                    ?
-                Expanded(
+            brandName=='تويوتا' && brandModel=='كامري'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10,
                         right: 10,
@@ -1028,12 +1000,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("toyota")
-                    .toString() && brandModel ==
-                    AppLocalizations.of(context)!.translate("brado").toString()
-                    ?
-                Expanded(
+            brandName=='تويوتا' && brandModel=='برادو'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),
@@ -1134,11 +1103,9 @@ class CarModel extends StatelessWidget {
                   ),
                 )
                     :
-                brandName == AppLocalizations.of(context)!
-                    .translate("toyota")
-                    .toString() && brandModel == AppLocalizations.of(context)!
-                    .translate("crolla").toString() ?
-                Expanded(
+            brandName=='تويوتا' && brandModel=='كورلا'?
+
+            Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
                         left: 10, right: 10, top: 10),

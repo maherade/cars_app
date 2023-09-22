@@ -12,7 +12,7 @@ import '../../../business_logic/localization_cubit/app_localization.dart';
 class CarName extends StatelessWidget {
   final String brandName;
 
-   CarName({super.key, required this.brandName});
+   const CarName({super.key, required this.brandName});
 
   static List<String> carNames = [
     'https://th.bing.com/th/id/OIP.TO45779tzyhiqY9n7ySUYAHaE6?pid=ImgDet&rs=1',
@@ -49,43 +49,20 @@ class CarName extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         List<String> nissanBrands = [
-          AppLocalizations.of(context)!
-              .translate("tima")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("virsa")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("rouge")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("navara")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("sunny")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("jouke")
-              .toString(),
-
-          AppLocalizations.of(context)!
-              .translate("sintra")
-              .toString(),
+          'التيما',
+          'فيرسا',
+          'روج',
+          'نافارا',
+          'سني هندي',
+          'جوك',
+          'سينترا',
         ];
 
         List<String> toyotaBrands = [
-          AppLocalizations.of(context)!
-              .translate("landcruz")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("camri")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("brado")
-              .toString(),
-          AppLocalizations.of(context)!
-              .translate("crolla")
-              .toString(),
+          'لاندكروز',
+          'كامري',
+          'برادو',
+          'كورلا',
         ];
         return Scaffold(
           appBar: AppBar(
@@ -111,14 +88,7 @@ class CarName extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                brandName ==
-                    AppLocalizations.of(context)!
-                        .translate("nissan")
-                        .toString() ||
-                    brandName ==
-                        AppLocalizations.of(context)!
-                            .translate("toyota")
-                            .toString()
+                brandName == 'نيسان' || brandName == 'تويوتا'
                     ? Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -130,9 +100,7 @@ class CarName extends StatelessWidget {
                       mainAxisSpacing: 15,
                       children: List.generate(
                           brandName ==
-                              AppLocalizations.of(context)!
-                                  .translate("nissan")
-                                  .toString()
+                              'نيسان'
                               ? nissanBrands
                               .length
                               : toyotaBrands
@@ -141,9 +109,7 @@ class CarName extends StatelessWidget {
                               GestureDetector(
                                 onTap: () {
                                   brandName ==
-                                      AppLocalizations.of(context)!
-                                          .translate("nissan")
-                                          .toString()
+                                      'نيسان'
                                       ? Navigator.push(context,
                                       MaterialPageRoute(builder: (_) {
                                         return CarModel(
@@ -172,10 +138,8 @@ class CarName extends StatelessWidget {
                                           children: [
                                             Image(
                                               image: brandName ==
-                                                  AppLocalizations.of(
-                                                      context)!
-                                                      .translate("nissan")
-                                                      .toString()
+                                                  'نيسان'
+
                                                   ? NetworkImage(nissan[index])
                                                   : NetworkImage(
                                                   carNames[index]),
@@ -199,10 +163,8 @@ class CarName extends StatelessWidget {
                                                   .02,
                                             ),
                                             brandName ==
-                                                AppLocalizations.of(
-                                                    context)!
-                                                    .translate("nissan")
-                                                    .toString()
+                                                'نيسان'
+
                                                 ? Text(
                                               nissanBrands[index],
                                               style: GoogleFonts.cairo(
