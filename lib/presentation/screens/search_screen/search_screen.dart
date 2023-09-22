@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../../business_logic/app_cubit/app_states.dart';
 import '../../../business_logic/localization_cubit/app_localization.dart';
 import '../../../styles/color_manager.dart';
+import '../../../utiles/local/cash_helper.dart';
 import '../../../widgets/toast.dart';
 
 class SearchScreen extends StatefulWidget {
@@ -125,8 +126,13 @@ class _SearchScreenState extends State<SearchScreen> {
                                 child: Column(
                                   children: [
                                     Text(
+    CashHelper.getData(
+    key: CashHelper.languageKey)
+        .toString() ==
+    "ar"?
                                         AppCubit.get(context).search[index]
-                                            ['ProductName'],
+                                            ['ProductName']:AppCubit.get(context).search[index]
+    ['LatinName'],
                                         style: GoogleFonts.cairo(
                                           fontSize: 15.0,
                                           fontWeight: FontWeight.w600,
@@ -209,7 +215,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                       .then((value) {
                                     customToast(
                                         color: ColorManager.darkGrey,
-                                        title: 'تم اضافه المنتج في السله');
+                                        title: AppLocalizations.of(context)!
+                                            .translate("addedToCart")
+                                            .toString(),);
                                   }).then((value) {
                                     AppCubit.get(context).increaseCounter();
                                   });
@@ -218,7 +226,9 @@ class _SearchScreenState extends State<SearchScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 color: ColorManager.primaryColor,
-                                child: Text('اضافه',
+                                child: Text(AppLocalizations.of(context)!
+                                    .translate("add")
+                                    .toString(),
                                     style: GoogleFonts.cairo(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w600,
