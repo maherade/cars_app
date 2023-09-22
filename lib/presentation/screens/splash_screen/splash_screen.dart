@@ -91,6 +91,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     )
                   ),
 
+
                   SizedBox(height: MediaQuery.of(context).size.height*.02,),
 
 
