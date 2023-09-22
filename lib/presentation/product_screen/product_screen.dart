@@ -190,16 +190,6 @@ class ProductScreen extends StatelessWidget {
                                       ),
                                       Row(
                                         children: [
-                                          // const Icon(
-                                          //   Icons.qr_code,
-                                          //   color: Colors.black,
-                                          // ),
-                                          // Text("{cubit.products!.mainProducts![index].productModelGuide}",
-                                          //     style: GoogleFonts.cairo(
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w600,
-                                          //       color: ColorManager.black,
-                                          //     )),
                                           const Spacer(),
                                           Text(
                                               '${cubit.products!.mainProducts![index].wholePrice!}\$',
@@ -259,8 +249,7 @@ class ProductScreen extends StatelessWidget {
                                                       price:
                                                           '${cubit.products!.mainProducts![index].wholePrice}\$',
                                                       number: cubit
-                                                                  .productsControllers[
-                                                                      index]
+                                                                  .productsControllers[index]
                                                                   .text ==
                                                               ''
                                                           ? '1'
@@ -281,6 +270,7 @@ class ProductScreen extends StatelessWidget {
                                                 );
                                               }).then((value) {
                                                 cubit.increaseCounter();
+                                                cubit.productsControllers[index].clear();
                                               });
                                             },
                                             shape: RoundedRectangleBorder(

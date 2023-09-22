@@ -11,10 +11,18 @@ import '../../../business_logic/localization_cubit/app_localization.dart';
 
 class CarModel extends StatelessWidget {
   final String brandName;
+  final String brandNameString;
   final String brandModel;
+  final String brandModelString;
 
   const CarModel(
-      {super.key, required this.brandName, required this.brandModel});
+      {
+        super.key,
+        required this.brandName,
+        required this.brandModel,
+        required this.brandNameString,
+        required this.brandModelString
+      });
 
   static List<String> carNames = [
     'https://th.bing.com/th/id/OIP.yKfI3VjPfM00suoyrvVh1gHaFj?pid=ImgDet&w=474&h=355&rs=1',
@@ -46,7 +54,7 @@ class CarModel extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              '$brandModel - $brandName',
+              '$brandModelString - $brandNameString',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,

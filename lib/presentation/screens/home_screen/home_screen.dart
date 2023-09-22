@@ -87,8 +87,8 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   CarouselSlider(
                     items: AppCubit.get(context).carouselImage.map((e) {
-                      return Image(
-                        image: NetworkImage(e),
+                      return CachedNetworkImage(
+                        imageUrl: e,
                         width: double.infinity,
                         fit: BoxFit.fill,
                       );
@@ -114,17 +114,7 @@ class HomeScreen extends StatelessWidget {
                     child: ListView.separated(
                         scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (_) {
-                                return  CarName(
-                                  brandName: '',
-                                );
-                              }));
-                            },
-                            child: BrandItem(index: index),
-                          );
+                          return BrandItem(index: index);
                         },
                         separatorBuilder: (context, index) {
                           return const SizedBox(

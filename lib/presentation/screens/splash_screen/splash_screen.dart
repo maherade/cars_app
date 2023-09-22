@@ -76,22 +76,19 @@ class _SplashScreenState extends State<SplashScreen> {
               ),
               height: double.infinity,
               width: double.infinity,
-              child: Stack(
-
+              child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
 
-                  Positioned(
-                    top: MediaQuery.of(context).size.height*.15,
-                    child: Padding(
-                      padding: const EdgeInsets.all(12.0),
-                      child: Image(
-                        image: const AssetImage(
-                          'assets/images/logo1.PNG',
-                        ),
-                        width: MediaQuery.of(context).size.height*.5,
-                        height: MediaQuery.of(context).size.height*.5,
-                      )
-                    ),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Image(
+                      image: const AssetImage(
+                        'assets/images/logo1.PNG',
+                      ),
+                      width: MediaQuery.of(context).size.height*.5,
+                      height: MediaQuery.of(context).size.height*.5,
+                    )
                   ),
 
                   SizedBox(height: MediaQuery.of(context).size.height*.02,),

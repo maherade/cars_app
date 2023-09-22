@@ -105,20 +105,20 @@ class AppCubit extends Cubit<AppStates> {
 
 
   List<String> brandImages = [
-    'assets/images/toyota.png',
-    'assets/images/nissan.png',
-    'assets/images/wol.png',
-    'assets/images/mits.png',
-    'assets/images/ford.png',
-    'assets/images/chan.png',
-    'assets/images/bmw.png',
-    'assets/images/mercedes.png',
-    'assets/images/audi.png',
-    'assets/images/cher.png',
-    'assets/images/hav.png',
-    'assets/images/chef.png',
-    'assets/images/suz.png',
-    'assets/images/mazda.png',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/toyota.png?alt=media&token=1d0df880-8cb5-493c-8734-fb4f5280d856',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/nissan.png?alt=media&token=a4facca8-541c-420f-bec4-9189fa31b022',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/wol.png?alt=media&token=89efb558-b3fd-42bf-82da-12ea19781385',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mits.png?alt=media&token=0648ea19-896a-4c40-94c2-2dda05b5a42c',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/ford.png?alt=media&token=c30da850-14a1-4280-bab2-5597500e8a24',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/chan.png?alt=media&token=e46f560e-26f4-473c-b27e-5cad58564811',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/bmw.png?alt=media&token=02e0a30e-ee20-4b77-af5d-3e49bab030a6',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mercedes.png?alt=media&token=2e064123-3c83-4718-8ea4-ab1e193df4af',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/audi.png?alt=media&token=3ed4ba1a-2b08-44ba-ae9b-f8843c464c30',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/cher.png?alt=media&token=c3fb1ba9-8f2f-433a-a7c6-4c2dac7a12a4',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/hav.png?alt=media&token=0302666d-ddda-493a-ad79-899f71e1e728',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/chef.png?alt=media&token=4d0a48ea-c661-4c56-8bb6-abd0adea791a',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/suz.png?alt=media&token=c33894b0-c675-4d59-bfe1-e4bb257c58af',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mazda.png?alt=media&token=e08e4f7b-a7c9-4a0a-a16c-6266b1a5c491',
   ];
 
   List<String> screenTitles = [
