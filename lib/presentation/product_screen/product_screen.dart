@@ -247,7 +247,7 @@ class ProductScreen extends StatelessWidget {
                                                       code:
                                                           '${cubit.products!.mainProducts![index].productModelGuide}',
                                                       price:
-                                                          '${cubit.products!.mainProducts![index].wholePrice}\$',
+                                                          '${cubit.products!.mainProducts![index].wholePrice}',
                                                       number: cubit
                                                                   .productsControllers[index]
                                                                   .text ==

@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
+import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/data/modles/invoice_details_model.dart';
 import 'package:cars_app/data/modles/product_model.dart';
 import 'package:cars_app/data/modles/token_model.dart';
@@ -331,6 +333,7 @@ class AppCubit extends Cubit<AppStates> {
       {required String email,
       required String password,
       required String name,
+        required context,
       required String phone}) async {
     try {
       emit(SignUpLoadingState());
@@ -349,7 +352,7 @@ class AppCubit extends Cubit<AppStates> {
         emit(SignUpSuccessState());
         CashHelper.saveData(key: 'isUid', value: credential.user?.uid);
         customToast(
-          title: 'Account Created Successfully',
+          title: AppLocalizations.of(context)!.translate('Account Created Successfully').toString(),
           color: ColorManager.blue,
         );
         getUser(id: (credential.user?.uid)!);
@@ -360,7 +363,8 @@ class AppCubit extends Cubit<AppStates> {
       } else if (e.code == FirebaseErrors.emailInUse) {
         emit(SignUpErrorState(e.toString()));
         customToast(
-          title: 'This account already exists',
+
+          title:  AppLocalizations.of(context)!.translate('This account already exists').toString(),
           color: ColorManager.red,
         );
         print("--------------Failed To Create Account");
@@ -369,7 +373,7 @@ class AppCubit extends Cubit<AppStates> {
   }
 
   Future<void> loginWithFirebaseAuth(
-      {required String email, required String password}) async {
+      {required String email, required String password,required context}) async {
     try {
       emit(LoginLoadingState());
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
@@ -379,7 +383,7 @@ class AppCubit extends Cubit<AppStates> {
       UserModel? user = await readUserFromFireStore(credential.user?.uid ?? "");
       if (user == null) {
         return customToast(
-            title: '''This account doesn't exists''',
+            title: AppLocalizations.of(context)!.translate('This account doesn\'t exists').toString(),
             color: Colors.red.shade700);
       }
       if (user != null) {
@@ -394,9 +398,13 @@ class AppCubit extends Cubit<AppStates> {
       emit(LoginErrorState(e.toString()));
       print("-----------Login Failed");
 
-      customToast(title: 'Invalid email or password', color: ColorManager.red);
+      customToast(
+          title: AppLocalizations.of(context)!.translate('Invalid email or password').toString(),
+          color: ColorManager.red);
     } catch (e) {
-      customToast(title: 'Something went wrong $e', color: ColorManager.red);
+      customToast(
+          title: '${AppLocalizations.of(context)!.translate('Invalid email or password').toString()} $e',
+          color: ColorManager.red);
     }
   }
 
@@ -650,9 +658,9 @@ class AppCubit extends Cubit<AppStates> {
     emit(AddUserProductsErrorState());
   }
 
-  List<Map> userProduct = [];
+  List userProduct = [];
 
-  Future<void> getUserProductsFromFireStore() async {
+  Future<void> getUserProductsFromFireStore({required context}) async {
     emit(GetUserProductsLoadingState());
     userProduct = [];
     return await FirebaseFirestore.instance
@@ -668,17 +676,34 @@ class AppCubit extends Cubit<AppStates> {
         emit(GetUserProductsSuccessState());
       });
       for (int i = 0; i < userProduct.length; i++) {
+        totalPrice = totalPrice + (double.parse(userProduct[i]['price'])*double.parse(userProduct[i]['numberOfProducts'])) ;
+      }
+      print('////////////////////////////////////////');
+      print(totalPrice);
+      print('////////////////////////////////////////');
+
+
+        PaymentManager.makePayment((totalPrice).toInt() , "USD",context).then((value) {
+          FirebaseFirestore.instance
+              .collection("userPayments")
+              .doc(userModel!.uId)
+              .set({
+            'totalPrice':totalPrice
+          }).then((value) {
+            totalPrice=0;
+
+          });
+        });
+
+
+      emit(GetUserProductsSuccessState());
+
+      for (int i = 0; i < userProduct.length; i++) {
         invoiceDetails[i].productGuide != userProduct[i]['code'];
         invoiceDetails[i].quantity != userProduct[i]['numberOfProducts'];
         invoiceDetails[i].totalValue != userProduct[i]['price'];
       }
-      double productNumber = 1;
-      for (int i = 0; i < userProduct.length; i++) {
-        productNumber = 1;
-        productNumber = userProduct[i]['numberOfProducts'];
-        totalPrice = totalPrice + (userProduct[i]['price'] * productNumber);
-        print(totalPrice);
-      }
+
       emit(GetUserProductsErrorState());
     });
   }
@@ -706,7 +731,7 @@ class AppCubit extends Cubit<AppStates> {
             productId: '${allFavorite[i]['id']}',
             code: '${allFavorite[i]['address']}');
       }
-      getUserProductsFromFireStore();
+      getUserProductsFromFireStore(context: context);
       addCashWithApi();
 
       for (int i = 0; i < allFavorite.length; i++) {
@@ -844,6 +869,23 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetTokenFromApiErrorState());
     });
   }
+
+
+
+  Future<void> addUserPaymentToFireBase() async {
+    emit(AddUserProductsLoadingState());
+    FirebaseFirestore.instance
+        .collection("userPayments")
+        .doc(userModel!.uId)
+        .collection('products')
+        .add({
+      'products':userProduct.toList()
+    }).then((value) => {
+      emit(AddUserProductsSuccessState()),
+    });
+    emit(AddUserProductsErrorState());
+  }
+
 
 // "ProductGuide":"D2B9B04D-33EA-4122-8FF5-010E32FBEE5E",
 //               "Quantity" :"1",

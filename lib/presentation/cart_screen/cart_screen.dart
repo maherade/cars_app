@@ -55,7 +55,7 @@ class CartScreen extends StatelessWidget {
                           code: '${cubit.allFavorite[i]['code']}');
                     }
                   });
-                  PaymentManager.makePayment(2000, "USD");
+
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(
@@ -96,162 +96,165 @@ class CartScreen extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () {
-                            print(
-                                AppCubit.get(context).allFavorite[index]['id']);
-                            // AppCubit.get(context).deleteDatabase(
-                            //     id: '${AppCubit.get(context).allFavorite[index]['id']}',
-                            //     context: context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.red),
-                            child: Slidable(
-                              startActionPane: ActionPane(
-                                extentRatio: .20,
-                                motion: const DrawerMotion(),
-                                children: [
-                                  SlidableAction(
-                                    onPressed: (buildContext) {
-                                      print(AppCubit.get(context)
-                                          .allFavorite[index]['id']);
-                                      AppCubit.get(context).deleteDatabase(
-                                          id: '${AppCubit.get(context).allFavorite[index]['id']}',
-                                          context: context);
-                                    },
-                                    backgroundColor: Colors.red,
-                                    label: AppLocalizations.of(context)!
-                                        .translate("delete")
-                                        .toString(),
-                                    icon: Icons.delete,
-                                    borderRadius:  BorderRadius.only(
-                                      topRight: CashHelper.languageKey
-                                        .toString() ==
-                                        "ar"? const Radius.circular(12):const Radius.circular(0),
-                                      topLeft: CashHelper.languageKey
-                                          .toString() ==
-                                          "ar"? const Radius.circular(12):const Radius.circular(0),
-                                      bottomRight: CashHelper.languageKey
-                                          .toString() ==
-                                          "ar"? const Radius.circular(12):const Radius.circular(0),
-                                      bottomLeft: CashHelper.languageKey
-                                          .toString() ==
-                                          "ar"? const Radius.circular(12):const Radius.circular(0),
-
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              child: Material(
-                                shape: RoundedRectangleBorder(
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: GestureDetector(
+                            onTap: () {
+                              print(
+                                  AppCubit.get(context).allFavorite[index]['id']);
+                              // AppCubit.get(context).deleteDatabase(
+                              //     id: '${AppCubit.get(context).allFavorite[index]['id']}',
+                              //     context: context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(20),
+                                  color: Colors.red),
+                              child: Slidable(
+                                startActionPane: ActionPane(
+                                  extentRatio: .20,
+                                  motion: const DrawerMotion(),
+                                  children: [
+                                    SlidableAction(
+                                      onPressed: (buildContext) {
+                                        print(AppCubit.get(context)
+                                            .allFavorite[index]['id']);
+                                        AppCubit.get(context).deleteDatabase(
+                                            id: '${AppCubit.get(context).allFavorite[index]['id']}',
+                                            context: context);
+                                      },
+                                      backgroundColor: Colors.red,
+                                      label: AppLocalizations.of(context)!
+                                          .translate("delete")
+                                          .toString(),
+                                      icon: Icons.delete,
+                                      borderRadius:  BorderRadius.only(
+                                        topRight: CashHelper.languageKey
+                                          .toString() ==
+                                          "ar"? const Radius.circular(12):const Radius.circular(0),
+                                        topLeft: CashHelper.languageKey
+                                            .toString() ==
+                                            "ar"? const Radius.circular(12):const Radius.circular(0),
+                                        bottomRight: CashHelper.languageKey
+                                            .toString() ==
+                                            "ar"? const Radius.circular(12):const Radius.circular(0),
+                                        bottomLeft: CashHelper.languageKey
+                                            .toString() ==
+                                            "ar"? const Radius.circular(12):const Radius.circular(0),
+
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                elevation: 10,
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  height:
-                                      MediaQuery.of(context).size.height * .26,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
+                                child: Material(
+                                  shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl:
-                                                '${AppCubit.get(context).allFavorite[index]['image']}',
-                                            height: 70,
-                                            width: 70,
-                                            placeholder: (context, url) =>
-                                                const Center(
-                                              child: CircularProgressIndicator(
-                                                color: ColorManager.red,
+                                  elevation: 10,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(20),
+                                    height:
+                                        MediaQuery.of(context).size.height * .26,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${AppCubit.get(context).allFavorite[index]['image']}',
+                                              height: 70,
+                                              width: 70,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                child: CircularProgressIndicator(
+                                                  color: ColorManager.red,
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) => Center(
+                                                child: Image.asset(
+                                                  'assets/images/logo1.PNG',
+                                                ),
                                               ),
                                             ),
-                                            errorWidget:
-                                                (context, url, error) => Center(
-                                              child: Image.asset(
-                                                'assets/images/logo1.PNG',
-                                              ),
+                                            const SizedBox(
+                                              width: 15,
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                    AppCubit.get(context)
-                                                            .allFavorite[index]
-                                                        ['name'],
-                                                    style: GoogleFonts.cairo(
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: ColorManager.black,
-                                                    )),
-                                                Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.list_alt,
-                                                      color: Colors.black,
-                                                    ),
-                                                    Text(
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Text(
                                                       AppCubit.get(context)
-                                                              .allFavorite[
-                                                          index]['rate'],
+                                                              .allFavorite[index]
+                                                          ['name'],
                                                       style: GoogleFonts.cairo(
                                                         fontSize: 15.0,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        color:
-                                                            ColorManager.black,
+                                                        color: ColorManager.black,
+                                                      )),
+                                                  Row(
+                                                    children: [
+                                                      const Icon(
+                                                        Icons.list_alt,
+                                                        color: Colors.black,
                                                       ),
-                                                    )
-                                                  ],
-                                                )
-                                              ],
+                                                      Text(
+                                                        AppCubit.get(context)
+                                                                .allFavorite[
+                                                            index]['rate'],
+                                                        style: GoogleFonts.cairo(
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color:
+                                                              ColorManager.black,
+                                                        ),
+                                                      )
+                                                    ],
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          // const Icon(
-                                          //   Icons.qr_code,
-                                          //   color: Colors.black,
-                                          // ),
-                                          // Text(
-                                          //     AppCubit.get(context)
-                                          //         .allFavorite[index]
-                                          //     ['address'],
-                                          //     style: GoogleFonts.cairo(
-                                          //       fontSize: 15.0,
-                                          //       fontWeight: FontWeight.w600,
-                                          //       color: ColorManager.black,
-                                          //     )),
-                                          const Spacer(),
-                                          Text(
-                                              '${AppCubit.get(context).allFavorite[index]['price']}',
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 20.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorManager.black,
-                                              )),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            // const Icon(
+                                            //   Icons.qr_code,
+                                            //   color: Colors.black,
+                                            // ),
+                                            // Text(
+                                            //     AppCubit.get(context)
+                                            //         .allFavorite[index]
+                                            //     ['address'],
+                                            //     style: GoogleFonts.cairo(
+                                            //       fontSize: 15.0,
+                                            //       fontWeight: FontWeight.w600,
+                                            //       color: ColorManager.black,
+                                            //     )),
+                                            const Spacer(),
+                                            Text(
+                                                '${AppCubit.get(context).allFavorite[index]['price']}\$',
+                                                style: GoogleFonts.cairo(
+                                                  fontSize: 20.0,
+                                                  fontWeight: FontWeight.w600,
+                                                  color: ColorManager.black,
+                                                )),
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

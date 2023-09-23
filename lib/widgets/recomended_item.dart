@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
+import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,13 +71,14 @@ class RecommendedItem extends StatelessWidget {
                               .toString() ==
                               "ar"?cubit.favoriteProducts!.mainProducts![index].productName:cubit.favoriteProducts!.mainProducts![index].latinName}',
                           code:'${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
-                          price: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
+                          price: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}',
                           number: cubit.productsFavoritesControllers[index].text==''?'1':cubit.productsFavoritesControllers[index].text,
                           image: '${AppCubit.get(context).newSellProducts![index].imgUrl}',
                           context: context).then((value) {
-                        customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
+                        customToast(color: ColorManager.darkGrey,title: AppLocalizations.of(context)!.translate('addedToCart').toString());
                       }).then((value) {
                         cubit.increaseCounter();
+                        cubit.productsFavoritesControllers[index].clear();
                       });
                     },
                     icon: const Icon(

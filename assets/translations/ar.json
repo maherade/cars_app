@@ -51,5 +51,12 @@
   "chevrolet": "شيفروليه",
   "suzuki": "سوزوكي",
   "mazda": "مازدا",
-  "delete": "حذف"
+  "delete": "حذف",
+  "Account Created Successfully":"تم انشاء الحساب بنجاح",
+  "This account already exists":"هذا الحساب مستخدم من قبل",
+  "This account doesn't exists":"هذا الحساب غير موجود",
+  "Invalid email or password":"خطا في البريد الالكتروني او كلمه المرور",
+  "Something went wrong":"هناك خطا ما",
+  "Not Completed":"عمليه الدفع غير مكتمله"
+
 }

@@ -281,7 +281,7 @@ class HomeScreen extends StatelessWidget {
                                                           code:
                                                               '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
                                                           price:
-                                                              '${AppCubit.get(context).newSellProducts![index].wholePrice}\$',
+                                                              '${AppCubit.get(context).newSellProducts![index].wholePrice}',
                                                           number: AppCubit.get(
                                                                           context)
                                                                       .productsNewSellControllers[
@@ -302,14 +302,15 @@ class HomeScreen extends StatelessWidget {
                                                         color: ColorManager
                                                             .darkGrey,
                                                         title:
-                                                        AppLocalizations.of(
-                                                            context)!
+                                                        AppLocalizations
+                                                            .of(context)!
                                                             .translate(
-                                                            'addToCart')
+                                                            'addedToCart')
                                                             .toString());
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
+                                                    AppCubit.get(context).productsNewSellControllers[index].clear();
                                                   });
                                                 },
                                                 icon: const Icon(
@@ -497,7 +498,7 @@ class HomeScreen extends StatelessWidget {
                                                           code:
                                                               '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
                                                           price:
-                                                              '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                                              '${AppCubit.get(context).bestSellProducts![index].wholePrice}',
                                                           number: AppCubit.get(
                                                                           context)
                                                                       .productsBestSellControllers[
@@ -525,6 +526,10 @@ class HomeScreen extends StatelessWidget {
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
+                                                    AppCubit.get(
+                                                        context)
+                                                        .productsBestSellControllers[
+                                                    index].clear();
                                                   });
                                                 },
                                                 icon: const Icon(

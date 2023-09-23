@@ -37,7 +37,7 @@ class HomeLayout extends StatelessWidget {
           ),
 
           bottomNavigationBar: CurvedNavigationBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.transparent,
             color: ColorManager.primaryColor,
             items: const <Widget>[
               Icon(Icons.home, size: 20,color: Colors.white,),
