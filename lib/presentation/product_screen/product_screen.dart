@@ -161,7 +161,7 @@ class ProductScreen extends StatelessWidget {
                                             errorWidget:
                                                 (context, url, error) => Center(
                                               child: Image.asset(
-                                                'assets/images/logo1.PNG',
+                                                'assets/images/logo2.png',
                                               ),
                                             ),
                                           ),

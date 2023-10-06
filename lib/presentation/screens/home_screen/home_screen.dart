@@ -32,31 +32,29 @@ class HomeScreen extends StatelessWidget {
             statusBarIconBrightness: Brightness.dark,
             statusBarColor: ColorManager.lightColor,
           ),
-          title: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image(
-                  image: const AssetImage(
-                    'assets/images/logo1.PNG',
-                  ),
-                  color: Colors.red,
-                  fit: BoxFit.fill,
-                  width: MediaQuery.sizeOf(context).width * .2,
-                  height: MediaQuery.sizeOf(context).height * .1,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              const Image(
+                image: AssetImage(
+                  'assets/images/logo4.png',
                 ),
-                Text('Nissan Group',
-                    style: GoogleFonts.cairo(
-                      fontSize: MediaQuery
-                          .of(context)
-                          .size
-                          .height * .03,
-                      fontWeight: FontWeight.w500,
-                      color: Colors.red,
-                    ))
-              ],
-            ),
+                fit: BoxFit.fill,
+                height: 80,
+                width: 80,
+
+              ),
+              const SizedBox(width: 4,),
+              Text('Nissan Group',
+                  style: GoogleFonts.cairo(
+                    fontSize: MediaQuery
+                        .of(context)
+                        .size
+                        .height * .0255,
+                    fontWeight: FontWeight.w900,
+                    color: Colors.white,
+                  ))
+            ],
           ),
           actions: [
             GestureDetector(
@@ -88,7 +86,7 @@ class HomeScreen extends StatelessWidget {
                   CarouselSlider(
                     items: AppCubit.get(context).carouselImage.map((e) {
                       return Image(
-                        image: NetworkImage(e),
+                        image: AssetImage(e),
                         width: double.infinity,
                         fit: BoxFit.fill,
                       );
@@ -118,7 +116,7 @@ class HomeScreen extends StatelessWidget {
                             onTap: () {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
-                                return  CarName(
+                                return  const CarName(
                                   brandName: '',
                                 );
                               }));
@@ -258,7 +256,7 @@ class HomeScreen extends StatelessWidget {
                                             errorWidget:
                                                 (context, url, error) => Center(
                                               child: Image.asset(
-                                                'assets/images/logo1.PNG',
+                                                'assets/images/logo2.png',
                                                 fit: BoxFit.contain,
                                               ),
                                             ),
@@ -310,7 +308,7 @@ class HomeScreen extends StatelessWidget {
                                                       .then((value) {
                                                     customToast(
                                                         color: ColorManager
-                                                            .darkGrey,
+                                                            .red,
                                                         title:
                                                         AppLocalizations.of(
                                                             context)!
@@ -477,7 +475,7 @@ class HomeScreen extends StatelessWidget {
                                             errorWidget:
                                                 (context, url, error) => Center(
                                               child: Image.asset(
-                                                'assets/images/logo1.PNG',
+                                                'assets/images/logo2.png',
                                               ),
                                             ),
                                           ),
@@ -526,7 +524,7 @@ class HomeScreen extends StatelessWidget {
                                                       .then((value) {
                                                     customToast(
                                                         color: ColorManager
-                                                            .darkGrey,
+                                                            .red,
                                                         title: AppLocalizations
                                                                 .of(context)!
                                                             .translate(

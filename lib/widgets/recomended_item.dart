@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
@@ -46,7 +45,7 @@ class RecommendedItem extends StatelessWidget {
                   child: CircularProgressIndicator(),
                 ),
                 errorWidget: (context, url, error) =>  Center(
-                  child: Image.asset('assets/images/logo1.PNG',),
+                  child: Image.asset('assets/images/logo2.png',),
                 ),
               ),
             ),
@@ -74,7 +73,7 @@ class RecommendedItem extends StatelessWidget {
                           number: cubit.productsFavoritesControllers[index].text==''?'1':cubit.productsFavoritesControllers[index].text,
                           image: '${AppCubit.get(context).newSellProducts![index].imgUrl}',
                           context: context).then((value) {
-                        customToast(color: ColorManager.darkGrey,title: 'تم اضافه المنتج في السله');
+                        customToast(color: ColorManager.red,title: 'تم اضافه المنتج في السله');
                       }).then((value) {
                         cubit.increaseCounter();
                       });

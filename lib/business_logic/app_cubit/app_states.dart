@@ -102,3 +102,9 @@ class GetTokenFromApiErrorState extends AppStates{}
 class GetSearchLoadingState extends AppStates{}
 class GetSearchSuccessState extends AppStates{}
 class GetSearchErrorState extends AppStates{}
+
+class EditProductsLoadingState extends AppStates{}
+class EditProductsSuccessState extends AppStates{}
+class EditProductsErrorState extends AppStates{}
+
+class UpdateNoteDatabaseState extends AppStates{}

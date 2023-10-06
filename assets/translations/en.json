@@ -51,6 +51,12 @@
   "chevrolet": "Chevrolet",
   "suzuki": "Suzuki",
   "mazda": "Mazda",
-  "delete": "jêbirin"
+  "delete": "jêbirin",
+  "edit": "weşandin",
+  "cash": "Dema wergirtina dravê",
+  "visa": "Payment bikaranîna karta",
+  "paymentWay": "Rêbaza dravdanê hilbijêrin",
+  "transfair": "transfera pereyan"
+
 
 }

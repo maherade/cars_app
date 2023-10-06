@@ -126,13 +126,15 @@ class _SearchScreenState extends State<SearchScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-    CashHelper.getData(
-    key: CashHelper.languageKey)
-        .toString() ==
-    "ar"?
-                                        AppCubit.get(context).search[index]
-                                            ['ProductName']:AppCubit.get(context).search[index]
-    ['LatinName'],
+                                        CashHelper.getData(
+                                                        key: CashHelper
+                                                            .languageKey)
+                                                    .toString() ==
+                                                "ar"
+                                            ? AppCubit.get(context)
+                                                .search[index]['ProductName']
+                                            : AppCubit.get(context)
+                                                .search[index]['LatinName'],
                                         style: GoogleFonts.cairo(
                                           fontSize: 15.0,
                                           fontWeight: FontWeight.w600,
@@ -214,10 +216,11 @@ class _SearchScreenState extends State<SearchScreen> {
                                           context: context)
                                       .then((value) {
                                     customToast(
-                                        color: ColorManager.darkGrey,
-                                        title: AppLocalizations.of(context)!
-                                            .translate("addedToCart")
-                                            .toString(),);
+                                      color: ColorManager.darkGrey,
+                                      title: AppLocalizations.of(context)!
+                                          .translate("addedToCart")
+                                          .toString(),
+                                    );
                                   }).then((value) {
                                     AppCubit.get(context).increaseCounter();
                                   });
@@ -226,9 +229,10 @@ class _SearchScreenState extends State<SearchScreen> {
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 color: ColorManager.primaryColor,
-                                child: Text(AppLocalizations.of(context)!
-                                    .translate("add")
-                                    .toString(),
+                                child: Text(
+                                    AppLocalizations.of(context)!
+                                        .translate("add")
+                                        .toString(),
                                     style: GoogleFonts.cairo(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w600,

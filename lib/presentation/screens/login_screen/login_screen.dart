@@ -32,9 +32,18 @@ class _LoginScreenState extends State<LoginScreen> {
         var cubit = AppCubit.get(context);
         return SafeArea(
           child: Scaffold(
-            backgroundColor: ColorManager.red.withOpacity(.8),
+            backgroundColor: ColorManager.black.withOpacity(.8),
             body: Stack(
               children: [
+                Positioned(
+                  height:MediaQuery.sizeOf(context).height*.22 ,
+                  top: MediaQuery.sizeOf(context).height*.05,
+                  right: MediaQuery.sizeOf(context).width*.25,
+                  child: Image.asset("assets/images/logo.png",
+                    // height:MediaQuery.sizeOf(context).height*.2 ,
+                    fit: BoxFit.cover,),
+                ),
+
                 SingleChildScrollView(
                   child: Container(
                     margin: EdgeInsets.only(top: mediaQuery.height * .35),
@@ -149,8 +158,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                       title:
                                                                           '''This account doesn't exists''',
                                                                       color: Colors
-                                                                          .red
-                                                                          .shade700)
+                                                                          .black
+                                                                          )
                                                                 }
                                                               else
                                                                 {

@@ -3,12 +3,12 @@ import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ticket_widget/ticket_widget.dart';
 
 class CashScreen extends StatelessWidget {
   const CashScreen({super.key});
 
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -46,7 +46,7 @@ class CashScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
+                const Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     // Container(
@@ -207,7 +207,7 @@ class CashScreen extends StatelessWidget {
                     height: 200.0,
                     decoration: const BoxDecoration(
                         image: DecorationImage(
-                            image: AssetImage('assets/images/logo1.PNG'),
+                            image: AssetImage('assets/images/logo2.png'),
                             fit: BoxFit.cover)),
                   ),
                 ),

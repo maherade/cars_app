@@ -7,7 +7,6 @@ import 'package:cars_app/data/modles/user_model.dart';
 import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
-import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -17,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_player/video_player.dart';
 
 import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
@@ -36,7 +36,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screenName = [
     const HomeScreen(),
     const BrandScreen(),
-    const CartScreen(),
+    CartScreen(),
     const BuyScreen(),
     const SettingScreen()
   ];
@@ -66,6 +66,8 @@ class AppCubit extends Cubit<AppStates> {
       List.generate(2000, (index) => TextEditingController());
 
   List productsNewSellControllers =
+      List.generate(2000, (index) => TextEditingController());
+  List editNumberController =
       List.generate(2000, (index) => TextEditingController());
 
   double totalPrice = 0.0;
@@ -102,8 +104,6 @@ class AppCubit extends Cubit<AppStates> {
     'مازدا',
   ];
 
-
-
   List<String> brandImages = [
     'assets/images/toyota.png',
     'assets/images/nissan.png',
@@ -130,9 +130,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<String> carouselImage = [
-    'https://img.freepik.com/free-photo/blue-sport-sedan-parked-yard_114579-5078.jpg?w=740&t=st=1690366458~exp=1690367058~hmac=6bb66f317c3048bf10b946728971b83c1ebd719a3835d430290b62fe99c55f58',
-    'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
-    'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
+    'assets/images/p1.png',
+    'assets/images/p2.png',
+    'assets/images/p3.png',
   ];
 
 //Toyota cars
@@ -167,7 +167,6 @@ class AppCubit extends Cubit<AppStates> {
   List<String> rougeCars = [
     'https://th.bing.com/th/id/OIP.0mT3rTtDAWyM3W4bPdl3owHaFj?pid=ImgDet&rs=1',
     'https://th.bing.com/th/id/OIP.7bYZdr4CUdiNesvCsrEkbgHaFj?pid=ImgDet&rs=1',
-
   ];
   List<String> nafaraCars = [
     'https://th.bing.com/th/id/R.93d35ec0d15ce3b5ff2ce3f142251458?rik=ZbAL82SI1oLJyw&riu=http%3a%2f%2fwww.apinz.com%2fparts%2fDT%2fDTJ3.jpg&ehk=frIQgfp0wXZXO4IQQIi7ptjxP6Ne4mIlZuvce9hkYBU%3d&risl=&pid=ImgRaw&r=0',
@@ -182,7 +181,7 @@ class AppCubit extends Cubit<AppStates> {
     'https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_large_thumbnail/v1/editorial/nissan-juke-my20-index-1.png',
   ];
   List<String> cintraCars = [
-'https://th.bing.com/th/id/OIP.UyRtpidjo6Fxlzqqmo4qZQAAAA?pid=ImgDet&rs=1',
+    'https://th.bing.com/th/id/OIP.UyRtpidjo6Fxlzqqmo4qZQAAAA?pid=ImgDet&rs=1',
     'https://th.bing.com/th/id/R.b1adcd7d42b7c75990f58ef32c43bbbc?rik=Qq%2fLsr5zqIrtFA&pid=ImgRaw&r=0',
   ];
 
@@ -198,8 +197,6 @@ class AppCubit extends Cubit<AppStates> {
   //   'assets/images/logo1.PNG',
   //   'assets/images/new1.jpg',
   // ];
-
-
 
   List<String> timaStart = [
     '2013',
@@ -322,7 +319,7 @@ class AppCubit extends Cubit<AppStates> {
 
   Future<void> toPrivacy() async {
     String url =
-        "https://www.freeprivacypolicy.com/live/fe2eb687-ce50-4a3e-89f6-dc489e763af1";
+        "https://www.freeprivacypolicy.com/live/25ab9274-6bf0-4858-8ee0-c06739236c3c";
     await launch(url, forceSafariVC: false);
     emit(LaunchState());
   }
@@ -501,7 +498,8 @@ class AppCubit extends Cubit<AppStates> {
         print('Table Created');
         emit(CreateTableState());
       });
-    }, onOpen: (database) {
+    },
+        onOpen: (database) {
       getDatabase(database).then((value) {
         allFavorite = value;
       }).catchError((error) {
@@ -531,7 +529,7 @@ class AppCubit extends Cubit<AppStates> {
           .rawInsert(
               'INSERT INTO favorite (name,address,price,rate,image,favorite) VALUES ( "$name" , "$code" , "$price" , "$number" , "$image" , "yes")')
           .then((value) {
-        print("${value} Insert Success");
+        print("$value Insert Success");
         emit(InsertDatabaseSuccessState());
         getDatabase(database).then((value) {
           allFavorite = value;
@@ -570,6 +568,29 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  void updateDatabase(
+      {
+        required String number,
+        required String id,
+      }
+      ) async{
+    database?.rawUpdate(
+        'UPDATE favorite SET rate = ? WHERE id = ?',
+        [number, id]).then((value) {
+
+      print('Update Done');
+      getDatabase(database);
+      emit(UpdateNoteDatabaseState());
+    }).catchError((error){
+      print('error is ${error.toString()}');
+    });
+
+  }
+
+
+
+
+
   ProductModel? products;
 
   List<MainProducts> myProducts = [];
@@ -589,7 +610,8 @@ class AppCubit extends Cubit<AppStates> {
 
     emit(GetProductsFromApiLoadingState());
     DioHelper.postData(
-      url: 'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
+      url:
+          'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
     ).then((value) {
       print(
           'productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}');
@@ -606,17 +628,17 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-
   List<dynamic> search = [];
+
   void getSearch(String value) {
     emit(GetSearchLoadingState());
     DioHelper.postData(
-        url: 'GetProducts?ItemName=$value',
-        ).then((value) {
-      search =value.data['MainProducts'];
+      url: 'GetProducts?ItemName=$value',
+    ).then((value) {
+      search = value.data['MainProducts'];
       print(search[2]['ProductName']);
       emit(GetSearchSuccessState());
-    }).catchError((error){
+    }).catchError((error) {
       debugPrint('error during calling api ${error.toString()}');
       emit(GetSearchErrorState());
     });
@@ -650,6 +672,32 @@ class AppCubit extends Cubit<AppStates> {
     emit(AddUserProductsErrorState());
   }
 
+  Future<void> editUserProductsToFireBase({
+    required String id,
+    required String number,
+    required String productId,
+  }) async {
+    emit(EditProductsLoadingState());
+    FirebaseFirestore.instance
+        .collection("userProducts")
+        .doc(CashHelper.getData(key: 'isUid'))
+        .collection('products')
+        .get()
+        .then((value) {
+      for (DocumentSnapshot doc in value.docs) {
+        doc.reference.update({
+          "numberOfProducts": number,
+        });
+        // value!.forEach((element) {
+        //   allFavorite.add(element);
+        // });
+
+        print("-------------edit success");
+        emit(EditProductsSuccessState());
+      }
+    });
+    emit(EditProductsErrorState());
+  }
   List<Map> userProduct = [];
 
   Future<void> getUserProductsFromFireStore() async {
@@ -845,6 +893,14 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+  VideoPlayerController? videoPlayerController;
+
+  void initializeVideoPlayer() {
+    videoPlayerController =
+        VideoPlayerController.asset('assets/images/splash.mp4')
+          ..initialize().then((_) {
+            videoPlayerController!.play();
+          });
 // "ProductGuide":"D2B9B04D-33EA-4122-8FF5-010E32FBEE5E",
 //               "Quantity" :"1",
 //               "Unit" :"1",
@@ -857,4 +913,7 @@ class AppCubit extends Cubit<AppStates> {
 //               "TotalValue" :"100",
 //               "DiscountValue" :"0",
 //               "ExtraValue" :"0"
+  }
+
+
 }
