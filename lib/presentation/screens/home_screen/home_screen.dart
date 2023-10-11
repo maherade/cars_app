@@ -65,7 +65,7 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => SearchScreen(),
                     ));
               },
-              child: const Padding(
+              child:  Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Icon(
                   Icons.search,
@@ -310,14 +310,15 @@ class HomeScreen extends StatelessWidget {
                                                         color: ColorManager
                                                             .red,
                                                         title:
-                                                        AppLocalizations.of(
-                                                            context)!
+                                                        AppLocalizations
+                                                            .of(context)!
                                                             .translate(
-                                                            'addToCart')
+                                                            'addedToCart')
                                                             .toString());
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
+                                                    AppCubit.get(context).productsNewSellControllers[index].clear();
                                                   });
                                                 },
                                                 icon: const Icon(
@@ -475,7 +476,7 @@ class HomeScreen extends StatelessWidget {
                                             errorWidget:
                                                 (context, url, error) => Center(
                                               child: Image.asset(
-                                                'assets/images/logo2.png',
+                                                'assets/images/logo1.PNG',
                                               ),
                                             ),
                                           ),
@@ -505,7 +506,7 @@ class HomeScreen extends StatelessWidget {
                                                           code:
                                                               '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
                                                           price:
-                                                              '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                                              '${AppCubit.get(context).bestSellProducts![index].wholePrice}',
                                                           number: AppCubit.get(
                                                                           context)
                                                                       .productsBestSellControllers[
@@ -533,6 +534,10 @@ class HomeScreen extends StatelessWidget {
                                                   }).then((value) {
                                                     AppCubit.get(context)
                                                         .increaseCounter();
+                                                    AppCubit.get(
+                                                        context)
+                                                        .productsBestSellControllers[
+                                                    index].clear();
                                                   });
                                                 },
                                                 icon: const Icon(

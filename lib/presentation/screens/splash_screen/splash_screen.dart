@@ -1,7 +1,9 @@
+
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
 import 'package:cars_app/presentation/screens/login_screen/login_screen.dart';
+import 'package:cars_app/presentation/screens/on_boarding/on_boarding.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:flutter/material.dart';
@@ -81,5 +83,4 @@ class _SplashScreenState extends State<SplashScreen> {
       },
     );
   }
-
 }

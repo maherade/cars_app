@@ -137,7 +137,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                       .validate()) {
                                                     cubit
                                                         .loginWithFirebaseAuth(
-                                                            email:
+                                                        context: context,
+                                                        email:
                                                                 emailController
                                                                     .text,
                                                             password:

@@ -232,6 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           key: 'userName',
           value: AppCubit.get(context).userNameController.text);
       AppCubit.get(context).createAccountWithFirebaseAuth(
+          context: context,
           name: AppCubit.get(context).userNameController.text,
           email: emailController.text,
           phone: phoneController.text,

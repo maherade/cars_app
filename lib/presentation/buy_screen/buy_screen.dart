@@ -17,6 +17,7 @@ class BuyScreen extends StatelessWidget {
     return BlocConsumer<AppCubit, AppStates>(
       builder: (context, state) {
         return Scaffold(
+          backgroundColor:  ColorManager.lightColor,
           appBar: AppBar(
             iconTheme: const IconThemeData(color: ColorManager.textColor),
             backgroundColor: ColorManager.primaryColor,
@@ -46,111 +47,114 @@ class BuyScreen extends StatelessWidget {
                 Expanded(
                   child: ListView.separated(
                       itemBuilder: (context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.red),
-                          child: Material(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            elevation: 10,
-                            child: Container(
-                              padding: const EdgeInsets.all(20),
-                              height: MediaQuery.of(context).size.height * .26,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.red),
+                            child: Material(
+                              shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    children: [
-                                      CachedNetworkImage(
-                                        imageUrl:
-                                            '${AppCubit.get(context).userProduct[index]['image']}',
-                                        height: 70,
-                                        width: 70,
-                                        placeholder: (context, url) =>
-                                            const Center(
-                                          child: CircularProgressIndicator(
-                                            color: ColorManager.red,
+                              elevation: 10,
+                              child: Container(
+                                padding: const EdgeInsets.all(20),
+                                height: MediaQuery.of(context).size.height * .26,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CachedNetworkImage(
+                                          imageUrl:
+                                              '${AppCubit.get(context).userProduct[index]['image']}',
+                                          height: 70,
+                                          width: 70,
+                                          placeholder: (context, url) =>
+                                              const Center(
+                                            child: CircularProgressIndicator(
+                                              color: ColorManager.red,
+                                            ),
+                                          ),
+                                          errorWidget: (context, url, error) =>
+                                              Center(
+                                            child: Image.asset(
+                                              'assets/images/logo1.PNG',
+                                            ),
                                           ),
                                         ),
-                                        errorWidget: (context, url, error) =>
-                                            Center(
-                                          child: Image.asset(
-                                            'assets/images/logo1.PNG',
-                                          ),
+                                        const SizedBox(
+                                          width: 15,
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 15,
-                                      ),
-                                      Expanded(
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                                AppCubit.get(context)
-                                                    .userProduct[index]['name'],
-                                                style: GoogleFonts.cairo(
-                                                  fontSize: 15.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.black,
-                                                )),
-                                            Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.list_alt,
-                                                  color: Colors.black,
-                                                ),
-                                                Text(
+                                        Expanded(
+                                          child: Column(
+                                            children: [
+                                              Text(
                                                   AppCubit.get(context)
-                                                          .userProduct[index]
-                                                      ['numberOfProducts'],
+                                                      .userProduct[index]['name'],
                                                   style: GoogleFonts.cairo(
                                                     fontSize: 15.0,
                                                     fontWeight: FontWeight.w600,
                                                     color: ColorManager.black,
+                                                  )),
+                                              Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.list_alt,
+                                                    color: Colors.black,
                                                   ),
-                                                )
-                                              ],
-                                            )
-                                          ],
+                                                  Text(
+                                                    AppCubit.get(context)
+                                                            .userProduct[index]
+                                                        ['numberOfProducts'],
+                                                    style: GoogleFonts.cairo(
+                                                      fontSize: 15.0,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: ColorManager.black,
+                                                    ),
+                                                  )
+                                                ],
+                                              )
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      // const Icon(
-                                      //   Icons.qr_code,
-                                      //   color: Colors.black,
-                                      // ),
-                                      // Text(
-                                      //     AppCubit.get(context).userProduct[index]
-                                      //     ['code'],
-                                      //     style: GoogleFonts.cairo(
-                                      //       fontSize: 15.0,
-                                      //       fontWeight: FontWeight.w600,
-                                      //       color: ColorManager.black,
-                                      //     )),
-                                      const Spacer(),
-                                      Text(
-                                          AppCubit.get(context)
-                                              .userProduct[index]['price'],
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.black,
-                                          )),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 10,
-                                  ),
-                                ],
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        // const Icon(
+                                        //   Icons.qr_code,
+                                        //   color: Colors.black,
+                                        // ),
+                                        // Text(
+                                        //     AppCubit.get(context).userProduct[index]
+                                        //     ['code'],
+                                        //     style: GoogleFonts.cairo(
+                                        //       fontSize: 15.0,
+                                        //       fontWeight: FontWeight.w600,
+                                        //       color: ColorManager.black,
+                                        //     )),
+                                        const Spacer(),
+                                        Text(
+                                            '${AppCubit.get(context)
+                                                .userProduct[index]['price']}\$',
+                                            style: GoogleFonts.cairo(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.w600,
+                                              color: ColorManager.black,
+                                            )),
+                                      ],
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

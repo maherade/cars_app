@@ -7,6 +7,7 @@ import 'package:cars_app/data/modles/user_model.dart';
 import 'package:cars_app/presentation/brand_screen/brand_screen.dart';
 import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
+import 'package:cars_app/presentation/cash_screen/cash_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/utiles/remote/dio_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -16,7 +17,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:video_player/video_player.dart';
 
 import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
@@ -36,7 +36,7 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screenName = [
     const HomeScreen(),
     const BrandScreen(),
-    CartScreen(),
+    const CartScreen(),
     const BuyScreen(),
     const SettingScreen()
   ];
@@ -66,8 +66,6 @@ class AppCubit extends Cubit<AppStates> {
       List.generate(2000, (index) => TextEditingController());
 
   List productsNewSellControllers =
-      List.generate(2000, (index) => TextEditingController());
-  List editNumberController =
       List.generate(2000, (index) => TextEditingController());
 
   double totalPrice = 0.0;
@@ -105,20 +103,20 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<String> brandImages = [
-    'assets/images/toyota.png',
-    'assets/images/nissan.png',
-    'assets/images/wol.png',
-    'assets/images/mits.png',
-    'assets/images/ford.png',
-    'assets/images/chan.png',
-    'assets/images/bmw.png',
-    'assets/images/mercedes.png',
-    'assets/images/audi.png',
-    'assets/images/cher.png',
-    'assets/images/hav.png',
-    'assets/images/chef.png',
-    'assets/images/suz.png',
-    'assets/images/mazda.png',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/toyota.png?alt=media&token=1d0df880-8cb5-493c-8734-fb4f5280d856',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/nissan.png?alt=media&token=a4facca8-541c-420f-bec4-9189fa31b022',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/wol.png?alt=media&token=89efb558-b3fd-42bf-82da-12ea19781385',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mits.png?alt=media&token=0648ea19-896a-4c40-94c2-2dda05b5a42c',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/ford.png?alt=media&token=c30da850-14a1-4280-bab2-5597500e8a24',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/chan.png?alt=media&token=e46f560e-26f4-473c-b27e-5cad58564811',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/bmw.png?alt=media&token=02e0a30e-ee20-4b77-af5d-3e49bab030a6',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mercedes.png?alt=media&token=2e064123-3c83-4718-8ea4-ab1e193df4af',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/audi.png?alt=media&token=3ed4ba1a-2b08-44ba-ae9b-f8843c464c30',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/cher.png?alt=media&token=c3fb1ba9-8f2f-433a-a7c6-4c2dac7a12a4',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/hav.png?alt=media&token=0302666d-ddda-493a-ad79-899f71e1e728',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/chef.png?alt=media&token=4d0a48ea-c661-4c56-8bb6-abd0adea791a',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/suz.png?alt=media&token=c33894b0-c675-4d59-bfe1-e4bb257c58af',
+    'https://firebasestorage.googleapis.com/v0/b/carapp-d0e10.appspot.com/o/mazda.png?alt=media&token=e08e4f7b-a7c9-4a0a-a16c-6266b1a5c491',
   ];
 
   List<String> screenTitles = [
@@ -130,9 +128,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<String> carouselImage = [
-    'assets/images/p1.png',
-    'assets/images/p2.png',
-    'assets/images/p3.png',
+    'https://img.freepik.com/free-photo/blue-sport-sedan-parked-yard_114579-5078.jpg?w=740&t=st=1690366458~exp=1690367058~hmac=6bb66f317c3048bf10b946728971b83c1ebd719a3835d430290b62fe99c55f58',
+    'https://img.freepik.com/free-photo/grey-metallic-jeep-with-blue-stripe-it_114579-4080.jpg?w=740&t=st=1690366481~exp=1690367081~hmac=25db38645981f4e16bdc18d360e1da99c1bc11053ce34444915f6fee7452f1d3',
+    'https://img.freepik.com/free-photo/black-cabriolet-parked-port_114579-5232.jpg?w=740&t=st=1690366493~exp=1690367093~hmac=e60800627925a51353e8ac0d736ab2db1d02370d948866e2f0086a0541898f44',
   ];
 
 //Toyota cars
@@ -167,6 +165,7 @@ class AppCubit extends Cubit<AppStates> {
   List<String> rougeCars = [
     'https://th.bing.com/th/id/OIP.0mT3rTtDAWyM3W4bPdl3owHaFj?pid=ImgDet&rs=1',
     'https://th.bing.com/th/id/OIP.7bYZdr4CUdiNesvCsrEkbgHaFj?pid=ImgDet&rs=1',
+
   ];
   List<String> nafaraCars = [
     'https://th.bing.com/th/id/R.93d35ec0d15ce3b5ff2ce3f142251458?rik=ZbAL82SI1oLJyw&riu=http%3a%2f%2fwww.apinz.com%2fparts%2fDT%2fDTJ3.jpg&ehk=frIQgfp0wXZXO4IQQIi7ptjxP6Ne4mIlZuvce9hkYBU%3d&risl=&pid=ImgRaw&r=0',
@@ -181,7 +180,7 @@ class AppCubit extends Cubit<AppStates> {
     'https://carsguide-res.cloudinary.com/image/upload/f_auto,fl_lossy,q_auto,t_large_thumbnail/v1/editorial/nissan-juke-my20-index-1.png',
   ];
   List<String> cintraCars = [
-    'https://th.bing.com/th/id/OIP.UyRtpidjo6Fxlzqqmo4qZQAAAA?pid=ImgDet&rs=1',
+'https://th.bing.com/th/id/OIP.UyRtpidjo6Fxlzqqmo4qZQAAAA?pid=ImgDet&rs=1',
     'https://th.bing.com/th/id/R.b1adcd7d42b7c75990f58ef32c43bbbc?rik=Qq%2fLsr5zqIrtFA&pid=ImgRaw&r=0',
   ];
 
@@ -197,6 +196,8 @@ class AppCubit extends Cubit<AppStates> {
   //   'assets/images/logo1.PNG',
   //   'assets/images/new1.jpg',
   // ];
+
+
 
   List<String> timaStart = [
     '2013',
@@ -319,7 +320,7 @@ class AppCubit extends Cubit<AppStates> {
 
   Future<void> toPrivacy() async {
     String url =
-        "https://www.freeprivacypolicy.com/live/25ab9274-6bf0-4858-8ee0-c06739236c3c";
+        "https://www.freeprivacypolicy.com/live/fe2eb687-ce50-4a3e-89f6-dc489e763af1";
     await launch(url, forceSafariVC: false);
     emit(LaunchState());
   }
@@ -346,7 +347,7 @@ class AppCubit extends Cubit<AppStates> {
         emit(SignUpSuccessState());
         CashHelper.saveData(key: 'isUid', value: credential.user?.uid);
         customToast(
-          title: 'Account Created Successfully',
+          title: AppLocalizations.of(context)!.translate('Account Created Successfully').toString(),
           color: ColorManager.blue,
         );
         getUser(id: (credential.user?.uid)!);
@@ -357,7 +358,8 @@ class AppCubit extends Cubit<AppStates> {
       } else if (e.code == FirebaseErrors.emailInUse) {
         emit(SignUpErrorState(e.toString()));
         customToast(
-          title: 'This account already exists',
+
+          title:  AppLocalizations.of(context)!.translate('This account already exists').toString(),
           color: ColorManager.red,
         );
         print("--------------Failed To Create Account");
@@ -498,8 +500,7 @@ class AppCubit extends Cubit<AppStates> {
         print('Table Created');
         emit(CreateTableState());
       });
-    },
-        onOpen: (database) {
+    }, onOpen: (database) {
       getDatabase(database).then((value) {
         allFavorite = value;
       }).catchError((error) {
@@ -529,7 +530,7 @@ class AppCubit extends Cubit<AppStates> {
           .rawInsert(
               'INSERT INTO favorite (name,address,price,rate,image,favorite) VALUES ( "$name" , "$code" , "$price" , "$number" , "$image" , "yes")')
           .then((value) {
-        print("$value Insert Success");
+        print("${value} Insert Success");
         emit(InsertDatabaseSuccessState());
         getDatabase(database).then((value) {
           allFavorite = value;
@@ -568,29 +569,6 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void updateDatabase(
-      {
-        required String number,
-        required String id,
-      }
-      ) async{
-    database?.rawUpdate(
-        'UPDATE favorite SET rate = ? WHERE id = ?',
-        [number, id]).then((value) {
-
-      print('Update Done');
-      getDatabase(database);
-      emit(UpdateNoteDatabaseState());
-    }).catchError((error){
-      print('error is ${error.toString()}');
-    });
-
-  }
-
-
-
-
-
   ProductModel? products;
 
   List<MainProducts> myProducts = [];
@@ -610,8 +588,7 @@ class AppCubit extends Cubit<AppStates> {
 
     emit(GetProductsFromApiLoadingState());
     DioHelper.postData(
-      url:
-          'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
+      url: 'GetProducts?productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}',
     ).then((value) {
       print(
           'productModel=${productModel}&factory=${factory}&fromDate=${fromDate}&toDate=${toDate}');
@@ -628,17 +605,17 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  List<dynamic> search = [];
 
+  List<dynamic> search = [];
   void getSearch(String value) {
     emit(GetSearchLoadingState());
     DioHelper.postData(
-      url: 'GetProducts?ItemName=$value',
-    ).then((value) {
-      search = value.data['MainProducts'];
+        url: 'GetProducts?ItemName=$value',
+        ).then((value) {
+      search =value.data['MainProducts'];
       print(search[2]['ProductName']);
       emit(GetSearchSuccessState());
-    }).catchError((error) {
+    }).catchError((error){
       debugPrint('error during calling api ${error.toString()}');
       emit(GetSearchErrorState());
     });
@@ -893,6 +870,23 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
+
+
+  Future<void> addUserPaymentToFireBase() async {
+    emit(AddUserProductsLoadingState());
+    FirebaseFirestore.instance
+        .collection("userPayments")
+        .doc(userModel!.uId)
+        .collection('products')
+        .add({
+      'products':userProduct.toList()
+    }).then((value) => {
+      emit(AddUserProductsSuccessState()),
+    });
+    emit(AddUserProductsErrorState());
+  }
+
+
   VideoPlayerController? videoPlayerController;
 
   void initializeVideoPlayer() {
@@ -913,7 +907,4 @@ class AppCubit extends Cubit<AppStates> {
 //               "TotalValue" :"100",
 //               "DiscountValue" :"0",
 //               "ExtraValue" :"0"
-  }
-
-
 }

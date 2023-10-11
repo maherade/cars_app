@@ -150,12 +150,12 @@ class SettingScreen extends StatelessWidget {
                     if (CashHelper.getData(
                         key: CashHelper.languageKey)
                         .toString() ==
-                        "en") {
+                        "he") {
                       LocalizationCubit.get(context)
                           .changeLanguage(code: "ar");
                     } else {
                       LocalizationCubit.get(context)
-                          .changeLanguage(code: "en");
+                          .changeLanguage(code: "he");
                     }
                   },
                   child: Container(

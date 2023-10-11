@@ -1,5 +1,6 @@
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
+import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/presentation/screens/car_model/car_model.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../business_logic/localization_cubit/app_localization.dart';
-
 class CarName extends StatelessWidget {
   final String brandName;
+  final String brandNameString;
 
-   const CarName({super.key, required this.brandName});
+   const CarName({super.key, required this.brandName,required this.brandNameString});
 
   static List<String> carNames = [
     'https://th.bing.com/th/id/OIP.TO45779tzyhiqY9n7ySUYAHaE6?pid=ImgDet&rs=1',
@@ -58,18 +58,36 @@ class CarName extends StatelessWidget {
           'سينترا',
         ];
 
+        List<String> nissanBrandsStrings = [
+          AppLocalizations.of(context)!.translate('tima').toString(),
+          AppLocalizations.of(context)!.translate('virsa').toString(),
+          AppLocalizations.of(context)!.translate('rouge').toString(),
+          AppLocalizations.of(context)!.translate('navara').toString(),
+          AppLocalizations.of(context)!.translate('sunny').toString(),
+          AppLocalizations.of(context)!.translate('jouke').toString(),
+          AppLocalizations.of(context)!.translate('sintra').toString(),
+        ];
+
         List<String> toyotaBrands = [
           'لاندكروز',
           'كامري',
           'برادو',
           'كورلا',
         ];
+
+        List<String> toyotaBrandsStrings = [
+          AppLocalizations.of(context)!.translate('landcruz').toString(),
+          AppLocalizations.of(context)!.translate('camri').toString(),
+          AppLocalizations.of(context)!.translate('brado').toString(),
+          AppLocalizations.of(context)!.translate('crolla').toString(),
+        ];
+
         return Scaffold(
           appBar: AppBar(
             iconTheme: const IconThemeData(color: ColorManager.lightColor),
             backgroundColor: ColorManager.primaryColor,
             title: Text(
-              ' $brandName',
+              ' $brandNameString',
               style: GoogleFonts.cairo(
                 fontSize: 17.0,
                 fontWeight: FontWeight.w600,
@@ -114,16 +132,18 @@ class CarName extends StatelessWidget {
                                       MaterialPageRoute(builder: (_) {
                                         return CarModel(
                                           brandName: brandName,
-                                          brandModel:
-                                          nissanBrands[index],
+                                          brandNameString: brandNameString,
+                                          brandModelString: nissanBrandsStrings[index],
+                                          brandModel: nissanBrands[index],
                                         );
                                       }))
                                       : Navigator.push(context,
                                                 MaterialPageRoute(builder: (_) {
                                                 return CarModel(
                                                   brandName: brandName,
-                                                  brandModel:
-                                                      toyotaBrands[index],
+                                                  brandNameString: brandNameString,
+                                                  brandModel: toyotaBrands[index],
+                                                  brandModelString: toyotaBrandsStrings[index],
                                                 );
                                               }));
                                       },
@@ -166,7 +186,7 @@ class CarName extends StatelessWidget {
                                                 'نيسان'
 
                                                 ? Text(
-                                              nissanBrands[index],
+                                              nissanBrandsStrings[index],
                                               style: GoogleFonts.cairo(
                                                 fontSize: 15.0,
                                                 fontWeight:
@@ -176,7 +196,7 @@ class CarName extends StatelessWidget {
                                               textAlign: TextAlign.center,
                                                   )
                                                 : Text(
-                                                    toyotaBrands[index],
+                                                    toyotaBrandsStrings[index],
                                                     style: GoogleFonts.cairo(
                                                       fontSize: 15.0,
                                                       fontWeight:

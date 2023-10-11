@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -30,11 +31,33 @@ class BrandItem extends StatelessWidget {
       'مازدا',
     ];
 
+
+    List<String> brandNamesString = [
+      AppLocalizations.of(context)!.translate('toyota').toString(),
+      AppLocalizations.of(context)!.translate('nissan').toString(),
+      AppLocalizations.of(context)!.translate('wolex').toString(),
+      AppLocalizations.of(context)!.translate('mitsubeshi').toString(),
+      AppLocalizations.of(context)!.translate('ford').toString(),
+      AppLocalizations.of(context)!.translate('shangan').toString(),
+      'BMW',
+      AppLocalizations.of(context)!.translate('mercides').toString(),
+      AppLocalizations.of(context)!.translate('audi').toString(),
+      AppLocalizations.of(context)!.translate('cheri').toString(),
+      AppLocalizations.of(context)!.translate('haval').toString(),
+      AppLocalizations.of(context)!.translate('chevrolet').toString(),
+      AppLocalizations.of(context)!.translate('suzuki').toString(),
+      AppLocalizations.of(context)!.translate('mazda').toString(),
+    ];
+
+
+
+
     return InkWell(
       onTap: () {
         Navigator.push(context, MaterialPageRoute(builder: (_) {
           return CarName(
             brandName: brandNames[index],
+            brandNameString: brandNamesString[index],
           );
         }));
       },
@@ -47,15 +70,13 @@ class BrandItem extends StatelessWidget {
                 border: Border.all(color: ColorManager.primaryColor),
                 borderRadius: BorderRadius.circular(50)),
             clipBehavior: Clip.antiAliasWithSaveLayer,
-            child: Image(
-              image: AssetImage(
-                AppCubit.get(context).brandImages[index],
-              ),
+            child: CachedNetworkImage(
+              imageUrl: AppCubit.get(context).brandImages[index],
               fit: BoxFit.contain,
-            ),
+            )
           ),
           Text(
-            brandNames[index],
+            brandNamesString[index],
             style: GoogleFonts.cairo(
               fontSize: 13.0,
               fontWeight: FontWeight.w600,

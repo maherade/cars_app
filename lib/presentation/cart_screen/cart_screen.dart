@@ -5,22 +5,17 @@ import 'package:cars_app/widgets/defualtButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../business_logic/app_cubit/app_cubit.dart';
 import '../../business_logic/app_cubit/app_states.dart';
 import '../../business_logic/localization_cubit/app_localization.dart';
+import '../../utiles/local/cash_helper.dart';
 
-class CartScreen extends StatefulWidget {
-  CartScreen({super.key});
-
-  @override
-  State<CartScreen> createState() => _CartScreenState();
-}
-
-class _CartScreenState extends State<CartScreen> {
-  TextEditingController numberController = TextEditingController();
+class CartScreen extends StatelessWidget {
+  const CartScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

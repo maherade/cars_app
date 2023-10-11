@@ -47,7 +47,7 @@ class BrandScreen extends StatelessWidget {
             title: Text(
               AppLocalizations.of(context)!.translate('brands').toString(),
               style: GoogleFonts.cairo(
-                fontSize: 20.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w700,
                 color: ColorManager.lightColor,
               ),
