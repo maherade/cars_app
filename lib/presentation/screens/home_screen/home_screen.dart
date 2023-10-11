@@ -117,7 +117,7 @@ class HomeScreen extends StatelessWidget {
                               Navigator.push(context,
                                   MaterialPageRoute(builder: (_) {
                                 return  const CarName(
-                                  brandName: '',
+                                  brandName: '', brandNameString: '',
                                 );
                               }));
                             },

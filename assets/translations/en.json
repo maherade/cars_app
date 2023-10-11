@@ -56,7 +56,10 @@
   "cash": "Dema wergirtina dravê",
   "visa": "Payment bikaranîna karta",
   "paymentWay": "Rêbaza dravdanê hilbijêrin",
-  "transfair": "transfera pereyan"
+  "notCompleted": "netemam",
+  "transfair": "transfera pereyan",
+  "empty": "Mixabin, niha tu hilber tuneً"
+
 
 
 }

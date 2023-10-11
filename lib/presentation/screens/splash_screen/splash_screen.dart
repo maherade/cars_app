@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
@@ -24,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
 
-    Future.delayed(Duration(seconds: AppCubit.get(context).videoPlayerController!.value.duration.inSeconds), () async {
+    Timer(Duration(seconds: AppCubit.get(context).videoPlayerController!.value.duration.inSeconds), ()  {
      AppCubit.get(context).initializeVideoPlayer();
       AppCubit.get(context).getFavoriteProductFromApi().then((value) {
         CashHelper.getData(key: 'isUid') == null

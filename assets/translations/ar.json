@@ -63,6 +63,8 @@
   "This account doesn't exists":"هذا الحساب غير موجود",
   "Invalid email or password":"خطا في البريد الالكتروني او كلمه المرور",
   "Something went wrong":"هناك خطا ما",
-  "Not Completed":"عمليه الدفع غير مكتمله"
-
+  "Not Completed":"عمليه الدفع غير مكتمله",
+  "notCompleted": "غير مكتمل",
+  "transfair": "حوالة مالية",
+  "empty": "عفواً لا يوجد منتجات حالياً"
 }

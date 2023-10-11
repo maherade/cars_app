@@ -1,21 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/styles/color_manager.dart';
+import 'package:cars_app/widgets/custom_bottom_sheet.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-
 import '../../business_logic/app_cubit/app_cubit.dart';
 import '../../business_logic/app_cubit/app_states.dart';
 import '../../business_logic/localization_cubit/app_localization.dart';
-import '../../utiles/local/cash_helper.dart';
 
-class CartScreen extends StatelessWidget {
+class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
+
+  @override
+  State<CartScreen> createState() => _CartScreenState();
+}
+
+class _CartScreenState extends State<CartScreen> {
+  TextEditingController numberController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,15 +28,16 @@ class CartScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = AppCubit.get(context);
+        print("***************${cubit.totalPrice}");
         return Scaffold(
           backgroundColor: ColorManager.lightColor,
           appBar: AppBar(
-            iconTheme: const IconThemeData(color: ColorManager.textColor),
+            iconTheme: const IconThemeData(color: ColorManager.white),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
             systemOverlayStyle: const SystemUiOverlayStyle(
-              statusBarIconBrightness: Brightness.dark,
-              statusBarColor: ColorManager.lightColor,
+              statusBarIconBrightness: Brightness.light,
+              statusBarColor: Colors.transparent,
             ),
             title: Text(
               AppLocalizations.of(context)!.translate("cart").toString(),
@@ -45,6 +51,18 @@ class CartScreen extends StatelessWidget {
             actions: [
               GestureDetector(
                 onTap: () {
+                  // cubit.deleteProducts(context).then((value) {
+                  //   for (int i = 0; i < cubit.allFavorite.length; i++) {
+                  //     cubit.addUserProductsToFireBase(
+                  //         id: cubit.userModel!.uId!,
+                  //         name: '${cubit.allFavorite[i]['name']}',
+                  //         price: '${cubit.allFavorite[i]['price']}',
+                  //         image: '${cubit.allFavorite[i]['image']}',
+                  //         number: '${cubit.allFavorite[i]['number']}',
+                  //         productId: '${cubit.allFavorite[i]['id']}',
+                  //         code: '${cubit.allFavorite[i]['code']}');
+                  //   }
+                  // });
                   showDialog(
                       context: context,
                       builder: (context) {
@@ -74,7 +92,21 @@ class CartScreen extends StatelessWidget {
                                         .toString(),
                                     color: Colors.black,
                                     color2: Colors.black,
-                                    onPressed: () {}),
+                                  onPressed: () {
+                                    cubit.getUserProductsFromFireStore();
+                                    print(
+                                        "******************************************${cubit.totalPrice}");
+
+                                    // cubit.getUserProductsFromFireStore();
+                                    cubit.showAddBottomSheet(
+                                        context: context,
+                                        child:  CustomBottomSheet(
+                                        content:
+                                        "المبلغ المطلوب:${200.0}\$"
+                                    ));
+                                  },
+
+                                ),
                                 const SizedBox(
                                   height: 10,
                                 ),
@@ -85,8 +117,10 @@ class CartScreen extends StatelessWidget {
                                   color: Colors.red.shade800,
                                   color2: Colors.red.shade800,
                                   onPressed: () {
-                                    PaymentManager.makePayment(200, "USD").then(
-                                        (value) => Navigator.of(context).pop());
+                                    PaymentManager.makePayment(
+                                            200, "USD", context)
+                                        .then((value) =>
+                                            Navigator.of(context).pop());
                                   },
                                 ),
                                 const SizedBox(
@@ -99,7 +133,17 @@ class CartScreen extends StatelessWidget {
                                   color: Colors.green.shade800,
                                   color2: Colors.green.shade800,
                                   onPressed: () {
+                                    // cubit.getUserProductsFromFireStore();
+                                    print(
+                                        "******************************************${cubit.totalPrice}");
 
+                                    // cubit.getUserProductsFromFireStore();
+                                    cubit.showAddBottomSheet(
+                                        context: context,
+                                          child:  CustomBottomSheet(
+                                        content:
+                                        "المبلغ المطلوب:${200.0}\$"
+                                    ));
                                   },
                                 ),
                               ],
@@ -283,13 +327,13 @@ class CartScreen extends StatelessWidget {
                                               id: '${cubit.allFavorite[index]['id']}');
                                           cubit
                                               .editUserProductsToFireBase(
-                                              id: cubit.userModel!.uId!,
-                                              number: cubit
-                                                  .editNumberController[
-                                              index]
-                                                  .text,
-                                              productId:
-                                              '${cubit.allFavorite[index]['id']}')
+                                                  id: cubit.userModel!.uId!,
+                                                  number: cubit
+                                                      .editNumberController[
+                                                          index]
+                                                      .text,
+                                                  productId:
+                                                      '${cubit.allFavorite[index]['id']}')
                                               .then((value) => {
                                             AppCubit.get(context)
                                                 .getUserProductsFromFireStore(),
@@ -413,6 +457,21 @@ class CartScreen extends StatelessWidget {
                       },
                       itemCount: AppCubit.get(context).allFavorite.length),
                 ),
+
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  width: double.infinity,
+                  height: 50,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: Text(
+                    'اجمالي المبلغ: ${200.0}\$',
+                    style: GoogleFonts.cairo(
+                      fontSize: 20,
+                    ),
+                  ),
+                )
               ],
             ),
           ),

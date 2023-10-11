@@ -68,6 +68,15 @@ class MyApp extends StatelessWidget {
                   statusBarColor: ColorManager.lightColor,
                 ),
               ),
+              bottomSheetTheme: const BottomSheetThemeData(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topRight: Radius.circular(18),
+                    topLeft: Radius.circular(18),
+                  ),
+                ),
+              ),
+
             ),
             debugShowCheckedModeBanner: false,
             home:  const SplashScreen(),

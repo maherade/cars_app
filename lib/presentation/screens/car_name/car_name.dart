@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
@@ -8,11 +9,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'package:lottie/lottie.dart';
+
 class CarName extends StatelessWidget {
   final String brandName;
   final String brandNameString;
 
-   const CarName({super.key, required this.brandName,required this.brandNameString});
+  const CarName({super.key, required this.brandName, required this.brandNameString});
 
   static List<String> carNames = [
     'https://th.bing.com/th/id/OIP.TO45779tzyhiqY9n7ySUYAHaE6?pid=ImgDet&rs=1',
@@ -156,15 +159,11 @@ class CarName extends StatelessWidget {
                                                 BorderRadius.circular(10)),
                                         child: Column(
                                           children: [
-                                            Image(
-                                              image: brandName ==
-                                                  'نيسان'
-
-                                                  ? NetworkImage(nissan[index])
-                                                  : NetworkImage(
-                                                  carNames[index]),
-                                              height: MediaQuery
-                                                  .of(context)
+                                            CachedNetworkImage(
+                                              imageUrl: brandName == 'نيسان'
+                                                  ? (nissan[index])
+                                                  : carNames[index],
+                                              height: MediaQuery.of(context)
                                                   .size
                                                   .height *
                                                   .15,
@@ -174,6 +173,20 @@ class CarName extends StatelessWidget {
                                                   .height *
                                                   .25,
                                               fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                              const Center(
+                                                child:
+                                                CircularProgressIndicator(
+                                                  color: ColorManager.red,
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                  Center(
+                                                    child: Image.asset(
+                                                      'assets/images/logo2.png',
+                                                    ),
+                                                  ),
                                             ),
                                             SizedBox(
                                               height: MediaQuery
@@ -212,7 +225,25 @@ class CarName extends StatelessWidget {
                           ),
                         ),
                       )
-                    : Container()
+                    : Column(
+                        children: [
+                          Lottie.asset(
+                            'assets/images/empty.json',
+                          ),
+                          Text(
+                            AppLocalizations.of(context)!
+                                .translate("empty")
+                                .toString(),
+                            style: GoogleFonts.cairo(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                              color: ColorManager.textColor,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      )
+
               ],
             ),
           ),

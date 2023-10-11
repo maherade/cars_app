@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
+import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -50,42 +51,49 @@ class ProductScreen extends StatelessWidget {
                 const SizedBox(
                   width: 20,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.width * .02),
-                  decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(12)),
-                  width: MediaQuery.of(context).size.width * .25,
-                  height: MediaQuery.of(context).size.width * .1,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CashHelper.getData(key: 'counter') == null
-                          ? Text('0',
-                              style: GoogleFonts.cairo(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                color: ColorManager.white,
-                              ))
-                          : Text(
-                              '${cubit.allFavorite.length}',
-                              style: GoogleFonts.cairo(
-                                fontSize: 20.0,
-                                fontWeight: FontWeight.w600,
-                                color: ColorManager.white,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) {
+                      return CartScreen();
+                    }));
+                  },
+                  child: Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.width * .02),
+                    decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(12)),
+                    width: MediaQuery.of(context).size.width * .25,
+                    height: MediaQuery.of(context).size.width * .1,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CashHelper.getData(key: 'counter') == null
+                            ? Text('0',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorManager.white,
+                                ))
+                            : Text(
+                                '${cubit.allFavorite.length}',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorManager.white,
+                                ),
                               ),
-                            ),
-                      Container(
-                        margin: const EdgeInsets.all(10),
-                        color: Colors.white,
-                        width: 2,
-                      ),
-                      const Icon(
-                        Icons.card_travel,
-                        color: Colors.white,
-                      ),
-                    ],
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                        const Icon(
+                          Icons.card_travel,
+                          color: Colors.white,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -172,11 +180,7 @@ class ProductScreen extends StatelessWidget {
                                             child: Column(
                                               children: [
                                                 Text(
-                                                    '${CashHelper.getData(
-                                                key: CashHelper.languageKey)
-                                                .toString() ==
-                                                "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
-
+                                                    '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
                                                     style: GoogleFonts.cairo(
                                                       fontSize: 15.0,
                                                       fontWeight:
@@ -240,10 +244,7 @@ class ProductScreen extends StatelessWidget {
                                               AppCubit.get(context)
                                                   .insertDatabase(
                                                       name:
-                                                      '${CashHelper.getData(
-                                                          key: CashHelper.languageKey)
-                                                          .toString() ==
-                                                          "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
+                                                          '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
                                                       code:
                                                           '${cubit.products!.mainProducts![index].productModelGuide}',
                                                       price:

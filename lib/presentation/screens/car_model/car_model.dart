@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/product_screen/product_screen.dart';
@@ -46,9 +47,7 @@ class CarModel extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = AppCubit.get(context);
     return BlocConsumer<AppCubit, AppStates>(
-      listener: (context, state) {
-
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
@@ -64,1159 +63,1436 @@ class CarModel extends StatelessWidget {
             ),
             elevation: 0.0,
             titleSpacing: 0.0,
-            iconTheme: const IconThemeData(
-                color: Colors.white
-            ),
+            iconTheme: const IconThemeData(color: Colors.white),
             systemOverlayStyle: const SystemUiOverlayStyle(
               statusBarIconBrightness: Brightness.light,
               statusBarColor: Colors.transparent,
             ),
           ),
           body: Container(
-            decoration: const BoxDecoration(
-                color: Colors.white
-            ),
-
+            decoration: const BoxDecoration(color: Colors.white),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
-
-            brandName=='نيسان' && brandModel=='التيما'?
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .timaStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .timaStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .timaEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.timaCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .timaStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
+                brandName == 'نيسان' && brandModel == 'التيما'
+                    ? Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                              left: 10, right: 10, top: 10),
+                          child: GridView.count(
+                            crossAxisCount: 3,
+                            childAspectRatio: 1 / 1.4,
+                            crossAxisSpacing: 5,
+                            mainAxisSpacing: 15,
+                            children: List.generate(
+                                AppCubit.get(context).timaStart.length,
+                                (index) => GestureDetector(
+                                      onTap: () {
+                                        AppCubit.get(context)
+                                            .getProductFromApi(
+                                                factory: brandName,
+                                                productModel: brandModel,
+                                                fromDate: AppCubit.get(context)
+                                                    .timaStart[index],
+                                                toDate: AppCubit.get(context)
+                                                    .timaEnd[index])
+                                            .then((value) {
+                                          Navigator.push(context,
+                                              MaterialPageRoute(builder: (_) {
+                                            return ProductScreen();
+                                          }));
+                                        });
+                                      },
+                                      child: Container(
+                                        clipBehavior:
+                                            Clip.antiAliasWithSaveLayer,
+                                        decoration: BoxDecoration(
+                                            color: ColorManager.lightColor2,
+                                            borderRadius:
+                                                BorderRadius.circular(10)),
+                                        child: Column(
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl: cubit.timaCars[index],
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .15,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .25,
+                                              fit: BoxFit.cover,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  color: ColorManager.red,
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      Center(
+                                                child: Image.asset(
+                                                  'assets/images/logo2.png',
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .02,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  AppCubit.get(context)
+                                                      .timaStart[index],
+                                                  style: GoogleFonts.cairo(
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.black,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  '  - ',
+                                                  style: GoogleFonts.cairo(
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.black,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                Text(
+                                                  AppCubit.get(context)
+                                                      .timaEnd[index],
+                                                  style: GoogleFonts.cairo(
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.black,
+                                                  ),
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                              ],
+                                            )
+                                          ],
                                         ),
-                                        textAlign: TextAlign.center,
                                       ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .timaEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                ) :
-            brandName=='نيسان' && brandModel=='فيرسا'?
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .versaStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .versaStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .versaEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.versaCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .versaStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .versaEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='نيسان' && brandModel=='روج'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .rogStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .rogStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .rogEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.rougeCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .rogStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .rogEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
+                                    )),
+                          ),
+                        ),
+                      )
+                    : brandName == 'نيسان' && brandModel == 'فيرسا'
+                        ? Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, right: 10, top: 10),
+                              child: GridView.count(
+                                crossAxisCount: 3,
+                                childAspectRatio: 1 / 1.4,
+                                crossAxisSpacing: 5,
+                                mainAxisSpacing: 15,
+                                children: List.generate(
+                                    AppCubit.get(context).versaStart.length,
+                                    (index) => GestureDetector(
+                                          onTap: () {
+                                            AppCubit.get(context)
+                                                .getProductFromApi(
+                                                    factory: brandName,
+                                                    productModel: brandModel,
+                                                    fromDate:
+                                                        AppCubit.get(context)
+                                                            .versaStart[index],
+                                                    toDate:
+                                                        AppCubit.get(context)
+                                                            .versaEnd[index])
+                                                .then((value) {
+                                              Navigator.push(context,
+                                                  MaterialPageRoute(
+                                                      builder: (_) {
+                                                return ProductScreen();
+                                              }));
+                                            });
+                                          },
+                                          child: Container(
+                                            clipBehavior:
+                                                Clip.antiAliasWithSaveLayer,
+                                            decoration: BoxDecoration(
+                                                color: ColorManager.lightColor2,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Column(
+                                              children: [
+                                                CachedNetworkImage(
+                                                  imageUrl: cubit.versaCars[index],
+                                                  height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      .15,
+                                                  width: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                      .25,
+                                                  fit: BoxFit.cover,
+                                                  placeholder: (context, url) =>
+                                                  const Center(
+                                                    child:
+                                                    CircularProgressIndicator(
+                                                      color: ColorManager.red,
+                                                    ),
+                                                  ),
+                                                  errorWidget:
+                                                      (context, url, error) =>
+                                                      Center(
+                                                        child: Image.asset(
+                                                          'assets/images/logo2.png',
+                                                        ),
+                                                      ),
+                                                ),
+                                                SizedBox(
+                                                  height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                      .02,
+                                                ),
+                                                Row(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      AppCubit.get(context)
+                                                          .versaStart[index],
+                                                      style: GoogleFonts.cairo(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            ColorManager.black,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      '  - ',
+                                                      style: GoogleFonts.cairo(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            ColorManager.black,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    Text(
+                                                      AppCubit.get(context)
+                                                          .versaEnd[index],
+                                                      style: GoogleFonts.cairo(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color:
+                                                            ColorManager.black,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        )),
                               ),
                             ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='نيسان' && brandModel=='نافارا'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .navaraStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .navaraStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .navaraEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(
-                                        cubit.nafaraCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
+                          )
+                        : brandName == 'نيسان' && brandModel == 'روج'
+                            ? Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 10, top: 10),
+                                  child: GridView.count(
+                                    crossAxisCount: 3,
+                                    childAspectRatio: 1 / 1.4,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 15,
+                                    children: List.generate(
+                                        AppCubit.get(context).rogStart.length,
+                                        (index) => GestureDetector(
+                                              onTap: () {
+                                                AppCubit.get(context)
+                                                    .getProductFromApi(
+                                                        factory: brandName,
+                                                        productModel:
+                                                            brandModel,
+                                                        fromDate: AppCubit.get(
+                                                                context)
+                                                            .rogStart[index],
+                                                        toDate: AppCubit.get(
+                                                                context)
+                                                            .rogEnd[index])
+                                                    .then((value) {
+                                                  Navigator.push(context,
+                                                      MaterialPageRoute(
+                                                          builder: (_) {
+                                                    return ProductScreen();
+                                                  }));
+                                                });
+                                              },
+                                              child: Container(
+                                                clipBehavior:
+                                                    Clip.antiAliasWithSaveLayer,
+                                                decoration: BoxDecoration(
+                                                    color: ColorManager
+                                                        .lightColor2,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10)),
+                                                child: Column(
+                                                  children: [
+                                                    CachedNetworkImage(
+                                                      imageUrl: cubit.rougeCars[index],
+                                                      height: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          .15,
+                                                      width: MediaQuery.of(context)
+                                                          .size
+                                                          .height *
+                                                          .25,
+                                                      fit: BoxFit.cover,
+                                                      placeholder: (context, url) =>
+                                                      const Center(
+                                                        child:
+                                                        CircularProgressIndicator(
+                                                          color: ColorManager.red,
+                                                        ),
+                                                      ),
+                                                      errorWidget:
+                                                          (context, url, error) =>
+                                                          Center(
+                                                            child: Image.asset(
+                                                              'assets/images/logo2.png',
+                                                            ),
+                                                          ),
+                                                    ),
+                                                    SizedBox(
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              .02,
+                                                    ),
+                                                    Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          AppCubit.get(context)
+                                                              .rogStart[index],
+                                                          style:
+                                                              GoogleFonts.cairo(
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: ColorManager
+                                                                .black,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                        Text(
+                                                          '  - ',
+                                                          style:
+                                                              GoogleFonts.cairo(
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: ColorManager
+                                                                .black,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                        Text(
+                                                          AppCubit.get(context)
+                                                              .rogEnd[index],
+                                                          style:
+                                                              GoogleFonts.cairo(
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                            color: ColorManager
+                                                                .black,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                        ),
+                                                      ],
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            )),
                                   ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .navaraStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
+                                ),
+                              )
+                            : brandName == 'نيسان' && brandModel == 'نافارا'
+                                ? Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 10, right: 10, top: 10),
+                                      child: GridView.count(
+                                        crossAxisCount: 3,
+                                        childAspectRatio: 1 / 1.4,
+                                        crossAxisSpacing: 5,
+                                        mainAxisSpacing: 15,
+                                        children: List.generate(
+                                            AppCubit.get(context)
+                                                .navaraStart
+                                                .length,
+                                            (index) => GestureDetector(
+                                                  onTap: () {
+                                                    AppCubit.get(context)
+                                                        .getProductFromApi(
+                                                            factory: brandName,
+                                                            productModel:
+                                                                brandModel,
+                                                            fromDate: AppCubit.get(
+                                                                        context)
+                                                                    .navaraStart[
+                                                                index],
+                                                            toDate: AppCubit.get(
+                                                                        context)
+                                                                    .navaraEnd[
+                                                                index])
+                                                        .then((value) {
+                                                      Navigator.push(context,
+                                                          MaterialPageRoute(
+                                                              builder: (_) {
+                                                        return ProductScreen();
+                                                      }));
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    clipBehavior: Clip
+                                                        .antiAliasWithSaveLayer,
+                                                    decoration: BoxDecoration(
+                                                        color: ColorManager
+                                                            .lightColor2,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10)),
+                                                    child: Column(
+                                                      children: [
+                                                        CachedNetworkImage(
+                                                          imageUrl: cubit.nafaraCars[index],
+                                                          height: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                              .15,
+                                                          width: MediaQuery.of(context)
+                                                              .size
+                                                              .height *
+                                                              .25,
+                                                          fit: BoxFit.cover,
+                                                          placeholder: (context, url) =>
+                                                          const Center(
+                                                            child:
+                                                            CircularProgressIndicator(
+                                                              color: ColorManager.red,
+                                                            ),
+                                                          ),
+                                                          errorWidget:
+                                                              (context, url, error) =>
+                                                              Center(
+                                                                child: Image.asset(
+                                                                  'assets/images/logo2.png',
+                                                                ),
+                                                              ),
+                                                        ),
+                                                        SizedBox(
+                                                          height: MediaQuery.of(
+                                                                      context)
+                                                                  .size
+                                                                  .height *
+                                                              .02,
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Text(
+                                                              AppCubit.get(
+                                                                          context)
+                                                                      .navaraStart[
+                                                                  index],
+                                                              style: GoogleFonts
+                                                                  .cairo(
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    ColorManager
+                                                                        .black,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            Text(
+                                                              '  - ',
+                                                              style: GoogleFonts
+                                                                  .cairo(
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    ColorManager
+                                                                        .black,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                            Text(
+                                                              AppCubit.get(
+                                                                          context)
+                                                                      .navaraEnd[
+                                                                  index],
+                                                              style: GoogleFonts
+                                                                  .cairo(
+                                                                fontSize: 15.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w600,
+                                                                color:
+                                                                    ColorManager
+                                                                        .black,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                )),
                                       ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .navaraEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
+                                    ),
                                   )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='نيسان' && brandModel=='سني هندي'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .sanyStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .sanyStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .sanyEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.sunnyCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .sanyStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
+                                : brandName == 'نيسان' &&
+                                        brandModel == 'سني هندي'
+                                    ? Expanded(
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, right: 10, top: 10),
+                                          child: GridView.count(
+                                            crossAxisCount: 3,
+                                            childAspectRatio: 1 / 1.4,
+                                            crossAxisSpacing: 5,
+                                            mainAxisSpacing: 15,
+                                            children: List.generate(
+                                                AppCubit.get(context)
+                                                    .sanyStart
+                                                    .length,
+                                                (index) => GestureDetector(
+                                                      onTap: () {
+                                                        AppCubit.get(context)
+                                                            .getProductFromApi(
+                                                                factory:
+                                                                    brandName,
+                                                                productModel:
+                                                                    brandModel,
+                                                                fromDate: AppCubit.get(
+                                                                            context)
+                                                                        .sanyStart[
+                                                                    index],
+                                                                toDate: AppCubit
+                                                                        .get(
+                                                                            context)
+                                                                    .sanyEnd[index])
+                                                            .then((value) {
+                                                          Navigator.push(
+                                                              context,
+                                                              MaterialPageRoute(
+                                                                  builder: (_) {
+                                                            return ProductScreen();
+                                                          }));
+                                                        });
+                                                      },
+                                                      child: Container(
+                                                        clipBehavior: Clip
+                                                            .antiAliasWithSaveLayer,
+                                                        decoration: BoxDecoration(
+                                                            color: ColorManager
+                                                                .lightColor2,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                        child: Column(
+                                                          children: [
+                                                            CachedNetworkImage(
+                                                              imageUrl: cubit.sunnyCars[index],
+                                                              height: MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                                  .15,
+                                                              width: MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                                  .25,
+                                                              fit: BoxFit.cover,
+                                                              placeholder: (context, url) =>
+                                                              const Center(
+                                                                child:
+                                                                CircularProgressIndicator(
+                                                                  color: ColorManager.red,
+                                                                ),
+                                                              ),
+                                                              errorWidget:
+                                                                  (context, url, error) =>
+                                                                  Center(
+                                                                    child: Image.asset(
+                                                                      'assets/images/logo2.png',
+                                                                    ),
+                                                                  ),
+                                                            ),
+                                                            SizedBox(
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  .02,
+                                                            ),
+                                                            Row(
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  AppCubit.get(
+                                                                          context)
+                                                                      .sanyStart[index],
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .cairo(
+                                                                    fontSize:
+                                                                        15.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: ColorManager
+                                                                        .black,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                                Text(
+                                                                  '  - ',
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .cairo(
+                                                                    fontSize:
+                                                                        15.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: ColorManager
+                                                                        .black,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                                Text(
+                                                                  AppCubit.get(
+                                                                          context)
+                                                                      .sanyEnd[index],
+                                                                  style:
+                                                                      GoogleFonts
+                                                                          .cairo(
+                                                                    fontSize:
+                                                                        15.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    color: ColorManager
+                                                                        .black,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ],
+                                                            )
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    )),
+                                          ),
                                         ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .sanyEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='نيسان' && brandModel=='جوك'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .gocStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .gocStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .gocEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.jokCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .gocStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .gocEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='نيسان' && brandModel=='سينترا'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .santraStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .santraStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .santraEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(
-                                        cubit.cintraCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .santraStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .santraEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='تويوتا' && brandModel=='لاندكروز'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .landStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                factory: brandName,
-                                productModel: brandModel,
-                                fromDate: AppCubit
-                                    .get(context)
-                                    .landStart[index],
-                                toDate: AppCubit
-                                    .get(context)
-                                    .landEnd[index],
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.landCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .landStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .landEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                ) :
-            brandName=='تويوتا' && brandModel=='كامري'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 10,
-                        right: 10,
-                        top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .kamaryStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .kamaryStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .kamaryEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.camryCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .kamaryStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .kamaryEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='تويوتا' && brandModel=='برادو'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .bradoEnd
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .bradoStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .bradoEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(cubit.bradoCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .bradoStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .bradoEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                )
-                    :
-            brandName=='تويوتا' && brandModel=='كورلا'?
-
-            Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 10, right: 10, top: 10),
-                    child: GridView.count(
-                      crossAxisCount: 3,
-                      childAspectRatio: 1 / 1.4,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 15,
-                      children: List.generate(AppCubit
-                          .get(context)
-                          .koraStart
-                          .length, (index) =>
-                          GestureDetector(
-                            onTap: () {
-                              AppCubit.get(context).getProductFromApi(
-                                  factory: brandName,
-                                  productModel: brandModel,
-                                  fromDate: AppCubit
-                                      .get(context)
-                                      .koraStart[index],
-                                  toDate: AppCubit
-                                      .get(context)
-                                      .koraEnd[index]
-                              ).then((value) {
-                                Navigator.push(
-                                    context, MaterialPageRoute(builder: (_) {
-                                  return ProductScreen();
-                                }));
-                              });
-                            },
-                            child: Container(
-                              clipBehavior: Clip.antiAliasWithSaveLayer,
-                              decoration: BoxDecoration(
-                                  color: ColorManager.lightColor2,
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
-                              child: Column(
-                                children: [
-
-                                  Image(
-                                    image: NetworkImage(
-                                        cubit.crollaCars[index]),
-                                    height: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .15,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .height * .25,
-                                    fit: BoxFit.cover,
-                                  ),
-
-                                  SizedBox(height: MediaQuery
-                                      .of(context)
-                                      .size
-                                      .height * .02,),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .koraStart[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        '  - ',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        AppCubit
-                                            .get(context)
-                                            .koraEnd[index],
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                          color: ColorManager.black,
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ),
-                          )),
-                    ),
-                  ),
-                ) :
-                Container()
-
-
+                                      )
+                                    : brandName == 'نيسان' &&
+                                            brandModel == 'جوك'
+                                        ? Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(
+                                                  left: 10, right: 10, top: 10),
+                                              child: GridView.count(
+                                                crossAxisCount: 3,
+                                                childAspectRatio: 1 / 1.4,
+                                                crossAxisSpacing: 5,
+                                                mainAxisSpacing: 15,
+                                                children: List.generate(
+                                                    AppCubit.get(context)
+                                                        .gocStart
+                                                        .length,
+                                                    (index) => GestureDetector(
+                                                          onTap: () {
+                                                            AppCubit.get(
+                                                                    context)
+                                                                .getProductFromApi(
+                                                                    factory:
+                                                                        brandName,
+                                                                    productModel:
+                                                                        brandModel,
+                                                                    fromDate: AppCubit.get(context)
+                                                                            .gocStart[
+                                                                        index],
+                                                                    toDate: AppCubit.get(
+                                                                            context)
+                                                                        .gocEnd[index])
+                                                                .then((value) {
+                                                              Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder:
+                                                                          (_) {
+                                                                return ProductScreen();
+                                                              }));
+                                                            });
+                                                          },
+                                                          child: Container(
+                                                            clipBehavior: Clip
+                                                                .antiAliasWithSaveLayer,
+                                                            decoration: BoxDecoration(
+                                                                color: ColorManager
+                                                                    .lightColor2,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10)),
+                                                            child: Column(
+                                                              children: [
+                                                                CachedNetworkImage(
+                                                                  imageUrl: cubit.jokCars[index],
+                                                                  height: MediaQuery.of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      .15,
+                                                                  width: MediaQuery.of(context)
+                                                                      .size
+                                                                      .height *
+                                                                      .25,
+                                                                  fit: BoxFit.cover,
+                                                                  placeholder: (context, url) =>
+                                                                  const Center(
+                                                                    child:
+                                                                    CircularProgressIndicator(
+                                                                      color: ColorManager.red,
+                                                                    ),
+                                                                  ),
+                                                                  errorWidget:
+                                                                      (context, url, error) =>
+                                                                      Center(
+                                                                        child: Image.asset(
+                                                                          'assets/images/logo2.png',
+                                                                        ),
+                                                                      ),
+                                                                ),
+                                                                SizedBox(
+                                                                  height: MediaQuery.of(
+                                                                              context)
+                                                                          .size
+                                                                          .height *
+                                                                      .02,
+                                                                ),
+                                                                Row(
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      AppCubit.get(
+                                                                              context)
+                                                                          .gocStart[index],
+                                                                      style: GoogleFonts
+                                                                          .cairo(
+                                                                        fontSize:
+                                                                            15.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        color: ColorManager
+                                                                            .black,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      '  - ',
+                                                                      style: GoogleFonts
+                                                                          .cairo(
+                                                                        fontSize:
+                                                                            15.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        color: ColorManager
+                                                                            .black,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                    Text(
+                                                                      AppCubit.get(
+                                                                              context)
+                                                                          .gocEnd[index],
+                                                                      style: GoogleFonts
+                                                                          .cairo(
+                                                                        fontSize:
+                                                                            15.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w600,
+                                                                        color: ColorManager
+                                                                            .black,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                    ),
+                                                                  ],
+                                                                )
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        )),
+                                              ),
+                                            ),
+                                          )
+                                        : brandName == 'نيسان' &&
+                                                brandModel == 'سينترا'
+                                            ? Expanded(
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 10,
+                                                          right: 10,
+                                                          top: 10),
+                                                  child: GridView.count(
+                                                    crossAxisCount: 3,
+                                                    childAspectRatio: 1 / 1.4,
+                                                    crossAxisSpacing: 5,
+                                                    mainAxisSpacing: 15,
+                                                    children: List.generate(
+                                                        AppCubit.get(context)
+                                                            .santraStart
+                                                            .length,
+                                                        (index) =>
+                                                            GestureDetector(
+                                                              onTap: () {
+                                                                AppCubit.get(
+                                                                        context)
+                                                                    .getProductFromApi(
+                                                                        factory:
+                                                                            brandName,
+                                                                        productModel:
+                                                                            brandModel,
+                                                                        fromDate:
+                                                                            AppCubit.get(context).santraStart[
+                                                                                index],
+                                                                        toDate: AppCubit.get(context).santraEnd[
+                                                                            index])
+                                                                    .then(
+                                                                        (value) {
+                                                                  Navigator.push(
+                                                                      context,
+                                                                      MaterialPageRoute(
+                                                                          builder:
+                                                                              (_) {
+                                                                    return ProductScreen();
+                                                                  }));
+                                                                });
+                                                              },
+                                                              child: Container(
+                                                                clipBehavior: Clip
+                                                                    .antiAliasWithSaveLayer,
+                                                                decoration: BoxDecoration(
+                                                                    color: ColorManager
+                                                                        .lightColor2,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            10)),
+                                                                child: Column(
+                                                                  children: [
+                                                                    CachedNetworkImage(
+                                                                      imageUrl: cubit.cintraCars[index],
+                                                                      height: MediaQuery.of(context)
+                                                                          .size
+                                                                          .height *
+                                                                          .15,
+                                                                      width: MediaQuery.of(context)
+                                                                          .size
+                                                                          .height *
+                                                                          .25,
+                                                                      fit: BoxFit.cover,
+                                                                      placeholder: (context, url) =>
+                                                                      const Center(
+                                                                        child:
+                                                                        CircularProgressIndicator(
+                                                                          color: ColorManager.red,
+                                                                        ),
+                                                                      ),
+                                                                      errorWidget:
+                                                                          (context, url, error) =>
+                                                                          Center(
+                                                                            child: Image.asset(
+                                                                              'assets/images/logo2.png',
+                                                                            ),
+                                                                          ),
+                                                                    ),
+                                                                    SizedBox(
+                                                                      height: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                          .02,
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Text(
+                                                                          AppCubit.get(context)
+                                                                              .santraStart[index],
+                                                                          style:
+                                                                              GoogleFonts.cairo(
+                                                                            fontSize:
+                                                                                15.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            color:
+                                                                                ColorManager.black,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                        Text(
+                                                                          '  - ',
+                                                                          style:
+                                                                              GoogleFonts.cairo(
+                                                                            fontSize:
+                                                                                15.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            color:
+                                                                                ColorManager.black,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                        Text(
+                                                                          AppCubit.get(context)
+                                                                              .santraEnd[index],
+                                                                          style:
+                                                                              GoogleFonts.cairo(
+                                                                            fontSize:
+                                                                                15.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w600,
+                                                                            color:
+                                                                                ColorManager.black,
+                                                                          ),
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                      ],
+                                                                    )
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            )),
+                                                  ),
+                                                ),
+                                              )
+                                            : brandName == 'تويوتا' &&
+                                                    brandModel == 'لاندكروز'
+                                                ? Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 10,
+                                                              right: 10,
+                                                              top: 10),
+                                                      child: GridView.count(
+                                                        crossAxisCount: 3,
+                                                        childAspectRatio:
+                                                            1 / 1.4,
+                                                        crossAxisSpacing: 5,
+                                                        mainAxisSpacing: 15,
+                                                        children: List.generate(
+                                                            AppCubit.get(
+                                                                    context)
+                                                                .landStart
+                                                                .length,
+                                                            (index) =>
+                                                                GestureDetector(
+                                                                  onTap: () {
+                                                                    AppCubit.get(
+                                                                            context)
+                                                                        .getProductFromApi(
+                                                                      factory:
+                                                                          brandName,
+                                                                      productModel:
+                                                                          brandModel,
+                                                                      fromDate:
+                                                                          AppCubit.get(context)
+                                                                              .landStart[index],
+                                                                      toDate: AppCubit.get(
+                                                                              context)
+                                                                          .landEnd[index],
+                                                                    )
+                                                                        .then(
+                                                                            (value) {
+                                                                      Navigator.push(
+                                                                          context,
+                                                                          MaterialPageRoute(builder:
+                                                                              (_) {
+                                                                        return ProductScreen();
+                                                                      }));
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    clipBehavior:
+                                                                        Clip.antiAliasWithSaveLayer,
+                                                                    decoration: BoxDecoration(
+                                                                        color: ColorManager
+                                                                            .lightColor2,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(10)),
+                                                                    child:
+                                                                        Column(
+                                                                      children: [
+                                                                        CachedNetworkImage(
+                                                                          imageUrl: cubit.landCars[index],
+                                                                          height: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                              .15,
+                                                                          width: MediaQuery.of(context)
+                                                                              .size
+                                                                              .height *
+                                                                              .25,
+                                                                          fit: BoxFit.cover,
+                                                                          placeholder: (context, url) =>
+                                                                          const Center(
+                                                                            child:
+                                                                            CircularProgressIndicator(
+                                                                              color: ColorManager.red,
+                                                                            ),
+                                                                          ),
+                                                                          errorWidget:
+                                                                              (context, url, error) =>
+                                                                              Center(
+                                                                                child: Image.asset(
+                                                                                  'assets/images/logo2.png',
+                                                                                ),
+                                                                              ),
+                                                                        ),
+                                                                        SizedBox(
+                                                                          height:
+                                                                              MediaQuery.of(context).size.height * .02,
+                                                                        ),
+                                                                        Row(
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              AppCubit.get(context).landStart[index],
+                                                                              style: GoogleFonts.cairo(
+                                                                                fontSize: 15.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                color: ColorManager.black,
+                                                                              ),
+                                                                              textAlign: TextAlign.center,
+                                                                            ),
+                                                                            Text(
+                                                                              '  - ',
+                                                                              style: GoogleFonts.cairo(
+                                                                                fontSize: 15.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                color: ColorManager.black,
+                                                                              ),
+                                                                              textAlign: TextAlign.center,
+                                                                            ),
+                                                                            Text(
+                                                                              AppCubit.get(context).landEnd[index],
+                                                                              style: GoogleFonts.cairo(
+                                                                                fontSize: 15.0,
+                                                                                fontWeight: FontWeight.w600,
+                                                                                color: ColorManager.black,
+                                                                              ),
+                                                                              textAlign: TextAlign.center,
+                                                                            ),
+                                                                          ],
+                                                                        )
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                )),
+                                                      ),
+                                                    ),
+                                                  )
+                                                : brandName == 'تويوتا' &&
+                                                        brandModel == 'كامري'
+                                                    ? Expanded(
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 10,
+                                                                  right: 10,
+                                                                  top: 10),
+                                                          child: GridView.count(
+                                                            crossAxisCount: 3,
+                                                            childAspectRatio:
+                                                                1 / 1.4,
+                                                            crossAxisSpacing: 5,
+                                                            mainAxisSpacing: 15,
+                                                            children:
+                                                                List.generate(
+                                                                    AppCubit.get(
+                                                                            context)
+                                                                        .kamaryStart
+                                                                        .length,
+                                                                    (index) =>
+                                                                        GestureDetector(
+                                                                          onTap:
+                                                                              () {
+                                                                            AppCubit.get(context).getProductFromApi(factory: brandName, productModel: brandModel, fromDate: AppCubit.get(context).kamaryStart[index], toDate: AppCubit.get(context).kamaryEnd[index]).then((value) {
+                                                                              Navigator.push(context, MaterialPageRoute(builder: (_) {
+                                                                                return ProductScreen();
+                                                                              }));
+                                                                            });
+                                                                          },
+                                                                          child:
+                                                                              Container(
+                                                                            clipBehavior:
+                                                                                Clip.antiAliasWithSaveLayer,
+                                                                            decoration:
+                                                                                BoxDecoration(color: ColorManager.lightColor2, borderRadius: BorderRadius.circular(10)),
+                                                                            child:
+                                                                                Column(
+                                                                              children: [
+                                                                                CachedNetworkImage(
+                                                                                  imageUrl: cubit.camryCars[index],
+                                                                                  height: MediaQuery.of(context)
+                                                                                      .size
+                                                                                      .height *
+                                                                                      .15,
+                                                                                  width: MediaQuery.of(context)
+                                                                                      .size
+                                                                                      .height *
+                                                                                      .25,
+                                                                                  fit: BoxFit.cover,
+                                                                                  placeholder: (context, url) =>
+                                                                                  const Center(
+                                                                                    child:
+                                                                                    CircularProgressIndicator(
+                                                                                      color: ColorManager.red,
+                                                                                    ),
+                                                                                  ),
+                                                                                  errorWidget:
+                                                                                      (context, url, error) =>
+                                                                                      Center(
+                                                                                        child: Image.asset(
+                                                                                          'assets/images/logo2.png',
+                                                                                        ),
+                                                                                      ),
+                                                                                ),
+                                                                                SizedBox(
+                                                                                  height: MediaQuery.of(context).size.height * .02,
+                                                                                ),
+                                                                                Row(
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      AppCubit.get(context).kamaryStart[index],
+                                                                                      style: GoogleFonts.cairo(
+                                                                                        fontSize: 15.0,
+                                                                                        fontWeight: FontWeight.w600,
+                                                                                        color: ColorManager.black,
+                                                                                      ),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      '  - ',
+                                                                                      style: GoogleFonts.cairo(
+                                                                                        fontSize: 15.0,
+                                                                                        fontWeight: FontWeight.w600,
+                                                                                        color: ColorManager.black,
+                                                                                      ),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                    Text(
+                                                                                      AppCubit.get(context).kamaryEnd[index],
+                                                                                      style: GoogleFonts.cairo(
+                                                                                        fontSize: 15.0,
+                                                                                        fontWeight: FontWeight.w600,
+                                                                                        color: ColorManager.black,
+                                                                                      ),
+                                                                                      textAlign: TextAlign.center,
+                                                                                    ),
+                                                                                  ],
+                                                                                )
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        )),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    : brandName == 'تويوتا' &&
+                                                            brandModel ==
+                                                                'برادو'
+                                                        ? Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .only(
+                                                                      left: 10,
+                                                                      right: 10,
+                                                                      top: 10),
+                                                              child: GridView
+                                                                  .count(
+                                                                crossAxisCount:
+                                                                    3,
+                                                                childAspectRatio:
+                                                                    1 / 1.4,
+                                                                crossAxisSpacing:
+                                                                    5,
+                                                                mainAxisSpacing:
+                                                                    15,
+                                                                children: List
+                                                                    .generate(
+                                                                        AppCubit.get(context)
+                                                                            .bradoEnd
+                                                                            .length,
+                                                                        (index) =>
+                                                                            GestureDetector(
+                                                                              onTap: () {
+                                                                                AppCubit.get(context).getProductFromApi(factory: brandName, productModel: brandModel, fromDate: AppCubit.get(context).bradoStart[index], toDate: AppCubit.get(context).bradoEnd[index]).then((value) {
+                                                                                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                                                                                    return ProductScreen();
+                                                                                  }));
+                                                                                });
+                                                                              },
+                                                                              child: Container(
+                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                                decoration: BoxDecoration(color: ColorManager.lightColor2, borderRadius: BorderRadius.circular(10)),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    CachedNetworkImage(
+                                                                                      imageUrl: cubit.bradoCars[index],
+                                                                                      height: MediaQuery.of(context)
+                                                                                          .size
+                                                                                          .height *
+                                                                                          .15,
+                                                                                      width: MediaQuery.of(context)
+                                                                                          .size
+                                                                                          .height *
+                                                                                          .25,
+                                                                                      fit: BoxFit.cover,
+                                                                                      placeholder: (context, url) =>
+                                                                                      const Center(
+                                                                                        child:
+                                                                                        CircularProgressIndicator(
+                                                                                          color: ColorManager.red,
+                                                                                        ),
+                                                                                      ),
+                                                                                      errorWidget:
+                                                                                          (context, url, error) =>
+                                                                                          Center(
+                                                                                            child: Image.asset(
+                                                                                              'assets/images/logo2.png',
+                                                                                            ),
+                                                                                          ),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      height: MediaQuery.of(context).size.height * .02,
+                                                                                    ),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Text(
+                                                                                          AppCubit.get(context).bradoStart[index],
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          '  - ',
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          AppCubit.get(context).bradoEnd[index],
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                      ],
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            )),
+                                                              ),
+                                                            ),
+                                                          )
+                                                        : brandName ==
+                                                                    'تويوتا' &&
+                                                                brandModel ==
+                                                                    'كورلا'
+                                                            ? Expanded(
+                                                                child: Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
+                                                                          left:
+                                                                              10,
+                                                                          right:
+                                                                              10,
+                                                                          top:
+                                                                              10),
+                                                                  child: GridView
+                                                                      .count(
+                                                                    crossAxisCount:
+                                                                        3,
+                                                                    childAspectRatio:
+                                                                        1 / 1.4,
+                                                                    crossAxisSpacing:
+                                                                        5,
+                                                                    mainAxisSpacing:
+                                                                        15,
+                                                                    children: List.generate(
+                                                                        AppCubit.get(context).koraStart.length,
+                                                                        (index) => GestureDetector(
+                                                                              onTap: () {
+                                                                                AppCubit.get(context).getProductFromApi(factory: brandName, productModel: brandModel, fromDate: AppCubit.get(context).koraStart[index], toDate: AppCubit.get(context).koraEnd[index]).then((value) {
+                                                                                  Navigator.push(context, MaterialPageRoute(builder: (_) {
+                                                                                    return ProductScreen();
+                                                                                  }));
+                                                                                });
+                                                                              },
+                                                                              child: Container(
+                                                                                clipBehavior: Clip.antiAliasWithSaveLayer,
+                                                                                decoration: BoxDecoration(color: ColorManager.lightColor2, borderRadius: BorderRadius.circular(10)),
+                                                                                child: Column(
+                                                                                  children: [
+                                                                                    CachedNetworkImage(
+                                                                                      imageUrl: cubit.crollaCars[index],
+                                                                                      height: MediaQuery.of(context)
+                                                                                          .size
+                                                                                          .height *
+                                                                                          .15,
+                                                                                      width: MediaQuery.of(context)
+                                                                                          .size
+                                                                                          .height *
+                                                                                          .25,
+                                                                                      fit: BoxFit.cover,
+                                                                                      placeholder: (context, url) =>
+                                                                                      const Center(
+                                                                                        child:
+                                                                                        CircularProgressIndicator(
+                                                                                          color: ColorManager.red,
+                                                                                        ),
+                                                                                      ),
+                                                                                      errorWidget:
+                                                                                          (context, url, error) =>
+                                                                                          Center(
+                                                                                            child: Image.asset(
+                                                                                              'assets/images/logo2.png',
+                                                                                            ),
+                                                                                          ),
+                                                                                    ),
+                                                                                    SizedBox(
+                                                                                      height: MediaQuery.of(context).size.height * .02,
+                                                                                    ),
+                                                                                    Row(
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      children: [
+                                                                                        Text(
+                                                                                          AppCubit.get(context).koraStart[index],
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          '  - ',
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                        Text(
+                                                                                          AppCubit.get(context).koraEnd[index],
+                                                                                          style: GoogleFonts.cairo(
+                                                                                            fontSize: 15.0,
+                                                                                            fontWeight: FontWeight.w600,
+                                                                                            color: ColorManager.black,
+                                                                                          ),
+                                                                                          textAlign: TextAlign.center,
+                                                                                        ),
+                                                                                      ],
+                                                                                    )
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            )),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : Container()
               ],
             ),
           ),
