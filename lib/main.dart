@@ -88,7 +88,7 @@ class MyApp extends StatelessWidget {
               DefaultCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale("he", ""),
+              Locale("en", ""),
               Locale("ar", ""),
             ],
             locale: LocalizationCubit.get(context).appLocal,
