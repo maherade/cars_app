@@ -3,6 +3,7 @@ import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/widgets/custom_bottom_sheet.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,107 +52,178 @@ class _CartScreenState extends State<CartScreen> {
             actions: [
               GestureDetector(
                 onTap: () {
-                  // cubit.deleteProducts(context).then((value) {
-                  //   for (int i = 0; i < cubit.allFavorite.length; i++) {
-                  //     cubit.addUserProductsToFireBase(
-                  //         id: cubit.userModel!.uId!,
-                  //         name: '${cubit.allFavorite[i]['name']}',
-                  //         price: '${cubit.allFavorite[i]['price']}',
-                  //         image: '${cubit.allFavorite[i]['image']}',
-                  //         number: '${cubit.allFavorite[i]['number']}',
-                  //         productId: '${cubit.allFavorite[i]['id']}',
-                  //         code: '${cubit.allFavorite[i]['code']}');
-                  //   }
-                  // });
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: Center(
-                            child: Column(
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!
-                                      .translate("paymentWay")
-                                      .toString(),
-                                  style: GoogleFonts.cairo(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600,
-                                    color: ColorManager.textColor,
+                  cubit.deleteProducts(context).then((value) {
+                    for (int i = 0; i < cubit.allFavorite.length; i++) {
+                      cubit.addUserProductsToFireBase(
+                          id: cubit.userModel!.uId!,
+                          name: '${cubit.allFavorite[i]['name']}',
+                          price: '${cubit.allFavorite[i]['price']}',
+                          image: '${cubit.allFavorite[i]['image']}',
+                          number: '${cubit.allFavorite[i]['number']}',
+                          productId: '${cubit.allFavorite[i]['id']}',
+                          code: '${cubit.allFavorite[i]['code']}');
+                    }
+                  }).then((value) {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Center(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!
+                                        .translate("paymentWay")
+                                        .toString(),
+                                    style: GoogleFonts.cairo(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w600,
+                                      color: ColorManager.textColor,
+                                    ),
                                   ),
-                                ),
-                                Center(
-                                  child: Lottie.asset(
-                                    "assets/images/cash.json",
-                                    fit: BoxFit.contain,
+                                  Center(
+                                    child: Lottie.asset(
+                                      "assets/images/cash.json",
+                                      fit: BoxFit.contain,
+                                    ),
                                   ),
-                                ),
-                                DefaultButton(
+                                  DefaultButton(
                                     buttonText: AppLocalizations.of(context)!
                                         .translate("cash")
                                         .toString(),
                                     color: Colors.black,
                                     color2: Colors.black,
-                                  onPressed: () {
-                                    cubit.getUserProductsFromFireStore();
-                                    print(
-                                        "******************************************${cubit.totalPrice}");
+                                    onPressed: () {
+                                      // cubit.deleteProducts(context).then((value) {
+                                      //   for (int i = 0; i < cubit.allFavorite.length; i++) {
+                                      //     cubit.addUserProductsToFireBase(
+                                      //         id: cubit.userModel!.uId!,
+                                      //         name: '${cubit.allFavorite[i]['name']}',
+                                      //         price: '${cubit.allFavorite[i]['price']}',
+                                      //         image: '${cubit.allFavorite[i]['image']}',
+                                      //         number: '${cubit.allFavorite[i]['number']}',
+                                      //         productId: '${cubit.allFavorite[i]['id']}',
+                                      //         code: '${cubit.allFavorite[i]['code']}');
+                                      //   }
+                                      // });
+                                      // cubit.getUserProductsFromFireStore();
+                                      print(
+                                          "******************************************${cubit.totalPrice}");
 
-                                    // cubit.getUserProductsFromFireStore();
-                                    cubit.showAddBottomSheet(
-                                        context: context,
-                                        child:  CustomBottomSheet(
-                                        content:
-                                        "المبلغ المطلوب:${200.0}\$"
-                                    ));
-                                  },
+                                      // cubit.getUserProductsFromFireStore();
+                                      FirebaseFirestore.instance
+                                          .collection("userPayments")
+                                          .doc(cubit.userModel!.uId)
+                                          .set({
+                                        'totalPrice':cubit.totalPrice
+                                      }).then((value) {
+                                        cubit.totalPrice=0;
 
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                DefaultButton(
-                                  buttonText: AppLocalizations.of(context)!
-                                      .translate("visa")
-                                      .toString(),
-                                  color: Colors.red.shade800,
-                                  color2: Colors.red.shade800,
-                                  onPressed: () {
-                                    PaymentManager.makePayment(
-                                            200, "USD", context)
-                                        .then((value) =>
-                                            Navigator.of(context).pop());
-                                  },
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                DefaultButton(
-                                  buttonText: AppLocalizations.of(context)!
-                                      .translate("transfair")
-                                      .toString(),
-                                  color: Colors.green.shade800,
-                                  color2: Colors.green.shade800,
-                                  onPressed: () {
-                                    // cubit.getUserProductsFromFireStore();
-                                    print(
-                                        "******************************************${cubit.totalPrice}");
+                                      });
 
-                                    // cubit.getUserProductsFromFireStore();
-                                    cubit.showAddBottomSheet(
-                                        context: context,
+                                      cubit.showAddBottomSheet(
+                                          context: context,
                                           child:  CustomBottomSheet(
-                                        content:
-                                        "المبلغ المطلوب:${200.0}\$"
-                                    ));
-                                  },
-                                ),
-                              ],
+                                              content:
+                                              "${AppLocalizations.of(context)!.translate('total').toString()}: ${cubit.totalPrice}\$"
+                                          ));
+                                    },
+
+                                  ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  DefaultButton(
+                                      buttonText: AppLocalizations.of(context)!
+                                          .translate("visa")
+                                          .toString(),
+                                      color: Colors.red.shade800,
+                                      color2: Colors.red.shade800,
+                                      onPressed: () {
+                                        // cubit.deleteProducts(context).then((value) {
+                                        //   for (int i = 0; i <
+                                        //       cubit.allFavorite.length; i++) {
+                                        //     cubit.addUserProductsToFireBase(
+                                        //         id: cubit.userModel!.uId!,
+                                        //         name: '${cubit
+                                        //             .allFavorite[i]['name']}',
+                                        //         price: '${cubit
+                                        //             .allFavorite[i]['price']}',
+                                        //         image: '${cubit
+                                        //             .allFavorite[i]['image']}',
+                                        //         number: '${cubit
+                                        //             .allFavorite[i]['number']}',
+                                        //         productId: '${cubit
+                                        //             .allFavorite[i]['id']}',
+                                        //         code: '${cubit
+                                        //             .allFavorite[i]['code']}');
+                                        //   }
+                                        // });
+                                        // PaymentManager.makePayment(
+                                        //     (cubit.totalPrice).toInt(), "USD",
+                                        //     context).then((value) {
+                                        //   FirebaseFirestore.instance
+                                        //       .collection("userPayments")
+                                        //       .doc(cubit.userModel!.uId)
+                                        //       .set({
+                                        //     'totalPrice': cubit.totalPrice
+                                        //   }).then((value) {
+                                        //     cubit.totalPrice = 0;
+                                        //   });
+                                        // });
+                                      }),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  DefaultButton(
+                                    buttonText: AppLocalizations.of(context)!
+                                        .translate("transfair")
+                                        .toString(),
+                                    color: Colors.green.shade800,
+                                    color2: Colors.green.shade800,
+                                    onPressed: () {
+                                      // cubit.getUserProductsFromFireStore();
+                                      print(
+                                          "******************************************${cubit.totalPrice}");
+                                      // cubit.deleteProducts(context).then((value) {
+                                      //   for (int i = 0; i < cubit.allFavorite.length; i++) {
+                                      //     cubit.addUserProductsToFireBase(
+                                      //         id: cubit.userModel!.uId!,
+                                      //         name: '${cubit.allFavorite[i]['name']}',
+                                      //         price: '${cubit.allFavorite[i]['price']}',
+                                      //         image: '${cubit.allFavorite[i]['image']}',
+                                      //         number: '${cubit.allFavorite[i]['number']}',
+                                      //         productId: '${cubit.allFavorite[i]['id']}',
+                                      //         code: '${cubit.allFavorite[i]['code']}');
+                                      //   }
+                                      // });
+                                      FirebaseFirestore.instance
+                                          .collection("userPayments")
+                                          .doc(cubit.userModel!.uId)
+                                          .set({
+                                      'totalPrice':cubit.totalPrice
+                                      }).then((value) {
+                                      cubit.totalPrice=0;
+
+                                      });
+
+                                      // cubit.getUserProductsFromFireStore();
+                                      cubit.showAddBottomSheet(
+                                          context: context,
+                                          child:  CustomBottomSheet(
+                                              content:
+                                              "${AppLocalizations.of(context)!.translate('total').toString()}: ${cubit.totalPrice}\$"
+                                          ));
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          // content: ,
-                        );
-                      });
+                            // content: ,
+                          );
+                        });
+                  });
+
                 },
                 child: Container(
                   margin: EdgeInsets.symmetric(
@@ -206,7 +278,7 @@ class _CartScreenState extends State<CartScreen> {
                             ),
                             child: Container(
                               padding: const EdgeInsets.all(20),
-                              height: MediaQuery.of(context).size.height * .31,
+                              height: MediaQuery.of(context).size.height * .35,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20),
@@ -336,7 +408,7 @@ class _CartScreenState extends State<CartScreen> {
                                                       '${cubit.allFavorite[index]['id']}')
                                               .then((value) => {
                                             AppCubit.get(context)
-                                                .getUserProductsFromFireStore(),
+                                                .getUserProductsFromFireStore(context: context),
                                           });
                                         },
                                         child: Container(
@@ -458,20 +530,7 @@ class _CartScreenState extends State<CartScreen> {
                       itemCount: AppCubit.get(context).allFavorite.length),
                 ),
 
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  width: double.infinity,
-                  height: 50,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                  ),
-                  child: Text(
-                    'اجمالي المبلغ: ${200.0}\$',
-                    style: GoogleFonts.cairo(
-                      fontSize: 20,
-                    ),
-                  ),
-                )
+
               ],
             ),
           ),

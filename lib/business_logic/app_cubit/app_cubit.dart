@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
+import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/data/modles/invoice_details_model.dart';
 import 'package:cars_app/data/modles/product_model.dart';
 import 'package:cars_app/data/modles/token_model.dart';
@@ -345,6 +346,7 @@ class AppCubit extends Cubit<AppStates> {
         phoneNumber: phone,
       );
       await addUserToFireStore(user).then((value) {
+        getUser(id: (credential.user?.uid)!);
         emit(SignUpSuccessState());
         CashHelper.saveData(key: 'isUid', value: credential.user?.uid);
         customToast(
@@ -352,7 +354,6 @@ class AppCubit extends Cubit<AppStates> {
               'Account Created Successfully').toString(),
           color: ColorManager.blue,
         );
-        getUser(id: (credential.user?.uid)!);
         print("--------------Account Created");
       });
     } on FirebaseAuthException catch (e) {
@@ -662,8 +663,8 @@ class AppCubit extends Cubit<AppStates> {
       "numberOfProducts": number,
       "code": code,
     }).then((value) =>
-    {
-      allFavorite.clear(),
+    {      // allFavorite.clear(),
+
       emit(AddUserProductsSuccessState()),
     });
     emit(AddUserProductsErrorState());
@@ -698,8 +699,9 @@ class AppCubit extends Cubit<AppStates> {
 
   List userProduct = [];
 
-  Future<void> getUserProductsFromFireStore() async {
+  Future<void> getUserProductsFromFireStore({required context}) async {
     emit(GetUserProductsLoadingState());
+    totalPrice=0;
     userProduct = [];
     return await FirebaseFirestore.instance
         .collection('userProducts')
@@ -709,22 +711,50 @@ class AppCubit extends Cubit<AppStates> {
         .then((value) {
       value.docs.forEach((element) {
         userProduct.add(element.data());
+        totalPrice=0;
+
+
+        for (int i = 0; i < userProduct.length; i++) {
+
+          totalPrice = totalPrice + (double.parse(userProduct[i]['price'])*double.parse(userProduct[i]['numberOfProducts'])) ;
+        }
+        print('////////////////////////////////////////');
+        print(totalPrice);
+        print('////////////////////////////////////////');
+
+
+        // PaymentManager.makePayment((totalPrice).toInt() , "USD",context).then((value) {
+        //   FirebaseFirestore.instance
+        //       .collection("userPayments")
+        //       .doc(userModel!.uId)
+        //       .set({
+        //     'totalPrice':totalPrice
+        //   }).then((value) {
+        //     totalPrice=0;
+        //
+        //   });
+        // });
 
         print('----------------------------elements Added');
         emit(GetUserProductsSuccessState());
       });
-      for (int i = 0; i < userProduct.length; i++) {
-        invoiceDetails[i].productGuide != userProduct[i]['code'];
-        invoiceDetails[i].quantity != userProduct[i]['numberOfProducts'];
-        invoiceDetails[i].totalValue != userProduct[i]['price'];
-      }
-      double productNumber = 1;
-      for (int i = 0; i < userProduct.length; i++) {
-        productNumber = 1;
-        productNumber = userProduct[i]['numberOfProducts'];
-        totalPrice = totalPrice + (userProduct[i]['price'] * productNumber);
-        print(totalPrice);
-      }
+
+
+
+
+      //
+
+
+
+      // double productNumber = 1;
+      //
+      //
+      // for (int i = 0; i < userProduct.length; i++) {
+      //   productNumber = 1;
+      //   productNumber = userProduct[i]['numberOfProducts'];
+      //   totalPrice = totalPrice + (userProduct[i]['price'] * productNumber);
+      //   print(totalPrice);
+      // }
       emit(GetUserProductsErrorState());
     });
   }
@@ -752,13 +782,13 @@ class AppCubit extends Cubit<AppStates> {
             productId: '${allFavorite[i]['id']}',
             code: '${allFavorite[i]['address']}');
       }
-      getUserProductsFromFireStore();
+      getUserProductsFromFireStore(context: context);
       addCashWithApi();
 
-      for (int i = 0; i < allFavorite.length; i++) {
-        deleteDatabase(context: context, id: '${allFavorite[i]['id']}');
-      }
-      CashHelper.saveData(key: 'counter', value: 0);
+      // for (int i = 0; i < allFavorite.length; i++) {
+      //   deleteDatabase(context: context, id: '${allFavorite[i]['id']}');
+      // }
+      // CashHelper.saveData(key: 'counter', value: 0);
 
       emit(DeleteProductsSuccessState());
     });
@@ -916,6 +946,7 @@ class AppCubit extends Cubit<AppStates> {
       ..initialize().then((_) {
         videoPlayerController!.play();
       });
+
 // "ProductGuide":"D2B9B04D-33EA-4122-8FF5-010E32FBEE5E",
 //               "Quantity" :"1",
 //               "Unit" :"1",
@@ -940,6 +971,28 @@ class AppCubit extends Cubit<AppStates> {
         child: child,
       ),
     );
+  }
+
+  void forgetPassword({required String email,required context}){
+
+    emit(ForgetPasswordLoadingState());
+    FirebaseAuth.instance.sendPasswordResetEmail(
+        email: email
+    ).then((value) {
+
+      print('Check Your email');
+      customToast(title: 'تصفح البريد الالكتروني', color: ColorManager.primaryColor);
+      Navigator.pop(context);
+      emit(ForgetPasswordSuccessState());
+
+    }).catchError((error){
+
+      print('Error in ResetPassword is ${error.toString()}');
+      emit(ForgetPasswordErrorState());
+
+    });
+
+
   }
 
 }

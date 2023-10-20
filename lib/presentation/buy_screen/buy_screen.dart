@@ -19,7 +19,7 @@ class BuyScreen extends StatelessWidget {
         return Scaffold(
           backgroundColor:  ColorManager.lightColor,
           appBar: AppBar(
-            iconTheme: const IconThemeData(color: ColorManager.textColor),
+            iconTheme: const IconThemeData(color: ColorManager.white),
             backgroundColor: ColorManager.primaryColor,
             elevation: 0.0,
             systemOverlayStyle: const SystemUiOverlayStyle(

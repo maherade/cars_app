@@ -1,3 +1,5 @@
+import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
+import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -10,7 +12,7 @@ class CustomBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.sizeOf(context).height*.2,
+      height: MediaQuery.sizeOf(context).height*.08,
       width: MediaQuery.sizeOf(context).width*.2,
       decoration:  const BoxDecoration(
         color: Colors.white,
@@ -19,17 +21,22 @@ class CustomBottomSheet extends StatelessWidget {
           topRight: Radius.circular(15),
         ),
       ),
-      child: Center(
+      child: Container(
+        padding: const EdgeInsets.all(8),
+        width: double.infinity,
+        height: MediaQuery.of(context).size.height*.02,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
         child: Text(
-          content,
+          '${AppLocalizations.of(context)!.translate('total').toString()} :${AppCubit.get(context).totalPrice}\$',
           style: GoogleFonts.cairo(
-            color: ColorManager.textColor,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
+            fontSize: 17,
+            fontWeight: FontWeight.bold
           ),
-
         ),
       ),
+
     );
   }
 }

@@ -26,6 +26,13 @@ class LoginErrorState extends AppStates {
   LoginErrorState(String error);
 }
 
+
+//Forget Password States
+
+class ForgetPasswordLoadingState extends AppStates {}
+class ForgetPasswordSuccessState extends AppStates {}
+class ForgetPasswordErrorState extends AppStates {}
+
 //Save user
 class SaveUserLoadingState extends AppStates{}
 class SaveUserSuccessState extends AppStates{}

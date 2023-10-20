@@ -7,9 +7,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:499858724294:android:4a7a462792524cb6180ec7",
+        "mobilesdk_app_id": "1:499858724294:android:5424823ce6c78f40180ec7",
         "android_client_info": {
-          "package_name": "com.example.cars_app"
+          "package_name": "com.cars_app.cars_app"
         }
       },
       "oauth_client": [
@@ -29,6 +29,13 @@
             {
               "client_id": "499858724294-11472vihpo7v4sr38usannuje6h0kn9k.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "499858724294-n2cm9brojpriqloei4a27ttpchka2uvv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.carsApp"
+              }
             }
           ]
         }

@@ -11,7 +11,7 @@ class LocalizationCubit extends Cubit<LocalizationStates>{
 
   static LocalizationCubit get(context) => BlocProvider.of(context);
 
-  Locale _appLocale = const Locale('en');
+  Locale _appLocale = const Locale('he');
 
   Locale get appLocal => _appLocale;
 
@@ -46,9 +46,9 @@ class LocalizationCubit extends Cubit<LocalizationStates>{
         emit(ChangeToArabicState());
       }
       break;
-      case "en":{
-        _appLocale = const Locale("en");
-        CashHelper.saveData(key: CashHelper.languageKey,value: "en");
+      case "he":{
+        _appLocale = const Locale("he");
+        CashHelper.saveData(key: CashHelper.languageKey,value: "he");
         CashHelper.saveData(key: CashHelper.languageNameKey,value: "langEnglish");
         debugPrint('App language is kurdish');
         emit(ChangeToEnglishState());

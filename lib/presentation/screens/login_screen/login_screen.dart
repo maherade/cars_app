@@ -1,4 +1,5 @@
 import 'package:cars_app/presentation/home_layout/home_layout.dart';
+import 'package:cars_app/presentation/screens/forget_password/forget_password.dart';
 import 'package:cars_app/presentation/screens/register_screen/register_screen.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
@@ -115,6 +116,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                         isPass: true,
                                       ),
                                     ),
+
+                                    SizedBox(height: 5,),
+
+                                    GestureDetector(
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (_){
+                                          return ForgetPassword();
+                                        }));
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 12.0),
+                                        child: Align(
+                                          alignment: Alignment.topRight,
+                                          child: Text(
+                                            "هل نسيت كلمه المرور",
+                                            style: GoogleFonts.cairo(
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 13,
+                                                color: ColorManager.textColor),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
                                     SizedBox(
                                       height: mediaQuery.height * .02,
                                     ),

@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
@@ -27,30 +26,30 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
 
     Timer(Duration(seconds: AppCubit.get(context).videoPlayerController!.value.duration.inSeconds), ()  {
-     AppCubit.get(context).initializeVideoPlayer();
+      AppCubit.get(context).initializeVideoPlayer();
       AppCubit.get(context).getFavoriteProductFromApi().then((value) {
         CashHelper.getData(key: 'isUid') == null
             ? Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(builder: (context) => const LoginScreen()),
+            MaterialPageRoute(builder: (context) => const LoginScreen()),
                 (Route<dynamic> route) => false)
             : {
-                AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty
-                    ? Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                            builder: (context) => const HomeLayout()),
-                        (Route<dynamic> route) => false)
-                    : Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    AppCubit.get(context).videoPlayerController!.value.isInitialized
-                        ? AspectRatio(
-                      aspectRatio:AppCubit.get(context). videoPlayerController!.value.aspectRatio,
-                      child: VideoPlayer(AppCubit.get(context).videoPlayerController!),
-                    )
-                        : Container(),
-                  ],
-                ),
-              };
+          AppCubit.get(context).favoriteProducts!.mainProducts!.isNotEmpty
+              ? Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (context) => const HomeLayout()),
+                  (Route<dynamic> route) => false)
+              : Stack(
+            fit: StackFit.expand,
+            children: [
+              AppCubit.get(context).videoPlayerController!.value.isInitialized
+                  ? AspectRatio(
+                aspectRatio:AppCubit.get(context). videoPlayerController!.value.aspectRatio,
+                child: VideoPlayer(AppCubit.get(context).videoPlayerController!),
+              )
+                  : Container(),
+            ],
+          ),
+        };
       });
     });
     super.initState();
@@ -73,11 +72,11 @@ class _SplashScreenState extends State<SplashScreen> {
           body: Stack(
             fit: StackFit.expand,
             children: [
-             AppCubit.get(context).videoPlayerController!.value.isInitialized
+              AppCubit.get(context).videoPlayerController!.value.isInitialized
                   ? AspectRatio(
-                      aspectRatio:AppCubit.get(context). videoPlayerController!.value.aspectRatio,
-                      child: VideoPlayer(AppCubit.get(context).videoPlayerController!),
-                    )
+                aspectRatio:AppCubit.get(context). videoPlayerController!.value.aspectRatio,
+                child: VideoPlayer(AppCubit.get(context).videoPlayerController!),
+              )
                   : Container(),
             ],
           ),

@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyC-P4PrizPtMUjzFXulm1RNe0sGEGiS_z8',
-    appId: '1:499858724294:android:4a7a462792524cb6180ec7',
+    appId: '1:499858724294:android:5424823ce6c78f40180ec7',
     messagingSenderId: '499858724294',
     projectId: 'carapp-d0e10',
     storageBucket: 'carapp-d0e10.appspot.com',
@@ -59,11 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAAXGSZPZctUQoOzf-Ywd9zuvjtGEKEmvI',
-    appId: '1:499858724294:ios:9468da0d5b38cc7e180ec7',
+    appId: '1:499858724294:ios:2955cae53910cf16180ec7',
     messagingSenderId: '499858724294',
     projectId: 'carapp-d0e10',
     storageBucket: 'carapp-d0e10.appspot.com',
-    iosClientId: '499858724294-n2cm9brojpriqloei4a27ttpchka2uvv.apps.googleusercontent.com',
-    iosBundleId: 'com.example.carsApp',
+    iosBundleId: 'com.carsApp.carsApp',
   );
 }

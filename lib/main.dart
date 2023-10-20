@@ -2,6 +2,8 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_cubit.dart';
 import 'package:cars_app/business_logic/localization_cubit/localization_states.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:cars_app/constants/constatnts.dart';
 import 'package:cars_app/constants/stripe/stripe_keys.dart';
 import 'package:cars_app/presentation/screens/splash_screen/splash_screen.dart';
@@ -14,7 +16,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'firebase_options.dart';
@@ -32,9 +33,22 @@ void main() async{
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
 
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  @override
+  void initState(){
+    FlutterNativeSplash.remove();
+    super.initState();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +102,7 @@ class MyApp extends StatelessWidget {
               DefaultCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [
-              Locale("en", ""),
+              Locale("he", ""),
               Locale("ar", ""),
             ],
             locale: LocalizationCubit.get(context).appLocal,

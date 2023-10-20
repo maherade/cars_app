@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
+import 'package:cars_app/presentation/screens/open_full_product.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/toast.dart';
@@ -136,162 +137,177 @@ class ProductScreen extends StatelessWidget {
                     ? Expanded(
                         child: ListView.separated(
                             itemBuilder: (context, index) {
-                              return Material(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20),
-                                ),
-                                elevation: 10,
-                                child: Container(
-                                  padding: const EdgeInsets.all(20),
-                                  height:
-                                      MediaQuery.of(context).size.height * .32,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
+                              return GestureDetector(
+                                onTap: (){
+                                  Navigator.push(context, MaterialPageRoute(builder: (_){
+                                    return OpenFullProduct(
+                                      productPrice: '${cubit.products!.mainProducts![index].wholePrice}',
+                                      productCode: '${cubit.products!.mainProducts![index].productModelGuide}',
+                                      productImage: '${cubit.products!.mainProducts![index].imgUrl}',
+                                      productTitle: '${CashHelper.getData(
+                                          key: CashHelper.languageKey)
+                                          .toString() ==
+                                          "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
+                                    );
+                                  }));
+                                },
+                                child: Material(
+                                  shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(20),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Row(
-                                        children: [
-                                          CachedNetworkImage(
-                                            imageUrl:
-                                                '${cubit.products!.mainProducts![index].imgUrl}',
-                                            height: 70,
-                                            width: 70,
-                                            placeholder: (context, url) =>
-                                                const Center(
-                                              child: CircularProgressIndicator(
-                                                color: ColorManager.red,
-                                              ),
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) => Center(
-                                              child: Image.asset(
-                                                'assets/images/logo2.png',
-                                              ),
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 15,
-                                          ),
-                                          Expanded(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                    '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
-                                                    style: GoogleFonts.cairo(
-                                                      fontSize: 15.0,
-                                                      fontWeight:
-                                                          FontWeight.w600,
-                                                      color: ColorManager.black,
-                                                    )),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          const Spacer(),
-                                          Text(
-                                              '${cubit.products!.mainProducts![index].wholePrice!}\$',
-                                              style: GoogleFonts.cairo(
-                                                fontSize: 21.0,
-                                                fontWeight: FontWeight.w600,
-                                                color: ColorManager.black,
-                                              )),
-                                        ],
-                                      ),
-                                      const SizedBox(
-                                        height: 10,
-                                      ),
-                                      Row(
-                                        children: [
-                                          Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .15,
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .15,
-                                            padding: const EdgeInsets.all(2),
-                                            child: TextFormField(
-                                              decoration: const InputDecoration(
-                                                hintStyle: TextStyle(
-                                                  fontSize: 20,
+                                  elevation: 10,
+                                  child: Container(
+                                    padding: const EdgeInsets.all(20),
+                                    height:
+                                        MediaQuery.of(context).size.height * .32,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            CachedNetworkImage(
+                                              imageUrl:
+                                                  '${cubit.products!.mainProducts![index].imgUrl}',
+                                              height: 70,
+                                              width: 70,
+                                              placeholder: (context, url) =>
+                                                  const Center(
+                                                child: CircularProgressIndicator(
+                                                  color: ColorManager.red,
                                                 ),
-                                                hintText: '0',
                                               ),
-                                              textAlign: TextAlign.center,
-                                              style:
-                                                  const TextStyle(fontSize: 20),
-                                              controller: AppCubit.get(context)
-                                                  .productsControllers[index],
-                                              keyboardType:
-                                                  TextInputType.number,
+                                              errorWidget:
+                                                  (context, url, error) => Center(
+                                                child: Image.asset(
+                                                  'assets/images/logo2.png',
+                                                ),
+                                              ),
                                             ),
-                                          ),
-                                          const Spacer(),
-                                          MaterialButton(
-                                            onPressed: () {
-                                              AppCubit.get(context)
-                                                  .allFavorite
-                                                  .clear();
-                                              AppCubit.get(context)
-                                                  .insertDatabase(
-                                                      name:
-                                                          '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
-                                                      code:
-                                                          '${cubit.products!.mainProducts![index].productModelGuide}',
-                                                      price:
-                                                          '${cubit.products!.mainProducts![index].wholePrice}',
-                                                      number: cubit
-                                                                  .productsControllers[index]
-                                                                  .text ==
-                                                              ''
-                                                          ? '1'
-                                                          : cubit
-                                                              .productsControllers[
-                                                                  index]
-                                                              .text,
-                                                      image:
-                                                          '${cubit.products!.mainProducts![index].imgUrl}',
-                                                      context: context)
-                                                  .then((value) {
-                                                customToast(
-                                                  color: ColorManager.darkGrey,
-                                                  title: AppLocalizations.of(
-                                                          context)!
-                                                      .translate("addedToCart")
-                                                      .toString(),
-                                                );
-                                              }).then((value) {
-                                                cubit.increaseCounter();
-                                                cubit.productsControllers[index].clear();
-                                              });
-                                            },
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
+                                            const SizedBox(
+                                              width: 15,
                                             ),
-                                            color: ColorManager.primaryColor,
-                                            child: Text(
-                                                AppLocalizations.of(context)!
-                                                    .translate("add")
-                                                    .toString(),
+                                            Expanded(
+                                              child: Column(
+                                                children: [
+                                                  Text(
+                                                      '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
+                                                      style: GoogleFonts.cairo(
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                        color: ColorManager.black,
+                                                      )),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Spacer(),
+                                            Text(
+                                                '${cubit.products!.mainProducts![index].wholePrice!}\$',
                                                 style: GoogleFonts.cairo(
-                                                  fontSize: 15.0,
+                                                  fontSize: 21.0,
                                                   fontWeight: FontWeight.w600,
-                                                  color: ColorManager.white,
+                                                  color: ColorManager.black,
                                                 )),
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        Row(
+                                          children: [
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .15,
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .15,
+                                              padding: const EdgeInsets.all(2),
+                                              child: TextFormField(
+                                                decoration: const InputDecoration(
+                                                  hintStyle: TextStyle(
+                                                    fontSize: 20,
+                                                  ),
+                                                  hintText: '1',
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                style:
+                                                    const TextStyle(fontSize: 20),
+                                                controller: AppCubit.get(context)
+                                                    .productsControllers[index],
+                                                keyboardType:
+                                                    TextInputType.number,
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            MaterialButton(
+                                              onPressed: () {
+                                                AppCubit.get(context)
+                                                    .allFavorite
+                                                    .clear();
+                                                AppCubit.get(context)
+                                                    .insertDatabase(
+                                                        name:
+                                                            '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
+                                                        code:
+                                                            '${cubit.products!.mainProducts![index].productModelGuide}',
+                                                        price:
+                                                            '${cubit.products!.mainProducts![index].wholePrice}',
+                                                        number: cubit
+                                                                    .productsControllers[index]
+                                                                    .text ==
+                                                                ''
+                                                            ? '1'
+                                                            : cubit
+                                                                .productsControllers[
+                                                                    index]
+                                                                .text,
+                                                        image:
+                                                            '${cubit.products!.mainProducts![index].imgUrl}',
+                                                        context: context)
+                                                    .then((value) {
+                                                  customToast(
+                                                    color: ColorManager.darkGrey,
+                                                    title: AppLocalizations.of(
+                                                            context)!
+                                                        .translate("addedToCart")
+                                                        .toString(),
+                                                  );
+                                                }).then((value) {
+                                                  cubit.increaseCounter();
+                                                  cubit.productsControllers[index].clear();
+                                                });
+                                              },
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(12),
+                                              ),
+                                              color: ColorManager.primaryColor,
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .translate("add")
+                                                      .toString(),
+                                                  style: GoogleFonts.cairo(
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.w600,
+                                                    color: ColorManager.white,
+                                                  )),
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               );
