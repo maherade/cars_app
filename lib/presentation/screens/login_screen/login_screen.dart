@@ -122,7 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     GestureDetector(
                                       onTap: (){
                                         Navigator.push(context, MaterialPageRoute(builder: (_){
-                                          return ForgetPassword();
+                                          return const ForgetPassword();
                                         }));
                                       },
                                       child: Padding(
@@ -131,7 +131,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         child: Align(
                                           alignment: Alignment.topRight,
                                           child: Text(
-                                            "هل نسيت كلمه المرور",
+                                            "هل نسيت كلمه المرور؟",
                                             style: GoogleFonts.cairo(
                                                 fontWeight: FontWeight.w500,
                                                 fontSize: 13,

@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/constants/firebase_errors.dart';
-import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/data/modles/invoice_details_model.dart';
 import 'package:cars_app/data/modles/product_model.dart';
 import 'package:cars_app/data/modles/token_model.dart';
@@ -11,7 +10,6 @@ import 'package:cars_app/presentation/buy_screen/buy_screen.dart';
 import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/presentation/screens/home_screen/home_screen.dart';
 import 'package:cars_app/utiles/remote/dio_helper.dart';
-import 'package:cars_app/widgets/custom_bottom_sheet.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -479,8 +477,8 @@ class AppCubit extends Cubit<AppStates> {
         .doc(id)
         .delete()
         .then((value) {
+      CashHelper.removeData(key: "isUid");
       customToast(title: "تم حذف حسابك بنجاح", color: Colors.red.shade700);
-      getUser(id: id);
 
       debugPrint('Account Deleted Successfully');
 
