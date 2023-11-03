@@ -37,8 +37,8 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screenName = [
     const HomeScreen(),
     const BrandScreen(),
-    CartScreen(),
     const BuyScreen(),
+    const CartScreen(),
     const SettingScreen()
   ];
 

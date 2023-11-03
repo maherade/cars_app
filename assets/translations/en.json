@@ -5,8 +5,9 @@
   "createNewAccount": "Hesabek nû biafirînin",
   "haveAccount": "Ma hûn berê hesabek hene؟",
   "brands": "Berdan",
-  "cart": "Nasnameya kirînê",
+  "cart": "kirînê",
   "buy": "Bikirin",
+  "home": "Ser",
   "settings": "mîheng",
   "continue": "domandin",
   "account": "Hesab",
@@ -59,7 +60,4 @@
   "notCompleted": "netemam",
   "transfair": "transfera pereyan",
   "empty": "Mixabin, niha tu hilber tuneً"
-
-
-
 }

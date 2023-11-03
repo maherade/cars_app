@@ -154,7 +154,7 @@ class SettingScreen extends StatelessWidget {
                         .toString() ==
                         "ar") {
                       LocalizationCubit.get(context)
-                          .changeLanguage(code: "he");
+                          .changeLanguage(code: "en");
                     } else {
                       LocalizationCubit.get(context)
                           .changeLanguage(code: "ar");
