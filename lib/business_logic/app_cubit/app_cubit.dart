@@ -37,8 +37,8 @@ class AppCubit extends Cubit<AppStates> {
   List<Widget> screenName = [
     const HomeScreen(),
     const BrandScreen(),
-    const BuyScreen(),
     const CartScreen(),
+    const BuyScreen(),
     const SettingScreen()
   ];
 
@@ -131,9 +131,9 @@ class AppCubit extends Cubit<AppStates> {
   ];
 
   List<String> carouselImage = [
-    'assets/images/p1.png',
-    'assets/images/p2.png',
-    'assets/images/p3.png',
+    'assets/images/cover1.jpeg',
+    'assets/images/cover2.jpeg',
+    'assets/images/cover3.jpeg',
   ];
 
 //Toyota cars
@@ -991,6 +991,37 @@ class AppCubit extends Cubit<AppStates> {
     });
 
 
+  }
+
+  int productNumber=1;
+
+  void increaseProduct(){
+    productNumber=productNumber+1;
+    print(productNumber);
+    emit(IncreaseProductByOneState());
+  }
+
+  void decreaseProduct(){
+    if(productNumber>1){
+      productNumber=productNumber-1;
+    }
+    emit(DecreaseProductByOneState());
+  }
+
+
+  List<int> productNumberList=List.generate(200, (index) => 1);
+
+  void increaseProductList(index){
+    productNumberList[index]=productNumberList[index]+1;
+    print(productNumberList[index]);
+    emit(IncreaseProductByOneState());
+  }
+
+  void decreaseProductList(index){
+    if(productNumberList[index]>1){
+      productNumberList[index]=productNumberList[index]-1;
+    }
+    emit(DecreaseProductByOneState());
   }
 
 }

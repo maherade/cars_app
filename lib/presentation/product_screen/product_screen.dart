@@ -5,6 +5,7 @@ import 'package:cars_app/presentation/cart_screen/cart_screen.dart';
 import 'package:cars_app/presentation/screens/open_full_product.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/utiles/local/cash_helper.dart';
+import 'package:cars_app/widgets/defualtButton.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -157,7 +158,6 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   elevation: 10,
                                   child: Container(
-                                    padding: const EdgeInsets.all(20),
                                     height:
                                         MediaQuery.of(context).size.height * .32,
                                     decoration: BoxDecoration(
@@ -168,90 +168,133 @@ class ProductScreen extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
-                                        Row(
-                                          children: [
-                                            CachedNetworkImage(
-                                              imageUrl:
-                                                  '${cubit.products!.mainProducts![index].imgUrl}',
-                                              height: 70,
-                                              width: 70,
-                                              placeholder: (context, url) =>
-                                                  const Center(
-                                                child: CircularProgressIndicator(
-                                                  color: ColorManager.red,
+
+
+                                        Padding(
+                                          padding: const EdgeInsets.all(20),
+                                          child: Row(
+                                            children: [
+                                              CachedNetworkImage(
+                                                imageUrl:
+                                                    '${cubit.products!.mainProducts![index].imgUrl}',
+                                                height: 70,
+                                                width: 70,
+                                                placeholder: (context, url) =>
+                                                    const Center(
+                                                  child: CircularProgressIndicator(
+                                                    color: ColorManager.red,
+                                                  ),
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) => Center(
+                                                  child: Image.asset(
+                                                    'assets/images/logo2.png',
+                                                  ),
                                                 ),
                                               ),
-                                              errorWidget:
-                                                  (context, url, error) => Center(
-                                                child: Image.asset(
-                                                  'assets/images/logo2.png',
+                                              const SizedBox(
+                                                width: 15,
+                                              ),
+                                              Expanded(
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                        '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
+                                                        style: GoogleFonts.cairo(
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                          color: ColorManager.black,
+                                                        )),
+                                                  ],
                                                 ),
                                               ),
-                                            ),
-                                            const SizedBox(
-                                              width: 15,
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                children: [
-                                                  Text(
-                                                      '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
-                                                      style: GoogleFonts.cairo(
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorManager.black,
-                                                      )),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
+                                        const Spacer(),
+
                                         Row(
                                           children: [
-                                            const Spacer(),
-                                            Text(
-                                                '${cubit.products!.mainProducts![index].wholePrice!}\$',
-                                                style: GoogleFonts.cairo(
-                                                  fontSize: 21.0,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: ColorManager.black,
-                                                )),
+
+                                            const SizedBox(width: 20,),
+
+                                            Container(
+                                              height: MediaQuery.of(context).size.height*.06,
+                                              width: MediaQuery.of(context).size.height*.07,
+                                              child: DefaultButton(
+                                                  color: ColorManager.primaryColor,
+                                                  color2: ColorManager.primaryColor,
+                                                  buttonText: '+',
+                                                  text_size: 20,
+                                                  onPressed: (){
+
+                                                    AppCubit.get(context).increaseProductList(index);
+
+                                                  }
+                                              ),
+                                            ),
+
+
+                                            Container(
+                                              width: 50,
+                                              child: Text(
+                                                '${AppCubit.get(context).productNumberList[index]}',
+                                                style: const TextStyle(
+                                                    fontSize: 20,
+                                                    color: ColorManager.primaryColor
+                                                ),
+                                                textAlign: TextAlign.center,
+                                              ),
+                                            ),
+
+                                            Container(
+                                              height: MediaQuery.of(context).size.height*.06,
+                                              width: MediaQuery.of(context).size.height*.07,
+                                              child: DefaultButton(
+                                                  color: ColorManager.primaryColor,
+                                                  color2: ColorManager.primaryColor,
+                                                  buttonText: '-',
+                                                  text_size: 20,
+                                                  onPressed: (){
+                                                    AppCubit.get(context).decreaseProductList(index);
+                                                  }
+                                              ),
+                                            ),
+
+                                            Spacer(),
+
+                                            Container(
+                                              width: MediaQuery.sizeOf(context).height*.09,
+                                              height: MediaQuery.sizeOf(context).height*.05,
+                                              color: Colors.red,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child:  Text(
+                                                    '${cubit.products!.mainProducts![index].wholePrice!}\$',
+                                                    style: GoogleFonts.cairo(
+                                                      fontSize: 18.0,
+                                                      fontWeight: FontWeight.w600,
+                                                      color: ColorManager.white,
+                                                    )),
+                                              ),
+                                            ),
+
+
                                           ],
                                         ),
                                         const SizedBox(
-                                          height: 10,
+                                          height: 15,
                                         ),
-                                        Row(
-                                          children: [
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  .15,
-                                              height: MediaQuery.of(context)
-                                                      .size
-                                                      .width *
-                                                  .15,
-                                              padding: const EdgeInsets.all(2),
-                                              child: TextFormField(
-                                                decoration: const InputDecoration(
-                                                  hintStyle: TextStyle(
-                                                    fontSize: 20,
-                                                  ),
-                                                  hintText: '1',
-                                                ),
-                                                textAlign: TextAlign.center,
-                                                style:
-                                                    const TextStyle(fontSize: 20),
-                                                controller: AppCubit.get(context)
-                                                    .productsControllers[index],
-                                                keyboardType:
-                                                    TextInputType.number,
-                                              ),
-                                            ),
-                                            const Spacer(),
-                                            MaterialButton(
+
+
+                                        Align(
+                                          alignment: AlignmentDirectional.center,
+                                          child: Container(
+                                            width: MediaQuery.of(context).size.height*.4,
+                                            height: MediaQuery.of(context).size.height*.05,
+                                            child: MaterialButton(
+
                                               onPressed: () {
                                                 AppCubit.get(context)
                                                     .allFavorite
@@ -264,15 +307,7 @@ class ProductScreen extends StatelessWidget {
                                                             '${cubit.products!.mainProducts![index].productModelGuide}',
                                                         price:
                                                             '${cubit.products!.mainProducts![index].wholePrice}',
-                                                        number: cubit
-                                                                    .productsControllers[index]
-                                                                    .text ==
-                                                                ''
-                                                            ? '1'
-                                                            : cubit
-                                                                .productsControllers[
-                                                                    index]
-                                                                .text,
+                                                        number: '${cubit.productNumberList[index]}',
                                                         image:
                                                             '${cubit.products!.mainProducts![index].imgUrl}',
                                                         context: context)
@@ -287,11 +322,13 @@ class ProductScreen extends StatelessWidget {
                                                 }).then((value) {
                                                   cubit.increaseCounter();
                                                   cubit.productsControllers[index].clear();
+                                                  cubit.productNumberList[index]=1;
+
                                                 });
                                               },
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:
-                                                    BorderRadius.circular(12),
+                                                    BorderRadius.circular(7),
                                               ),
                                               color: ColorManager.primaryColor,
                                               child: Text(
@@ -303,9 +340,11 @@ class ProductScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w600,
                                                     color: ColorManager.white,
                                                   )),
-                                            )
-                                          ],
-                                        )
+                                            ),
+                                          ),
+                                        ),
+
+                                        SizedBox(height: 15,),
                                       ],
                                     ),
                                   ),

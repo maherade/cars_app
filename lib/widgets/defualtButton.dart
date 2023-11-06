@@ -10,6 +10,7 @@ class DefaultButton extends StatelessWidget {
   Color? color;
   Color? color2;
   double ?radies;
+  double ?text_size;
   Color ?textColor;
   String ?icon;
   double ? width;
@@ -22,6 +23,7 @@ class DefaultButton extends StatelessWidget {
       this.color = ColorManager.primaryColor,
       this.color2 = ColorManager.white,
       this.textColor = Colors.white,
+      this.text_size=16,
       this.width,
       Key? key}) : super(key: key);
 
@@ -47,7 +49,7 @@ class DefaultButton extends StatelessWidget {
         child: icon==null? Text(
           buttonText,
           style: GoogleFonts.almarai(
-            fontSize: 16,
+            fontSize: text_size,
             fontWeight: FontWeight.w500,
             color: textColor,
           ),

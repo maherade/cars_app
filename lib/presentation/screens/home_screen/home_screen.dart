@@ -66,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                       builder: (context) => SearchScreen(),
                     ));
               },
-              child:  Padding(
+              child:  const Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.0),
                 child: Icon(
                   Icons.search,
@@ -168,28 +168,31 @@ class HomeScreen extends StatelessWidget {
                       color: ColorManager.textColor,
                     ),
                   )
-                      : SizedBox(
+                      : Container(
                     height: MediaQuery
                         .of(context)
                         .size
-                        .height * .3,
-                    child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return RecommendedItem(
-                          index: index,
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const SizedBox(
-                          width: 10,
-                        );
-                      },
-                      itemCount:
-                      AppCubit
-                          .get(context)
-                          .newSellProducts!
-                          .length,
+                        .height * .28,
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return RecommendedItem(
+                            index: index,
+                          );
+                        },
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(
+                            width: 10,
+                          );
+                        },
+                        itemCount:
+                        AppCubit
+                            .get(context)
+                            .newSellProducts!
+                            .length,
+                      ),
                     ),
                   ),
 
@@ -219,7 +222,7 @@ class HomeScreen extends StatelessWidget {
                           .mainProducts!
                           .isNotEmpty
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height * .3,
+                          height: MediaQuery.of(context).size.height * .28,
                           child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
@@ -280,71 +283,71 @@ class HomeScreen extends StatelessWidget {
                                               width: 70,
                                             ),
                                           ),
-                                          Align(
-                                            alignment: CashHelper.getData(
-                                                key: CashHelper.languageKey)
-                                                .toString() ==
-                                                "ar"? Alignment.topLeft:Alignment.topRight,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey.shade100,
-                                                  borderRadius:
-                                                      BorderRadius.circular(40)),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    AppCubit.get(context)
-                                                        .allFavorite
-                                                        .clear();
-                                                    AppCubit.get(context)
-                                                        .insertDatabase(
-                                                            name:
-                                                            '${CashHelper.getData(
-                                                                key: CashHelper.languageKey)
-                                                                .toString() ==
-                                                                "ar"? AppCubit.get(context).newSellProducts![index].productName:AppCubit.get(context).newSellProducts![index].latinName}',
-                                                            code:
-                                                                '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
-                                                            price:
-                                                                '${AppCubit.get(context).newSellProducts![index].wholePrice}',
-                                                            number: AppCubit.get(
-                                                                            context)
-                                                                        .productsNewSellControllers[
-                                                                            index]
-                                                                        .text ==
-                                                                    ''
-                                                                ? '1'
-                                                                : AppCubit.get(
-                                                                        context)
-                                                                    .productsNewSellControllers[
-                                                                        index]
-                                                                    .text,
-                                                            image:
-                                                                '${AppCubit.get(context).newSellProducts![index].imgUrl}',
-                                                            context: context)
-                                                        .then((value) {
-                                                      customToast(
-                                                          color: ColorManager
-                                                              .red,
-                                                          title:
-                                                          AppLocalizations
-                                                              .of(context)!
-                                                              .translate(
-                                                              'addedToCart')
-                                                              .toString());
-                                                    }).then((value) {
-                                                      AppCubit.get(context)
-                                                          .increaseCounter();
-                                                      AppCubit.get(context).productsNewSellControllers[index].clear();
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.add,
-                                                    size: 25,
-                                                    color:
-                                                        ColorManager.primaryColor,
-                                                  )),
-                                            ),
-                                          ),
+                                          // Align(
+                                          //   alignment: CashHelper.getData(
+                                          //       key: CashHelper.languageKey)
+                                          //       .toString() ==
+                                          //       "ar"? Alignment.topLeft:Alignment.topRight,
+                                          //   child: Container(
+                                          //     decoration: BoxDecoration(
+                                          //         color: Colors.grey.shade100,
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(40)),
+                                          //     child: IconButton(
+                                          //         onPressed: () {
+                                          //           AppCubit.get(context)
+                                          //               .allFavorite
+                                          //               .clear();
+                                          //           AppCubit.get(context)
+                                          //               .insertDatabase(
+                                          //                   name:
+                                          //                   '${CashHelper.getData(
+                                          //                       key: CashHelper.languageKey)
+                                          //                       .toString() ==
+                                          //                       "ar"? AppCubit.get(context).newSellProducts![index].productName:AppCubit.get(context).newSellProducts![index].latinName}',
+                                          //                   code:
+                                          //                       '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
+                                          //                   price:
+                                          //                       '${AppCubit.get(context).newSellProducts![index].wholePrice}',
+                                          //                   number: AppCubit.get(
+                                          //                                   context)
+                                          //                               .productsNewSellControllers[
+                                          //                                   index]
+                                          //                               .text ==
+                                          //                           ''
+                                          //                       ? '1'
+                                          //                       : AppCubit.get(
+                                          //                               context)
+                                          //                           .productsNewSellControllers[
+                                          //                               index]
+                                          //                           .text,
+                                          //                   image:
+                                          //                       '${AppCubit.get(context).newSellProducts![index].imgUrl}',
+                                          //                   context: context)
+                                          //               .then((value) {
+                                          //             customToast(
+                                          //                 color: ColorManager
+                                          //                     .red,
+                                          //                 title:
+                                          //                 AppLocalizations
+                                          //                     .of(context)!
+                                          //                     .translate(
+                                          //                     'addedToCart')
+                                          //                     .toString());
+                                          //           }).then((value) {
+                                          //             AppCubit.get(context)
+                                          //                 .increaseCounter();
+                                          //             AppCubit.get(context).productsNewSellControllers[index].clear();
+                                          //           });
+                                          //         },
+                                          //         icon: const Icon(
+                                          //           Icons.add,
+                                          //           size: 25,
+                                          //           color:
+                                          //               ColorManager.primaryColor,
+                                          //         )),
+                                          //   ),
+                                          // ),
                                           Positioned(
                                             top: MediaQuery.sizeOf(context)
                                                     .height *
@@ -369,55 +372,76 @@ class HomeScreen extends StatelessWidget {
                                                   )),
                                             ),
                                           ),
+
                                           Positioned(
-                                            top: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                .2,
-                                            left:
-                                                MediaQuery.sizeOf(context).width *
-                                                    .02,
-                                            right:
-                                                MediaQuery.sizeOf(context).width *
-                                                    .008,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: TextFormField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      hintStyle: TextStyle(
-                                                        fontSize: 20,
-                                                      ),
-                                                      hintText: '1',
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                        fontSize: 20),
-                                                    controller: AppCubit.get(
-                                                                context)
-                                                            .productsNewSellControllers[
-                                                        index],
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Align(
-                                                  alignment: Alignment.bottomLeft,
-                                                  child: Text(
-                                                      '${AppCubit.get(context).newSellProducts![index].wholePrice}\$',
-                                                      style: GoogleFonts.cairo(
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorManager.black,
-                                                      )),
-                                                ),
-                                              ],
+                                            top: MediaQuery.sizeOf(context).height*.2,
+                                            left: MediaQuery.sizeOf(context).height*.000005,
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context).height*.07,
+                                              height: MediaQuery.sizeOf(context).height*.05,
+                                              color: Colors.red,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                    '${AppCubit.get(context).newSellProducts![index].wholePrice}\$',
+                                                    style: GoogleFonts.cairo(
+                                                      fontSize: 18.0,
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      color: ColorManager.white,
+                                                    )),
+                                              ),
                                             ),
                                           ),
+                                          // Positioned(
+                                          //   top: MediaQuery.sizeOf(context)
+                                          //           .height *
+                                          //       .2,
+                                          //   left:
+                                          //       MediaQuery.sizeOf(context).width *
+                                          //           .02,
+                                          //   right:
+                                          //       MediaQuery.sizeOf(context).width *
+                                          //           .008,
+                                          //   child: Row(
+                                          //     children: [
+                                          //       SizedBox(
+                                          //         height: 50,
+                                          //         width: 50,
+                                          //         child: TextFormField(
+                                          //           decoration:
+                                          //               const InputDecoration(
+                                          //             hintStyle: TextStyle(
+                                          //               fontSize: 20,
+                                          //             ),
+                                          //             hintText: '1',
+                                          //           ),
+                                          //           textAlign: TextAlign.center,
+                                          //           style: const TextStyle(
+                                          //               fontSize: 20),
+                                          //           controller: AppCubit.get(
+                                          //                       context)
+                                          //                   .productsNewSellControllers[
+                                          //               index],
+                                          //           keyboardType:
+                                          //               TextInputType.number,
+                                          //         ),
+                                          //       ),
+                                          //       const Spacer(),
+                                          //       Align(
+                                          //         alignment: Alignment.bottomLeft,
+                                          //         child: Text(
+                                          //             '${AppCubit.get(context).newSellProducts![index].wholePrice}\$',
+                                          //             style: GoogleFonts.cairo(
+                                          //               fontSize: 20.0,
+                                          //               fontWeight:
+                                          //                   FontWeight.w600,
+                                          //               color: ColorManager.black,
+                                          //             )),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
                                         ],
                                       )),
                                 );
@@ -453,7 +477,7 @@ class HomeScreen extends StatelessWidget {
                   // المنتج الاكثر مبيعا
                   AppCubit.get(context).bestSellProducts!.isNotEmpty
                       ? SizedBox(
-                          height: MediaQuery.of(context).size.height * .3,
+                          height: MediaQuery.of(context).size.height * .28,
                           child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               itemBuilder: (context, index) {
@@ -512,73 +536,76 @@ class HomeScreen extends StatelessWidget {
                                               ),
                                             ),
                                           ),
-                                          Align(
-                                            alignment: CashHelper.getData(
-                                                key: CashHelper.languageKey)
-                                                .toString() ==
-                                                "ar"? Alignment.topLeft:Alignment.topRight,
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  color: Colors.grey.shade100,
-                                                  borderRadius:
-                                                      BorderRadius.circular(40)),
-                                              child: IconButton(
-                                                  onPressed: () {
-                                                    AppCubit.get(context)
-                                                        .allFavorite
-                                                        .clear();
-                                                    AppCubit.get(context)
-                                                        .insertDatabase(
-                                                            name:
-                                                            '${CashHelper.getData(
-                                                                key: CashHelper.languageKey)
-                                                                .toString() ==
-                                                                "ar"? AppCubit.get(context).bestSellProducts![index].productName:AppCubit.get(context).bestSellProducts![index].latinName}',
-                                                            code:
-                                                                '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
-                                                            price:
-                                                                '${AppCubit.get(context).bestSellProducts![index].wholePrice}',
-                                                            number: AppCubit.get(
-                                                                            context)
-                                                                        .productsBestSellControllers[
-                                                                            index]
-                                                                        .text ==
-                                                                    ''
-                                                                ? '1'
-                                                                : AppCubit.get(
-                                                                        context)
-                                                                    .productsBestSellControllers[
-                                                                        index]
-                                                                    .text,
-                                                            image:
-                                                                "${AppCubit.get(context).bestSellProducts![index].imgUrl}",
-                                                            context: context)
-                                                        .then((value) {
-                                                      customToast(
-                                                          color: ColorManager
-                                                              .red,
-                                                          title: AppLocalizations
-                                                                  .of(context)!
-                                                              .translate(
-                                                                  'addedToCart')
-                                                              .toString());
-                                                    }).then((value) {
-                                                      AppCubit.get(context)
-                                                          .increaseCounter();
-                                                      AppCubit.get(
-                                                          context)
-                                                          .productsBestSellControllers[
-                                                      index].clear();
-                                                    });
-                                                  },
-                                                  icon: const Icon(
-                                                    Icons.add,
-                                                    size: 25,
-                                                    color:
-                                                        ColorManager.primaryColor,
-                                                  )),
-                                            ),
-                                          ),
+
+                                          // Align(
+                                          //   alignment: CashHelper.getData(
+                                          //       key: CashHelper.languageKey)
+                                          //       .toString() ==
+                                          //       "ar"? Alignment.topLeft:Alignment.topRight,
+                                          //   child: Container(
+                                          //     decoration: BoxDecoration(
+                                          //         color: Colors.grey.shade100,
+                                          //         borderRadius:
+                                          //             BorderRadius.circular(40)),
+                                          //     child: IconButton(
+                                          //         onPressed: () {
+                                          //           AppCubit.get(context)
+                                          //               .allFavorite
+                                          //               .clear();
+                                          //           AppCubit.get(context)
+                                          //               .insertDatabase(
+                                          //                   name:
+                                          //                   '${CashHelper.getData(
+                                          //                       key: CashHelper.languageKey)
+                                          //                       .toString() ==
+                                          //                       "ar"? AppCubit.get(context).bestSellProducts![index].productName:AppCubit.get(context).bestSellProducts![index].latinName}',
+                                          //                   code:
+                                          //                       '${AppCubit.get(context).bestSellProducts![index].productModelGuide}',
+                                          //                   price:
+                                          //                       '${AppCubit.get(context).bestSellProducts![index].wholePrice}',
+                                          //                   number: AppCubit.get(
+                                          //                                   context)
+                                          //                               .productsBestSellControllers[
+                                          //                                   index]
+                                          //                               .text ==
+                                          //                           ''
+                                          //                       ? '1'
+                                          //                       : AppCubit.get(
+                                          //                               context)
+                                          //                           .productsBestSellControllers[
+                                          //                               index]
+                                          //                           .text,
+                                          //                   image:
+                                          //                       "${AppCubit.get(context).bestSellProducts![index].imgUrl}",
+                                          //                   context: context)
+                                          //               .then((value) {
+                                          //             customToast(
+                                          //                 color: ColorManager
+                                          //                     .red,
+                                          //                 title: AppLocalizations
+                                          //                         .of(context)!
+                                          //                     .translate(
+                                          //                         'addedToCart')
+                                          //                     .toString());
+                                          //           }).then((value) {
+                                          //             AppCubit.get(context)
+                                          //                 .increaseCounter();
+                                          //             AppCubit.get(
+                                          //                 context)
+                                          //                 .productsBestSellControllers[
+                                          //             index].clear();
+                                          //           });
+                                          //         },
+                                          //         icon: const Icon(
+                                          //           Icons.add,
+                                          //           size: 25,
+                                          //           color:
+                                          //               ColorManager.primaryColor,
+                                          //         )),
+                                          //   ),
+                                          // ),
+
+
                                           Positioned(
                                             top: MediaQuery.sizeOf(context)
                                                     .height *
@@ -603,55 +630,78 @@ class HomeScreen extends StatelessWidget {
                                                   )),
                                             ),
                                           ),
+
                                           Positioned(
-                                            top: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                .2,
-                                            left:
-                                                MediaQuery.sizeOf(context).width *
-                                                    .02,
-                                            right:
-                                                MediaQuery.sizeOf(context).width *
-                                                    .008,
-                                            child: Row(
-                                              children: [
-                                                SizedBox(
-                                                  height: 50,
-                                                  width: 50,
-                                                  child: TextFormField(
-                                                    decoration:
-                                                        const InputDecoration(
-                                                      hintStyle: TextStyle(
-                                                        fontSize: 20,
-                                                      ),
-                                                      hintText: '1',
-                                                    ),
-                                                    textAlign: TextAlign.center,
-                                                    style: const TextStyle(
-                                                        fontSize: 20),
-                                                    controller: AppCubit.get(
-                                                                context)
-                                                            .productsBestSellControllers[
-                                                        index],
-                                                    keyboardType:
-                                                        TextInputType.number,
-                                                  ),
-                                                ),
-                                                const Spacer(),
-                                                Align(
-                                                  alignment: Alignment.bottomLeft,
-                                                  child: Text(
-                                                      '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
-                                                      style: GoogleFonts.cairo(
-                                                        fontSize: 20.0,
-                                                        fontWeight:
-                                                            FontWeight.w600,
-                                                        color: ColorManager.black,
-                                                      )),
-                                                ),
-                                              ],
+                                            top: MediaQuery.sizeOf(context).height*.2,
+                                            left: MediaQuery.sizeOf(context).height*.000005,
+                                            child: Container(
+                                              width: MediaQuery.sizeOf(context).height*.07,
+                                              height: MediaQuery.sizeOf(context).height*.05,
+                                              color: Colors.red,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                    '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                                    style: GoogleFonts.cairo(
+                                                      fontSize: 18.0,
+                                                      fontWeight:
+                                                      FontWeight.w600,
+                                                      color: ColorManager.white,
+                                                    )),
+                                              ),
                                             ),
                                           ),
+
+
+                                          // Positioned(
+                                          //   top: MediaQuery.sizeOf(context)
+                                          //           .height *
+                                          //       .2,
+                                          //   left:
+                                          //       MediaQuery.sizeOf(context).width *
+                                          //           .02,
+                                          //   right:
+                                          //       MediaQuery.sizeOf(context).width *
+                                          //           .008,
+                                          //   child: Row(
+                                          //     children: [
+                                          //       SizedBox(
+                                          //         height: 50,
+                                          //         width: 50,
+                                          //         child: TextFormField(
+                                          //           decoration:
+                                          //               const InputDecoration(
+                                          //             hintStyle: TextStyle(
+                                          //               fontSize: 20,
+                                          //             ),
+                                          //             hintText: '1',
+                                          //           ),
+                                          //           textAlign: TextAlign.center,
+                                          //           style: const TextStyle(
+                                          //               fontSize: 20),
+                                          //           controller: AppCubit.get(
+                                          //                       context)
+                                          //                   .productsBestSellControllers[
+                                          //               index],
+                                          //           keyboardType:
+                                          //               TextInputType.number,
+                                          //         ),
+                                          //       ),
+                                          //       const Spacer(),
+                                          //       Align(
+                                          //         alignment: Alignment.bottomLeft,
+                                          //         child: Text(
+                                          //             '${AppCubit.get(context).bestSellProducts![index].wholePrice}\$',
+                                          //             style: GoogleFonts.cairo(
+                                          //               fontSize: 20.0,
+                                          //               fontWeight:
+                                          //                   FontWeight.w600,
+                                          //               color: ColorManager.black,
+                                          //             )),
+                                          //       ),
+                                          //     ],
+                                          //   ),
+                                          // ),
                                         ],
                                       )),
                                 );
@@ -670,6 +720,8 @@ class HomeScreen extends StatelessWidget {
                             color: ColorManager.textColor,
                           ),
                         ),
+
+                  const SizedBox(height: 20,),
                 ],
               ),
             );

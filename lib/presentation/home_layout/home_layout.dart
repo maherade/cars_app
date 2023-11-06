@@ -67,125 +67,118 @@ class _HomeLayoutState extends State<HomeLayout> {
               const CurvedNavigationBarItem(
                   child:  Icon(Icons.branding_watermark,
                       size: 20, color: Colors.white),
-                  label: "العلامات التجارية",
+                  label: "العلامات ",
                   labelStyle:
                        TextStyle(fontSize: 12, color: Colors.white)),
-              CurvedNavigationBarItem(
-                  child:
-                      const Icon(Icons.history, size: 20, color: Colors.white),
-                  label:
-                      AppLocalizations.of(context)!.translate('buy').toString(),
-                  labelStyle:
-                      const TextStyle(fontSize: 12, color: Colors.white)),
               CurvedNavigationBarItem(
                   child: Stack(
                     children: [
                       CashHelper.getData(key: 'counter') == null
                           ? cubit.currentIndex != 3
-                              ? Positioned(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * .035,
-                                  top: MediaQuery.sizeOf(context).height * .2,
-                                  right: MediaQuery.sizeOf(context).width * .15,
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        .035,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * .07,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.shade500,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Center(
-                                      child: Text('0',
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.white,
-                                          )),
-                                    ),
-                                  ),
-                                )
-                              : Positioned(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * .035,
-                                  top: MediaQuery.sizeOf(context).height * .15,
-                                  right: MediaQuery.sizeOf(context).width * .05,
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        .035,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * .07,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.shade500,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Center(
-                                      child: Text('0',
-                                          style: GoogleFonts.cairo(
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.w600,
-                                            color: ColorManager.white,
-                                          )),
-                                    ),
-                                  ),
-                                )
+                          ? Positioned(
+                        height:
+                        MediaQuery.sizeOf(context).height * .035,
+                        top: MediaQuery.sizeOf(context).height * .2,
+                        right: MediaQuery.sizeOf(context).width * .15,
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height *
+                              .035,
+                          width:
+                          MediaQuery.sizeOf(context).width * .07,
+                          decoration: BoxDecoration(
+                              color: Colors.red.shade500,
+                              borderRadius:
+                              BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text('0',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorManager.white,
+                                )),
+                          ),
+                        ),
+                      )
+                          : Positioned(
+                        height:
+                        MediaQuery.sizeOf(context).height * .035,
+                        top: MediaQuery.sizeOf(context).height * .15,
+                        right: MediaQuery.sizeOf(context).width * .05,
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height *
+                              .035,
+                          width:
+                          MediaQuery.sizeOf(context).width * .07,
+                          decoration: BoxDecoration(
+                              color: Colors.red.shade500,
+                              borderRadius:
+                              BorderRadius.circular(15)),
+                          child: Center(
+                            child: Text('0',
+                                style: GoogleFonts.cairo(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w600,
+                                  color: ColorManager.white,
+                                )),
+                          ),
+                        ),
+                      )
                           : cubit.currentIndex == 3
-                              ? Positioned(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * .035,
-                                  top: MediaQuery.sizeOf(context).height * .1,
-                                  right: MediaQuery.sizeOf(context).width * .12,
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        .035,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * .07,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.shade500,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${cubit.allFavorite.length}',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : Positioned(
-                                  height:
-                                      MediaQuery.sizeOf(context).height * .035,
-                                  top:
-                                      MediaQuery.sizeOf(context).height * .0001,
-                                  right: MediaQuery.sizeOf(context).width * .13,
-                                  child: Container(
-                                    height: MediaQuery.sizeOf(context).height *
-                                        .035,
-                                    width:
-                                        MediaQuery.sizeOf(context).width * .07,
-                                    decoration: BoxDecoration(
-                                        color: Colors.red.shade500,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Align(
-                                      alignment: Alignment.center,
-                                      child: Text(
-                                        '${cubit.allFavorite.length}',
-                                        style: GoogleFonts.cairo(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.bold,
-                                          color: ColorManager.white,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                          ? Positioned(
+                        height:
+                        MediaQuery.sizeOf(context).height * .035,
+                        top: MediaQuery.sizeOf(context).height * .1,
+                        right: MediaQuery.sizeOf(context).width * .12,
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height *
+                              .035,
+                          width:
+                          MediaQuery.sizeOf(context).width * .07,
+                          decoration: BoxDecoration(
+                              color: Colors.red.shade500,
+                              borderRadius:
+                              BorderRadius.circular(15)),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${cubit.allFavorite.length}',
+                              style: GoogleFonts.cairo(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: ColorManager.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                          : Positioned(
+                        height:
+                        MediaQuery.sizeOf(context).height * .035,
+                        top:
+                        MediaQuery.sizeOf(context).height * .0001,
+                        right: MediaQuery.sizeOf(context).width * .13,
+                        child: Container(
+                          height: MediaQuery.sizeOf(context).height *
+                              .035,
+                          width:
+                          MediaQuery.sizeOf(context).width * .07,
+                          decoration: BoxDecoration(
+                              color: Colors.red.shade500,
+                              borderRadius:
+                              BorderRadius.circular(15)),
+                          child: Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              '${cubit.allFavorite.length}',
+                              style: GoogleFonts.cairo(
+                                fontSize: 15.0,
+                                fontWeight: FontWeight.bold,
+                                color: ColorManager.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       const Align(
                           alignment: Alignment.center,
                           child: Icon(Icons.shopping_bag,
@@ -196,7 +189,15 @@ class _HomeLayoutState extends State<HomeLayout> {
                       .translate('cart')
                       .toString(),
                   labelStyle:
+                  const TextStyle(fontSize: 12, color: Colors.white)),
+              CurvedNavigationBarItem(
+                  child:
+                      const Icon(Icons.history, size: 20, color: Colors.white),
+                  label:
+                      AppLocalizations.of(context)!.translate('buy').toString(),
+                  labelStyle:
                       const TextStyle(fontSize: 12, color: Colors.white)),
+
               CurvedNavigationBarItem(
                   child:
                       const Icon(Icons.settings, size: 20, color: Colors.white),
