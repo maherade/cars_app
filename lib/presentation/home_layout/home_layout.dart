@@ -64,17 +64,17 @@ class _HomeLayoutState extends State<HomeLayout> {
                       .toString(),
                   labelStyle:
                       const TextStyle(fontSize: 12, color: Colors.white)),
-              const CurvedNavigationBarItem(
-                  child:  Icon(Icons.branding_watermark,
+                CurvedNavigationBarItem(
+                  child:  const Icon(Icons.branding_watermark,
                       size: 20, color: Colors.white),
-                  label: "العلامات ",
+                  label: AppLocalizations.of(context)!.translate("brands").toString(),
                   labelStyle:
-                       TextStyle(fontSize: 12, color: Colors.white)),
+                      const  TextStyle(fontSize: 12, color: Colors.white)),
               CurvedNavigationBarItem(
                   child: Stack(
                     children: [
                       CashHelper.getData(key: 'counter') == null
-                          ? cubit.currentIndex != 3
+                          ? cubit.currentIndex != 2
                           ? Positioned(
                         height:
                         MediaQuery.sizeOf(context).height * .035,
@@ -123,7 +123,7 @@ class _HomeLayoutState extends State<HomeLayout> {
                           ),
                         ),
                       )
-                          : cubit.currentIndex == 3
+                          : cubit.currentIndex == 2
                           ? Positioned(
                         height:
                         MediaQuery.sizeOf(context).height * .035,

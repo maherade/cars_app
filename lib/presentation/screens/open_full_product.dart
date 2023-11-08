@@ -3,7 +3,6 @@ import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
 import 'package:cars_app/business_logic/app_cubit/app_states.dart';
 import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/styles/color_manager.dart';
-import 'package:cars_app/utiles/local/cash_helper.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
 import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +16,7 @@ class OpenFullProduct extends StatelessWidget {
     required this.productTitle,
     required this.productImage,
     required this.productCode,
+    required this.quantity,
     super.key
   });
 
@@ -25,6 +25,7 @@ class OpenFullProduct extends StatelessWidget {
    final String productPrice;
    final String productImage;
    final String productCode;
+   final num? quantity;
 
 
 
@@ -49,7 +50,7 @@ class OpenFullProduct extends StatelessWidget {
 
               ),
               titleSpacing: 0.0,
-              title: Text('تفاصيل المنتجٍ',style: GoogleFonts.cairo(
+              title: Text(AppLocalizations.of(context)!.translate("product_details").toString(),style: GoogleFonts.cairo(
                   fontSize: 17,
                   fontWeight: FontWeight.w500
               ),),
@@ -79,18 +80,25 @@ class OpenFullProduct extends StatelessWidget {
                     ),
                   ),
 
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).height*.1,
-                      height: MediaQuery.sizeOf(context).height*.05,
-                      color: Colors.red,
-                      child: Text('$productPrice\$',style: GoogleFonts.cairo(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500
-                      ),
-                        textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).height*.1,
+                        height: MediaQuery.sizeOf(context).height*.05,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.red,
+
+                        ),
+                        child: Text('$productPrice\$',style: GoogleFonts.cairo(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w500
+                        ),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                     ),
                   ),
@@ -106,10 +114,36 @@ class OpenFullProduct extends StatelessWidget {
                   ),
 
 
-                  SizedBox(height: MediaQuery.of(context).size.height*.025,),
+                  SizedBox(height: MediaQuery.of(context).size.height*.01,),
 
                   Padding(
-                    padding:  EdgeInsets.fromLTRB(
+                padding: const EdgeInsets.all(8.0),
+                child:
+                Text(
+                    '${AppLocalizations.of(context)!.translate("available").toString()}  ${(quantity!).toInt()}  ${AppLocalizations.of(context)!.translate("pieces").toString()} ',
+                    style: GoogleFonts.cairo(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: ColorManager.black,
+                    )),
+                // Row(
+                //   children: [
+                //     Text('سعر القطعه: ',style: GoogleFonts.cairo(
+                //         fontSize: 17,
+                //         fontWeight: FontWeight.w600
+                //     ),),
+                //     Text('$productPrice\$',style: GoogleFonts.cairo(
+                //         fontSize: 20,
+                //         fontWeight: FontWeight.w500
+                //     ),),
+                //   ],
+                // ),
+              ),
+                  SizedBox(height: MediaQuery.of(context).size.height*.01,),
+
+
+                  Padding(
+                padding:  EdgeInsets.fromLTRB(
                         MediaQuery.of(context).size.height*.28,
                         0,
                         MediaQuery.of(context).size.height*.01,
@@ -130,7 +164,6 @@ class OpenFullProduct extends StatelessWidget {
                               }
                           ),
                         ),
-
 
                         Container(
                           width: 50,
@@ -177,36 +210,40 @@ class OpenFullProduct extends StatelessWidget {
                         color: ColorManager.primaryColor,
                         textColor: Colors.white,
 
-                        onPressed: (){
-                          AppCubit.get(context).allFavorite.clear();
-                          AppCubit.get(context).insertDatabase(
-                              name: productTitle,
-                              code: '${productCode}',
-                              price: '${productPrice}',
-                              number: '${AppCubit.get(context).productNumber}',
-                              image:"${productImage}",context: context).then((value) {
-                            customToast(
-                                color: ColorManager
-                                    .red,
-                                title: AppLocalizations
-                                    .of(context)!
-                                    .translate(
-                                    'addedToCart')
-                                    .toString());
-                          }).then((value) {
-                            AppCubit.get(context)
-                                .increaseCounter();
-                            textEditingController.clear();
-                            AppCubit.get(context).productNumber=1;
+                  onPressed: (){
+                    if( AppCubit.get(context).productNumber > quantity!){
+                      customToast(title: "${AppLocalizations.of(context)!.translate("notAvailable")}", color: Colors.red);
+                    }
+                    else{
+                        AppCubit.get(context).allFavorite.clear();
+                        AppCubit.get(context)
+                            .insertDatabase(
+                                name: productTitle,
+                                code: '${productCode}',
+                                price: '${productPrice}',
+                                number:  "${AppCubit.get(context).productNumber}",
+                                image: "${productImage}",
+                                context: context)
+                            .then((value) {
+                          customToast(
+                              color: ColorManager.red,
+                              title: AppLocalizations.of(context)!
+                                  .translate('addedToCart')
+                                  .toString());
+                        }).then((value) {
+                          AppCubit.get(context).productNumber = 1;
 
-                          });
-                        },
-                        child: Text(AppLocalizations.of(context)!.translate('addedToCart').toString(),
-                          style: GoogleFonts.cairo(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600
-                          ),)),
-                  )
+                          AppCubit.get(context).increaseCounter();
+                          textEditingController.clear();
+                        });
+                      }
+                    },
+                  child: Text(AppLocalizations.of(context)!.translate('addedToCart').toString(),
+                    style: GoogleFonts.cairo(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600
+                  ),)),
+                )
 
                 ],
               ),

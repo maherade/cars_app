@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cars_app/constants/stripe/payment_manager.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/widgets/custom_bottom_sheet.dart';
 import 'package:cars_app/widgets/defualtButton.dart';
@@ -94,6 +93,8 @@ class _CartScreenState extends State<CartScreen> {
                                     color: Colors.black,
                                     color2: Colors.black,
                                     onPressed: () {
+                                      Navigator.pop(context);
+
                                       // cubit.deleteProducts(context).then((value) {
                                       //   for (int i = 0; i < cubit.allFavorite.length; i++) {
                                       //     cubit.addUserProductsToFireBase(
@@ -117,6 +118,7 @@ class _CartScreenState extends State<CartScreen> {
                                           .set({
                                         'totalPrice':cubit.totalPrice
                                       }).then((value) {
+
                                         cubit.totalPrice=0;
 
                                       });
@@ -182,6 +184,8 @@ class _CartScreenState extends State<CartScreen> {
                                     color: Colors.green.shade800,
                                     color2: Colors.green.shade800,
                                     onPressed: () {
+                                      Navigator.pop(context);
+
                                       // cubit.getUserProductsFromFireStore();
                                       print(
                                           "******************************************${cubit.totalPrice}");
@@ -203,10 +207,10 @@ class _CartScreenState extends State<CartScreen> {
                                           .set({
                                       'totalPrice':cubit.totalPrice
                                       }).then((value) {
-                                      cubit.totalPrice=0;
+
+                                        cubit.totalPrice=0;
 
                                       });
-
                                       // cubit.getUserProductsFromFireStore();
                                       cubit.showAddBottomSheet(
                                           context: context,
@@ -407,6 +411,9 @@ class _CartScreenState extends State<CartScreen> {
                                                   productId:
                                                       '${cubit.allFavorite[index]['id']}')
                                               .then((value) => {
+                                            cubit
+                                                .editNumberController[index]
+                                                .text="0",
                                             AppCubit.get(context)
                                                 .getUserProductsFromFireStore(context: context),
                                           });

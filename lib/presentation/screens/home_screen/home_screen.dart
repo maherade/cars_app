@@ -7,7 +7,6 @@ import 'package:cars_app/presentation/screens/open_full_product.dart';
 import 'package:cars_app/presentation/screens/search_screen/search_screen.dart';
 import 'package:cars_app/styles/color_manager.dart';
 import 'package:cars_app/widgets/recomended_item.dart';
-import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -233,6 +232,8 @@ class HomeScreen extends StatelessWidget {
                                         productPrice: '${AppCubit.get(context).newSellProducts![index].wholePrice}',
                                         productCode: '${AppCubit.get(context).newSellProducts![index].productModelGuide}',
                                         productImage: '${AppCubit.get(context).newSellProducts![index].imgUrl}',
+                                        quantity: AppCubit.get(context).newSellProducts![index].quantity,
+
                                         productTitle: '${CashHelper.getData(
                                             key: CashHelper.languageKey)
                                             .toString() ==
@@ -379,7 +380,9 @@ class HomeScreen extends StatelessWidget {
                                             child: Container(
                                               width: MediaQuery.sizeOf(context).height*.07,
                                               height: MediaQuery.sizeOf(context).height*.05,
-                                              color: Colors.red,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius: BorderRadius.circular(10),),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(
@@ -492,6 +495,7 @@ class HomeScreen extends StatelessWidget {
                                             key: CashHelper.languageKey)
                                             .toString() ==
                                             "ar"?AppCubit.get(context).bestSellProducts![index].productName:AppCubit.get(context).newSellProducts![index].latinName}',
+                                        quantity: AppCubit.get(context).bestSellProducts![index].quantity,
                                       );
                                     }));
                                   },
@@ -637,7 +641,9 @@ class HomeScreen extends StatelessWidget {
                                             child: Container(
                                               width: MediaQuery.sizeOf(context).height*.07,
                                               height: MediaQuery.sizeOf(context).height*.05,
-                                              color: Colors.red,
+                                              decoration: BoxDecoration(
+                                                color: Colors.red,
+                                                borderRadius: BorderRadius.circular(10),),
                                               child: Align(
                                                 alignment: Alignment.center,
                                                 child: Text(

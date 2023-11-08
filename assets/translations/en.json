@@ -44,6 +44,7 @@
   "wolex": "Volkswagen",
   "mitsubeshi": "Mitsubishi",
   "ford": "Ford",
+  "total": "Hejmara giştî",
   "shangan": "Shengan",
   "mercides": "Mercedes",
   "audi": "Audi",
@@ -59,5 +60,9 @@
   "paymentWay": "Rêbaza dravdanê hilbijêrin",
   "notCompleted": "netemam",
   "transfair": "transfera pereyan",
-  "empty": "Mixabin, niha tu hilber tuneً"
+  "empty": "Mixabin, niha tu hilber tuneً",
+  "available": "berdeste",
+  "pieces": "birrîn",
+  "notAvailable": "Hejmara pêwîst peyda nabe",
+  "product_details":"hûrguliyên hilberê"
 }

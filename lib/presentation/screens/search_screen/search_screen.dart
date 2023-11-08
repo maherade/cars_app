@@ -94,6 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             productPrice: '${AppCubit.get(context).search[index]['WholePrice']}',
                             productCode: '${AppCubit.get(context).search[index]['productModelGuide']}',
                             productImage: '${AppCubit.get(context).search[index]['ImgUrl']}',
+                            quantity: AppCubit.get(context).search[index]['quantity'],
                             productTitle: '${CashHelper.getData(
                                 key: CashHelper.languageKey)
                                 .toString() ==
@@ -204,7 +205,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     textAlign: TextAlign.center,
                                     style: const TextStyle(fontSize: 20),
                                     controller: AppCubit.get(context)
-                                        .productsControllers[index!],
+                                        .productsControllers[index],
                                     keyboardType: TextInputType.number,
                                   ),
                                 ),
@@ -215,22 +216,22 @@ class _SearchScreenState extends State<SearchScreen> {
                                     AppCubit.get(context)
                                         .insertDatabase(
                                             name:
-                                                '${AppCubit.get(context).products!.mainProducts![index!].productName}',
+                                                '${AppCubit.get(context).products!.mainProducts![index].productName}',
                                             code:
-                                                '${AppCubit.get(context).products!.mainProducts![index!].productModelGuide}',
+                                                '${AppCubit.get(context).products!.mainProducts![index].productModelGuide}',
                                             price:
-                                                '${AppCubit.get(context).products!.mainProducts![index!].wholePrice}\$',
+                                                '${AppCubit.get(context).products!.mainProducts![index].wholePrice}\$',
                                             number: AppCubit.get(context)
                                                         .productsControllers[
-                                                            index!]
+                                                            index]
                                                         .text ==
                                                     ''
                                                 ? '1'
                                                 : AppCubit.get(context)
-                                                    .productsControllers[index!]
+                                                    .productsControllers[index]
                                                     .text,
                                             image:
-                                                '${AppCubit.get(context).products!.mainProducts![index!].imgUrl}',
+                                                '${AppCubit.get(context).products!.mainProducts![index].imgUrl}',
                                             context: context)
                                         .then((value) {
                                       customToast(

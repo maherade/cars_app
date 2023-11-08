@@ -139,16 +139,19 @@ class ProductScreen extends StatelessWidget {
                         child: ListView.separated(
                             itemBuilder: (context, index) {
                               return GestureDetector(
-                                onTap: (){
-                                  Navigator.push(context, MaterialPageRoute(builder: (_){
+                                onTap: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (_) {
                                     return OpenFullProduct(
-                                      productPrice: '${cubit.products!.mainProducts![index].wholePrice}',
-                                      productCode: '${cubit.products!.mainProducts![index].productModelGuide}',
-                                      productImage: '${cubit.products!.mainProducts![index].imgUrl}',
-                                      productTitle: '${CashHelper.getData(
-                                          key: CashHelper.languageKey)
-                                          .toString() ==
-                                          "ar"?cubit.products!.mainProducts![index].productName:cubit.products!.mainProducts![index].latinName}',
+                                      productPrice:
+                                          '${cubit.products!.mainProducts![index].wholePrice}',
+                                      productCode:
+                                          '${cubit.products!.mainProducts![index].productModelGuide}',
+                                      productImage:
+                                          '${cubit.products!.mainProducts![index].imgUrl}',
+                                      quantity: cubit.products!.mainProducts![index].quantity,
+                                      productTitle:
+                                          '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
                                     );
                                   }));
                                 },
@@ -158,8 +161,8 @@ class ProductScreen extends StatelessWidget {
                                   ),
                                   elevation: 10,
                                   child: Container(
-                                    height:
-                                        MediaQuery.of(context).size.height * .32,
+                                    height: MediaQuery.of(context).size.height *
+                                        .32,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(20),
@@ -264,19 +267,26 @@ class ProductScreen extends StatelessWidget {
 
                                             Spacer(),
 
-                                            Container(
-                                              width: MediaQuery.sizeOf(context).height*.09,
-                                              height: MediaQuery.sizeOf(context).height*.05,
-                                              color: Colors.red,
-                                              child: Align(
-                                                alignment: Alignment.center,
-                                                child:  Text(
-                                                    '${cubit.products!.mainProducts![index].wholePrice!}\$',
-                                                    style: GoogleFonts.cairo(
-                                                      fontSize: 18.0,
-                                                      fontWeight: FontWeight.w600,
-                                                      color: ColorManager.white,
-                                                    )),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Container(
+                                                width: MediaQuery.sizeOf(context).height*.09,
+                                                height: MediaQuery.sizeOf(context).height*.05,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.red,
+                                                  borderRadius: BorderRadius.circular(10),
+
+                                                ),
+                                                child: Align(
+                                                  alignment: Alignment.center,
+                                                  child:  Text(
+                                                      '${cubit.products!.mainProducts![index].wholePrice!}\$',
+                                                      style: GoogleFonts.cairo(
+                                                        fontSize: 18.0,
+                                                        fontWeight: FontWeight.w600,
+                                                        color: ColorManager.white,
+                                                      )),
+                                                ),
                                               ),
                                             ),
 
@@ -296,35 +306,45 @@ class ProductScreen extends StatelessWidget {
                                             child: MaterialButton(
 
                                               onPressed: () {
-                                                AppCubit.get(context)
-                                                    .allFavorite
-                                                    .clear();
-                                                AppCubit.get(context)
-                                                    .insertDatabase(
-                                                        name:
-                                                            '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
-                                                        code:
-                                                            '${cubit.products!.mainProducts![index].productModelGuide}',
-                                                        price:
-                                                            '${cubit.products!.mainProducts![index].wholePrice}',
-                                                        number: '${cubit.productNumberList[index]}',
-                                                        image:
-                                                            '${cubit.products!.mainProducts![index].imgUrl}',
-                                                        context: context)
-                                                    .then((value) {
-                                                  customToast(
-                                                    color: ColorManager.darkGrey,
-                                                    title: AppLocalizations.of(
-                                                            context)!
-                                                        .translate("addedToCart")
-                                                        .toString(),
-                                                  );
-                                                }).then((value) {
-                                                  cubit.increaseCounter();
-                                                  cubit.productsControllers[index].clear();
-                                                  cubit.productNumberList[index]=1;
-
-                                                });
+                                                if( int.parse("${cubit.productNumber}").toInt() > cubit.myProducts[index].quantity!){
+                                                  customToast(title: "${AppLocalizations.of(context)!.translate("notAvailable")}", color: Colors.red);
+                                                }
+                                                else{
+                                                  AppCubit.get(context)
+                                                      .allFavorite
+                                                      .clear();
+                                                  AppCubit.get(context)
+                                                      .insertDatabase(
+                                                      name:
+                                                      '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.products!.mainProducts![index].productName : cubit.products!.mainProducts![index].latinName}',
+                                                      code:
+                                                      '${cubit.products!.mainProducts![index].productModelGuide}',
+                                                      price:
+                                                      '${cubit.products!.mainProducts![index].wholePrice}',
+                                                      number: "${cubit.productNumber}",
+                                                      image:
+                                                      '${cubit.products!.mainProducts![index].imgUrl}',
+                                                      context: context)
+                                                      .then((value) {
+                                                    customToast(
+                                                      color:
+                                                      ColorManager.darkGrey,
+                                                      title: AppLocalizations.of(
+                                                          context)!
+                                                          .translate(
+                                                          "addedToCart")
+                                                          .toString(),
+                                                    );
+                                                  }).then((value) {
+                                                    // cubit.updateAvailableProducts(index);
+                                                    cubit.productNumber = 1;
+                                                    cubit.increaseCounter();
+                                                    cubit.updateAvailableProducts(index);
+                                                    cubit.productsControllers[
+                                                    index]
+                                                        .clear();
+                                                  });
+                                                }
                                               },
                                               shape: RoundedRectangleBorder(
                                                 borderRadius:

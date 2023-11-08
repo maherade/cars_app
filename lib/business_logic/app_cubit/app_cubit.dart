@@ -830,7 +830,7 @@ class AppCubit extends Cubit<AppStates> {
       print(value);
       bestSell = ProductModel.fromJson(value.data);
       bestSell!.mainProducts!.forEach((element) {
-        if (element.BestSeller == true) {
+        if (element.bestSeller == true) {
           bestSellProducts!.add(element);
         }
       });
@@ -860,7 +860,7 @@ class AppCubit extends Cubit<AppStates> {
       print(value);
       newSell = ProductModel.fromJson(value.data);
       newSell!.mainProducts!.forEach((element) {
-        if (element.NewItem == true) {
+        if (element.newItem == true) {
           newSellProducts!.add(element);
         }
       });
@@ -876,7 +876,6 @@ class AppCubit extends Cubit<AppStates> {
       emit(GetNewSellProductsFromApiErrorState());
     });
   }
-
   TokenModel? tokenModel;
 
   Future<void> loginWithApi(
@@ -1022,6 +1021,11 @@ class AppCubit extends Cubit<AppStates> {
       productNumberList[index]=productNumberList[index]-1;
     }
     emit(DecreaseProductByOneState());
+  }
+
+  Future updateAvailableProducts(int index)async{
+     products!.mainProducts![index].quantity = (myProducts[index].quantity!) - int.parse(productsControllers[index].text).toInt();
+  return  products!.mainProducts![index].quantity;
   }
 
 }

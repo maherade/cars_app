@@ -1,13 +1,8 @@
-import 'dart:math';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cars_app/business_logic/app_cubit/app_cubit.dart';
-import 'package:cars_app/business_logic/localization_cubit/app_localization.dart';
 import 'package:cars_app/presentation/screens/open_full_product.dart';
-import 'package:cars_app/widgets/toast.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import '../styles/color_manager.dart';
 import '../utiles/local/cash_helper.dart';
 
@@ -26,6 +21,7 @@ class RecommendedItem extends StatelessWidget {
              productPrice: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}',
              productCode: '${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
              productImage: '${cubit.favoriteProducts!.mainProducts![index].imgUrl}',
+             quantity: cubit.favoriteProducts!.mainProducts![index].quantity,
              productTitle: '${CashHelper.getData(
                  key: CashHelper.languageKey)
                  .toString() ==
@@ -120,20 +116,25 @@ class RecommendedItem extends StatelessWidget {
                 ),
                 Positioned(
                   top: MediaQuery.sizeOf(context).height*.2,
-                  left: MediaQuery.sizeOf(context).height*.000005,
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).height*.07,
-                    height: MediaQuery.sizeOf(context).height*.05,
-                    color: Colors.red,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Text(
-                          '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
-                          style: GoogleFonts.cairo(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          )),
+                  left: MediaQuery.sizeOf(context).width*.00005,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).height*.07,
+                      height: MediaQuery.sizeOf(context).height*.05,
+                      decoration: BoxDecoration(
+                        color: Colors.red,
+                        borderRadius: BorderRadius.circular(10),),
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                            '${cubit.favoriteProducts!.mainProducts![index].wholePrice}\$',
+                            style: GoogleFonts.cairo(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            )),
+                      ),
                     ),
                   ),
                 ),
