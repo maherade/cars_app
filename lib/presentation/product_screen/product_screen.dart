@@ -209,6 +209,14 @@ class ProductScreen extends StatelessWidget {
                                                               FontWeight.w600,
                                                           color: ColorManager.black,
                                                         )),
+                                                    const SizedBox(height: 15,),
+                                                    Row(
+                                                      children: [
+                                                          Icon(Icons.save, color: Colors.black.withOpacity(.7),),
+                                                        const SizedBox(width: 4,),
+                                                        Text("${double.parse("${cubit.products!.mainProducts![index].quantity}").toInt()}",style: const TextStyle(fontSize: 18),),
+                                                      ],
+                                                    )
                                                   ],
                                                 ),
                                               ),
@@ -336,10 +344,9 @@ class ProductScreen extends StatelessWidget {
                                                           .toString(),
                                                     );
                                                   }).then((value) {
-                                                    // cubit.updateAvailableProducts(index);
+                                                    // cubit.updateProductsQuantity(index,quantity: cubit.myProducts[index].quantity!);
                                                     cubit.productNumber = 1;
                                                     cubit.increaseCounter();
-                                                    cubit.updateAvailableProducts(index);
                                                     cubit.productsControllers[
                                                     index]
                                                         .clear();

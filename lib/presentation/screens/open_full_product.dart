@@ -219,10 +219,10 @@ class OpenFullProduct extends StatelessWidget {
                         AppCubit.get(context)
                             .insertDatabase(
                                 name: productTitle,
-                                code: '${productCode}',
-                                price: '${productPrice}',
+                                code: productCode,
+                                price: productPrice,
                                 number:  "${AppCubit.get(context).productNumber}",
-                                image: "${productImage}",
+                                image: productImage,
                                 context: context)
                             .then((value) {
                           customToast(
@@ -231,9 +231,11 @@ class OpenFullProduct extends StatelessWidget {
                                   .translate('addedToCart')
                                   .toString());
                         }).then((value) {
-                          AppCubit.get(context).productNumber = 1;
+                          // AppCubit.get(context).updateProductsQuantity(,quantity: quantity);
 
+                          AppCubit.get(context).productNumber = 1;
                           AppCubit.get(context).increaseCounter();
+                          // AppCubit.get(context).updateProductsQuantity(index, quantity!);
                           textEditingController.clear();
                         });
                       }

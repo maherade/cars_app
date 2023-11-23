@@ -116,6 +116,9 @@ class EditProductsErrorState extends AppStates{}
 
 class UpdateNoteDatabaseState extends AppStates{}
 
+class UpdateQuantityLoadingState extends AppStates{}
+class UpdateQuantitySuccessState extends AppStates{}
+class UpdateQuantityErrorState extends AppStates{}
 
 class IncreaseProductByOneState extends AppStates{}
 class DecreaseProductByOneState extends AppStates{}

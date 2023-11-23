@@ -167,7 +167,7 @@ class HomeScreen extends StatelessWidget {
                       color: ColorManager.textColor,
                     ),
                   )
-                      : Container(
+                      : SizedBox(
                     height: MediaQuery
                         .of(context)
                         .size
@@ -371,6 +371,20 @@ class HomeScreen extends StatelessWidget {
                                                     fontWeight: FontWeight.w600,
                                                     color: ColorManager.black,
                                                   )),
+                                            ),
+                                          ),
+                                          Positioned(
+                                            top: MediaQuery.sizeOf(context).height*.2,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.save, color: Colors.black.withOpacity(.7),),
+                                                  const SizedBox(width: 4,),
+                                                  Text("${double.parse("${AppCubit.get(context).newSellProducts![index].quantity}").toInt()}",style: const TextStyle(fontSize: 18),),
+                                                ],
+                                              ),
                                             ),
                                           ),
 
@@ -634,6 +648,21 @@ class HomeScreen extends StatelessWidget {
                                                   )),
                                             ),
                                           ),
+                                          Positioned(
+                                            top: MediaQuery.sizeOf(context).height*.2,
+
+                                            child: Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Row(
+                                                children: [
+                                                  Icon(Icons.save, color: Colors.black.withOpacity(.7),),
+                                                  const SizedBox(width: 4,),
+                                                  Text("${double.parse("${AppCubit.get(context).bestSellProducts![index].quantity}").toInt()}",style: const TextStyle(fontSize: 18),),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+
 
                                           Positioned(
                                             top: MediaQuery.sizeOf(context).height*.2,

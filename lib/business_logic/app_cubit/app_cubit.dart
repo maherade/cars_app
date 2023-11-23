@@ -18,7 +18,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
-
 import '../../presentation/setting_screen/setting_screen.dart';
 import '../../styles/color_manager.dart';
 import '../../utiles/local/cash_helper.dart';
@@ -1022,10 +1021,33 @@ class AppCubit extends Cubit<AppStates> {
     }
     emit(DecreaseProductByOneState());
   }
-
-  Future updateAvailableProducts(int index)async{
-     products!.mainProducts![index].quantity = (myProducts[index].quantity!) - int.parse(productsControllers[index].text).toInt();
-  return  products!.mainProducts![index].quantity;
-  }
+  // num? quantity;
+  // num? newQuantity;
+  // Future updateProductsQuantity(int index, {required quantity })async{
+  //   emit(UpdateQuantityLoadingState());
+  //   try{
+  //     newQuantity=quantity - double.parse(productsControllers[index].text).toInt();
+  //     products!.mainProducts![index].quantity=newQuantity;
+  //     await DioHelper.postData(
+  //         url: "/GetProducts",
+  //         body: {
+  //       "Quantity": newQuantity,
+  //     }).then((value) => {
+  //       products!.mainProducts![index].quantity,
+  //       getFavoriteProductFromApi(),
+  //       getNewProduct(),
+  //       getMostProductSell(),
+  //     });
+  //     emit(UpdateQuantitySuccessState());
+  //     print("-------------------------------- ${products!.mainProducts![index].quantity}");
+  //     return products!.mainProducts![index].quantity;
+  //   }catch(e){
+  //     emit(UpdateQuantityErrorState());
+  //     print(e.toString());
+  //   }
+  //
+  //   //    products!.mainProducts![index].quantity = int.parse("${myProducts[index].quantity!}").toInt() - int.parse(productsControllers[index].text).toInt();
+  // // return  products!.mainProducts![index].quantity;
+  // }
 
 }

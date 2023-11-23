@@ -116,6 +116,21 @@ class RecommendedItem extends StatelessWidget {
                 ),
                 Positioned(
                   top: MediaQuery.sizeOf(context).height*.2,
+
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Row(
+                      children: [
+                        Icon(Icons.save, color: Colors.black.withOpacity(.7),),
+                        const SizedBox(width: 4,),
+                        Text("${double.parse("${cubit.favoriteProducts!.mainProducts![index].quantity}").toInt()}",style: const TextStyle(fontSize: 18),),
+                      ],
+                    ),
+                  ),
+                ),
+
+                Positioned(
+                  top: MediaQuery.sizeOf(context).height*.2,
                   left: MediaQuery.sizeOf(context).width*.00005,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
