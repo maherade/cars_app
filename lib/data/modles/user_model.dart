@@ -1,16 +1,18 @@
  class UserModel {
    static const String collectionName = 'Users';
 
-   String? userName;
+  String? userName;
   String? phoneNumber;
   String? email;
   String? uId;
+  bool isVerified;
 
   UserModel({
     required this.userName,
     required this.phoneNumber,
     required this.email,
     required this.uId,
+    this.isVerified = false,
   });
 
   UserModel.fromJson(Map<String, dynamic> json) : this(
@@ -18,6 +20,7 @@
     phoneNumber : json['phoneNumber'],
     email : json['email'],
     uId : json['uId'],
+    isVerified : json['isVerified'],
 
   );
 
@@ -27,6 +30,7 @@
       'phoneNumber': phoneNumber,
       'email': email,
       'uId': uId,
+      'isVerified': isVerified,
     };
   }
 }

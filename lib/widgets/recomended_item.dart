@@ -7,32 +7,32 @@ import '../styles/color_manager.dart';
 import '../utiles/local/cash_helper.dart';
 
 class RecommendedItem extends StatelessWidget {
-  const RecommendedItem({super.key,required this.index});
+  const RecommendedItem({super.key, required this.index});
 
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    var cubit=AppCubit.get(context);
+    var cubit = AppCubit.get(context);
     return GestureDetector(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (_){
-           return OpenFullProduct(
-             productPrice: '${cubit.favoriteProducts!.mainProducts![index].wholePrice}',
-             productCode: '${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
-             productImage: '${cubit.favoriteProducts!.mainProducts![index].imgUrl}',
-             quantity: cubit.favoriteProducts!.mainProducts![index].quantity,
-             productTitle: '${CashHelper.getData(
-                 key: CashHelper.languageKey)
-                 .toString() ==
-                 "ar"?cubit.favoriteProducts!.mainProducts![index].productName:cubit.favoriteProducts!.mainProducts![index].latinName}',
-           );
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (_) {
+          return OpenFullProduct(
+            productPrice:
+                '${cubit.favoriteProducts!.mainProducts![index].wholePrice}',
+            productCode:
+                '${cubit.favoriteProducts!.mainProducts![index].productModelGuide}',
+            productImage:
+                '${cubit.favoriteProducts!.mainProducts![index].imgUrl}',
+            quantity: cubit.favoriteProducts!.mainProducts![index].quantity,
+            productTitle:
+                '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.favoriteProducts!.mainProducts![index].productName : cubit.favoriteProducts!.mainProducts![index].latinName}',
+          );
         }));
       },
       child: Material(
         elevation: 5,
         borderRadius: BorderRadius.circular(8),
-
         child: Container(
             width: MediaQuery.sizeOf(context).width * .5,
             decoration: BoxDecoration(
@@ -42,19 +42,23 @@ class RecommendedItem extends StatelessWidget {
             child: Stack(
               children: [
                 Align(
-                  alignment: CashHelper.getData(
-                      key: CashHelper.languageKey)
-                      .toString() ==
-                      "ar"? Alignment.topRight:Alignment.topLeft,
+                  alignment: CashHelper.getData(key: CashHelper.languageKey)
+                              .toString() ==
+                          "ar"
+                      ? Alignment.topRight
+                      : Alignment.topLeft,
                   child: CachedNetworkImage(
-                    imageUrl:'${AppCubit.get(context).favoriteProducts!.mainProducts![index].imgUrl}',
+                    imageUrl:
+                        '${AppCubit.get(context).favoriteProducts!.mainProducts![index].imgUrl}',
                     height: 70,
                     width: 70,
                     placeholder: (context, url) => const Center(
                       child: CircularProgressIndicator(),
                     ),
-                    errorWidget: (context, url, error) =>  Center(
-                      child: Image.asset('assets/images/logo2.png',),
+                    errorWidget: (context, url, error) => Center(
+                      child: Image.asset(
+                        'assets/images/logo2.png',
+                      ),
                     ),
                   ),
                 ),
@@ -96,17 +100,13 @@ class RecommendedItem extends StatelessWidget {
                 //   ),
                 // ),
                 Positioned(
-                  top: MediaQuery.sizeOf(context).height*.12,
-                  left:MediaQuery.sizeOf(context).width*.008 ,
-                  right:MediaQuery.sizeOf(context).width*.008 ,
+                  top: MediaQuery.sizeOf(context).height * .12,
+                  left: MediaQuery.sizeOf(context).width * .008,
+                  right: MediaQuery.sizeOf(context).width * .008,
                   child: Align(
                     alignment: Alignment.centerRight,
-
                     child: Text(
-                        '${CashHelper.getData(
-                            key: CashHelper.languageKey)
-                            .toString() ==
-                            "ar"?cubit.favoriteProducts!.mainProducts![index].productName:cubit.favoriteProducts!.mainProducts![index].latinName}',
+                        '${CashHelper.getData(key: CashHelper.languageKey).toString() == "ar" ? cubit.favoriteProducts!.mainProducts![index].productName : cubit.favoriteProducts!.mainProducts![index].latinName}',
                         style: GoogleFonts.cairo(
                           fontSize: 13.0,
                           fontWeight: FontWeight.w600,
@@ -115,31 +115,40 @@ class RecommendedItem extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.sizeOf(context).height*.2,
-
+                  top: MediaQuery.sizeOf(context).height * .2,
+                  right: MediaQuery.sizeOf(context).width * .02,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Row(
                       children: [
-                        Icon(Icons.save, color: Colors.black.withOpacity(.7),),
-                        const SizedBox(width: 4,),
-                        Text("${double.parse("${cubit.favoriteProducts!.mainProducts![index].quantity}").toInt()}",style: const TextStyle(fontSize: 18),),
+                        Icon(
+                          Icons.save,
+                          color: Colors.black.withOpacity(.7),
+                        ),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          "${double.parse("${cubit.favoriteProducts!.mainProducts![index].quantity}").toInt()}",
+                          style: const TextStyle(fontSize: 18),
+                        ),
                       ],
                     ),
                   ),
                 ),
 
                 Positioned(
-                  top: MediaQuery.sizeOf(context).height*.2,
-                  left: MediaQuery.sizeOf(context).width*.00005,
+                  top: MediaQuery.sizeOf(context).height * .2,
+                  left: MediaQuery.sizeOf(context).width * .00005,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: Container(
-                      width: MediaQuery.sizeOf(context).height*.07,
-                      height: MediaQuery.sizeOf(context).height*.05,
+                      width: MediaQuery.sizeOf(context).height * .07,
+                      height: MediaQuery.sizeOf(context).height * .05,
                       decoration: BoxDecoration(
                         color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
@@ -153,8 +162,6 @@ class RecommendedItem extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
               ],
             )),
       ),

@@ -70,5 +70,6 @@
   "available": "متاح",
   "pieces": "قطعه",
   "notAvailable": "الكمية المطلوبة غير متوفره",
-  "product_details":"تفاصيل المنتج"
+  "product_details":"تفاصيل المنتج",
+  "verification":"انتظر حتي يتم قبولك من قبل الأدمن"
 }

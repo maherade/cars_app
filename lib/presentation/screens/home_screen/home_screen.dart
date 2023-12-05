@@ -375,6 +375,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Positioned(
                                             top: MediaQuery.sizeOf(context).height*.2,
+                                            right: MediaQuery.sizeOf(context).width * .02,
 
                                             child: Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -650,6 +651,7 @@ class HomeScreen extends StatelessWidget {
                                           ),
                                           Positioned(
                                             top: MediaQuery.sizeOf(context).height*.2,
+                                            right: MediaQuery.sizeOf(context).width * .02,
 
                                             child: Padding(
                                               padding: const EdgeInsets.symmetric(horizontal: 8.0),
